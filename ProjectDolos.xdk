@@ -2,10 +2,10 @@
   "project": {
     "projectSettingsVersion": "1.2",
     "creationData": {
-      "projectTypeName": "com.intel.xdk.projecttype.webapp",
+      "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "https://appcenter.html5tools-software.intel.com/api/v2.0/redirect/projectrenderers/release-2015-ww13/webapp/templates-phaser-landscape-webapp/sample.zip",
       "projectGuid": "298e0333-ef95-41eb-971e-befffaa3d245",
-      "lastModifiedDate": 1430181256187,
+      "lastModifiedDate": 1430184696793,
       "creationDate": 1430181256093
     },
     "sourceDirectory": "www",
@@ -29,7 +29,7 @@
     "buildConfigurations": {
       "Android": {
         "platform_": "android",
-        "runtime_": "W3C on Cordova",
+        "runtime_": "Cordova 3.x",
         "name_": "Android",
         "preferences_": {
           "android-minSdkVersion": "10",
@@ -59,7 +59,7 @@
       },
       "Android-Crosswalk": {
         "platform_": "android",
-        "runtime_": "W3C on Crosswalk",
+        "runtime_": "Crosswalk with Cordova 3.x",
         "name_": "Android-Crosswalk",
         "preferences_": {
           "android-minSdkVersion": "14",
@@ -89,7 +89,7 @@
       },
       "iOS": {
         "platform_": "ios",
-        "runtime_": "W3C on Cordova",
+        "runtime_": "Cordova 3.x",
         "name_": "iOS",
         "preferences_": {
           "ios-target": "6",
@@ -117,7 +117,7 @@
       },
       "Windows8": {
         "platform_": "windows8",
-        "runtime_": "W3C on Cordova",
+        "runtime_": "Cordova 3.x",
         "name_": "Windows8",
         "preferences_": {
           "windows-publisher-display-name": "",
@@ -148,7 +148,7 @@
         "runtime_": "W3C",
         "name_": "WebApp",
         "preferences_": {},
-        "isActive_": true,
+        "isActive_": false,
         "appName_": "ProjectDolos",
         "appID_": "xdk.intel.blank.phaser.game.template",
         "appAccess_": [
@@ -169,7 +169,7 @@
         "runtime_": "W3C on Firefox OS",
         "name_": "Firefox",
         "preferences_": {},
-        "isActive_": true,
+        "isActive_": false,
         "appName_": "ProjectDolos",
         "appID_": "xdk.intel.blank.phaser.game.template",
         "appAccess_": [
@@ -190,7 +190,7 @@
         "runtime_": "W3C on Chrome OS",
         "name_": "Chrome",
         "preferences_": {},
-        "isActive_": true,
+        "isActive_": false,
         "appName_": "ProjectDolos",
         "appID_": "xdk.intel.blank.phaser.game.template",
         "appAccess_": [
@@ -211,7 +211,7 @@
         "runtime_": "W3C on Facebook",
         "name_": "Facebook",
         "preferences_": {},
-        "isActive_": true,
+        "isActive_": false,
         "appName_": "ProjectDolos",
         "appID_": "xdk.intel.blank.phaser.game.template",
         "appAccess_": [
