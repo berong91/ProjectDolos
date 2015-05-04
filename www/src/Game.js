@@ -1,79 +1,141 @@
-// create BasicGame Class
-BasicGame = {
+var SpaceHipster = SpaceHipster || {};
 
-};
+//title screen
+SpaceHipster.Game = function(){};
 
-// create Game function in BasicGame
-BasicGame.Game = function (game) {
-};
+SpaceHipster.Game.prototype = {
+  create: function() {
+  	//set world dimensions
+    this.game.world.setBounds(0, 0, 1920, 1920);
 
-// set Game function prototype
-BasicGame.Game.prototype = {
+    //background
+    this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'space');
 
-    init: function () {
-        // set up input max pointers
-        this.input.maxPointers = 1;
-        // set up stage disable visibility change
-        this.stage.disableVisibilityChange = true;
-        // Set up the scaling method used by the ScaleManager
-        // Valid values for scaleMode are:
-        // * EXACT_FIT
-        // * NO_SCALE
-        // * SHOW_ALL
-        // * RESIZE
-        // See http://docs.phaser.io/Phaser.ScaleManager.html for full document
-        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        // If you wish to align your game in the middle of the page then you can
-        // set this value to true. It will place a re-calculated margin-left
-        // pixel value onto the canvas element which is updated on orientation /
-        // resizing events. It doesn't care about any other DOM element that may
-        // be on the page, it literally just sets the margin.
-        this.scale.pageAlignHorizontally = true;
-        this.scale.pageAlignVertically = true;
-        // Force the orientation in landscape or portrait.
-        // * Set first to true to force landscape. 
-        // * Set second to true to force portrait.
-        this.scale.forceOrientation(true, false);
-        // Sets the callback that will be called when the window resize event
-        // occurs, or if set the parent container changes dimensions. Use this 
-        // to handle responsive game layout options. Note that the callback will
-        // only be called if the ScaleManager.scaleMode is set to RESIZE.
-        this.scale.setResizeCallback(this.gameResized, this);
-        // Set screen size automatically based on the scaleMode. This is only
-        // needed if ScaleMode is not set to RESIZE.
-        this.scale.setScreenSize(true);
-        // Re-calculate scale mode and update screen size. This only applies if
-        // ScaleMode is not set to RESIZE.
-        this.scale.refresh();
+    //create player
+    this.player = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'playership');
+    this.player.scale.setTo(2);
+    this.player.animations.add('fly', [0, 1, 2, 3], 5, true);
+    this.player.animations.play('fly');
 
-    },
+    //player initial score of zero
+    this.playerScore = 0;
 
-    preload: function () {
+    //enable player physics
+    this.game.physics.arcade.enable(this.player);
+    this.playerSpeed = 120;
+    this.player.body.collideWorldBounds = true;
 
-        // Here we load the assets required for our preloader (in this case a 
-        // background and a loading bar)
-        this.load.image('logo', 'asset/phaser.png');
-    },
+    //the camera will follow the player in the world
+    this.game.camera.follow(this.player);
 
-    create: function () {
-        // Add logo to the center of the stage
-        this.logo = this.add.sprite(
-            this.world.centerX, // (centerX, centerY) is the center coordination
-            this.world.centerY,
-            'logo');
-        // Set the anchor to the center of the sprite
-        this.logo.anchor.setTo(0.5, 0.5);
+    //generate game elements
+    this.generateCollectables();
+    this.generateAsteriods();
 
-    },
+    //show score
+    this.showLabels();
 
-    gameResized: function (width, height) {
-
-        // This could be handy if you need to do any extra processing if the 
-        // game resizes. A resize could happen if for example swapping 
-        // orientation on a device or resizing the browser window. Note that 
-        // this callback is only really useful if you use a ScaleMode of RESIZE 
-        // and place it inside your main game state.
-
+    //sounds
+    this.explosionSound = this.game.add.audio('explosion');
+    console.log(this.explosionSound);
+    this.collectSound = this.game.add.audio('collect');
+  },
+  update: function() {
+    if(this.game.input.activePointer.justPressed()) {
+      
+      //move on the direction of the input
+      this.game.physics.arcade.moveToPointer(this.player, this.playerSpeed);
     }
 
+    //collision between player and asteroids
+    this.game.physics.arcade.collide(this.player, this.asteroids, this.hitAsteroid, null, this);
+
+    //overlapping between player and collectables
+    this.game.physics.arcade.overlap(this.player, this.collectables, this.collect, null, this);
+  },
+  generateCollectables: function() {
+    this.collectables = this.game.add.group();
+
+    //enable physics in them
+    this.collectables.enableBody = true;
+    this.collectables.physicsBodyType = Phaser.Physics.ARCADE;
+
+    //phaser's random number generator
+    var numCollectables = this.game.rnd.integerInRange(100, 150);
+    var collectable;
+
+    for (var i = 0; i < numCollectables; i++) {
+      //add sprite
+      collectable = this.collectables.create(this.game.world.randomX, this.game.world.randomY, 'power');
+      collectable.animations.add('fly', [0, 1, 2, 3], 5, true);
+      collectable.animations.play('fly');
+    }
+
+  },
+  generateAsteriods: function() {
+    this.asteroids = this.game.add.group();
+    
+    //enable physics in them
+    this.asteroids.enableBody = true;
+
+    //phaser's random number generator
+    var numAsteroids = this.game.rnd.integerInRange(150, 200);
+    var asteriod;
+
+    for (var i = 0; i < numAsteroids; i++) {
+      //add sprite
+      asteriod = this.asteroids.create(this.game.world.randomX, this.game.world.randomY, 'rock');
+      asteriod.scale.setTo(this.game.rnd.integerInRange(10, 40)/10);
+
+      //physics properties
+      asteriod.body.velocity.x = this.game.rnd.integerInRange(-20, 20);
+      asteriod.body.velocity.y = this.game.rnd.integerInRange(-20, 20);
+      asteriod.body.immovable = true;
+      asteriod.body.collideWorldBounds = true;
+    }
+  },
+  hitAsteroid: function(player, asteroid) {
+    //play explosion sound
+    this.explosionSound.play();
+
+    //make the player explode
+    var emitter = this.game.add.emitter(this.player.x, this.player.y, 100);
+    emitter.makeParticles('playerParticle');
+    emitter.minParticleSpeed.setTo(-200, -200);
+    emitter.maxParticleSpeed.setTo(200, 200);
+    emitter.gravity = 0;
+    emitter.start(true, 1000, null, 100);
+    this.player.kill();
+
+    this.game.time.events.add(800, this.gameOver, this);
+  },
+  gameOver: function() {    
+    //pass it the score as a parameter 
+    this.game.state.start('MainMenu', true, false, this.playerScore);
+  },
+  collect: function(player, collectable) {
+    //play collect sound
+    this.collectSound.play();
+
+    //update score
+    this.playerScore++;
+    this.scoreLabel.text = this.playerScore;
+
+    //remove sprite
+    collectable.destroy();
+  },
+  showLabels: function() {
+    //score text
+    var text = "0";
+    var style = { font: "20px Arial", fill: "#fff", align: "center" };
+    this.scoreLabel = this.game.add.text(this.game.width-50, this.game.height - 50, text, style);
+    this.scoreLabel.fixedToCamera = true;
+  }
 };
+
+/*
+TODO
+
+-audio
+-asteriod bounch
+*/
