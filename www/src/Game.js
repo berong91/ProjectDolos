@@ -15,6 +15,10 @@ SpaceHipster.Game.prototype = {
         //background
         this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'space');
         this.generateAsteriods();
+        
+		//sounds ADD THE DIFFERENT TYPE OF SOUNDS HERE
+		//refer to update function on how to use sounds
+        this.explosionSound = this.game.add.audio('explosion');
     },
 
     generateAsteriods: function () {
@@ -51,7 +55,12 @@ SpaceHipster.Game.prototype = {
         }
     },
     update: function() {
-           
+    	//Sounds must be called inside of this function either directly or with another function entirely (except create and preload)
+		//this.playSound();
     }
+	
+	/*playSound: function() {
+		//this.explosionSound.play()
+	}*/
 };
 
