@@ -13,11 +13,11 @@ SpaceHipster.MainMenu.prototype = {
         this.background.autoScroll(-20, 0);
 
         // Add logo image
-        this.logo = this.game.add.sprite(this.game.width /2 , 300, 'logo');
+        this.logo = this.game.add.sprite(this.game.width /2 , 155, 'logo');
         this.logo.anchor.setTo(0.5, 0.5);
 
         // Add start button
-        this.startButton = this.game.add.button(this.game.width / 2, 700, 'startButton', this.startClick, this);
+        this.startButton = this.game.add.button(this.game.width / 2, 400, 'startButton', this.startClick, this);
         this.startButton.anchor.setTo(0.5, 0.8);
 
     },
