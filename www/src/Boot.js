@@ -6,7 +6,7 @@ SpaceHipster.Boot = function () {};
 SpaceHipster.Boot.prototype = {
     preload: function () {
         //asset we'll use in the loading screen
-        this.load.image('logo', 'asset/images/logo.png');
+        this.load.image('background', 'asset/images/background.png');
         this.load.image('preloadbar', 'asset/images/preloader-bar.png');
     },
     create: function () {
@@ -23,9 +23,6 @@ SpaceHipster.Boot.prototype = {
         //have the game centered horizontally
         this.scale.pageAlignHorizontally = true;
         this.scale.pageAlignVertically = true;
-
-        //screen size will be set automatically
-        // DEPRECATED this.scale.setScreenSize(true);
 
         //physics system for movement
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
