@@ -119,16 +119,16 @@ SpaceHipster.Game.prototype = {
 
     //update score
     this.playerScore++;
-    this.scoreLabel.text = this.playerScore;
+    this.scoreLabel.text = "Score: " + this.playerScore;
 
     //remove sprite
     collectable.destroy();
   },
   showLabels: function() {
     //score text
-    var text = "0";
+    var text = "Score: 0";
     var style = { font: "20px Arial", fill: "#fff", align: "center" };
-    this.scoreLabel = this.game.add.text(this.game.width-50, this.game.height - 50, text, style);
+    this.scoreLabel = this.game.add.text(this.game.width-100, this.game.height - 50, text, style);
     this.scoreLabel.fixedToCamera = true;
   }
 };
