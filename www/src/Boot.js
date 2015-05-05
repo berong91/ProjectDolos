@@ -21,8 +21,8 @@ SpaceHipster.Boot.prototype = {
         this.scale.maxHeight = 1920;
 
         //have the game centered horizontally
-        this.scale.pageAlignHorizontally = true;
-        this.scale.pageAlignVertically = true;
+        //this.scale.pageAlignHorizontally = true;
+        //this.scale.pageAlignVertically = true;
 
         //screen size will be set automatically
         // DEPRECATED this.scale.setScreenSize(true);
