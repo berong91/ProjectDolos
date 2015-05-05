@@ -1,10 +1,14 @@
 var SpaceHipster = SpaceHipster || {};
 var xloc = 0;
 var yloc = 0;
-var ID = 0;
+var marker;
+var currentTile = 0;
 
 //title screen
 SpaceHipster.Game = function () {};
+
+
+
 
 SpaceHipster.Game.prototype = {
     create: function () {
@@ -18,7 +22,10 @@ SpaceHipster.Game.prototype = {
 
     generateAsteriods: function () {
         this.asteroids = this.game.add.group();
-
+        marker = this.add.graphics();
+        marker.lineStyle(2, 0x000000, 1);
+        marker.drawRect(0, 0, 160, 160);
+        
         //enable physics in them
         this.asteroids.enableBody = true;
 
@@ -29,7 +36,7 @@ SpaceHipster.Game.prototype = {
         for (var i = 0; i < numAsteroids; i++) {
             //add sprite
             asteriod = this.asteroids.create(xloc, yloc, 'rock');
-            ID++;
+            
             xloc += 160;
             if((xloc % 480) === 0){
                 xloc = 0;
@@ -46,4 +53,26 @@ SpaceHipster.Game.prototype = {
             
         }
     },
+    update: function() {
+        marker.x = asteroids.getTileX(game.input.activePointer.worldX) *160;
+        marker.y = asteroids.getTileY(game.input.activePointer.worldY) *160;
+           if(this.game.input.activePointer.justPressed()){
+                if(currentTile === asteroid) {
+                    
+                }
+           }
+    },
+    updateMarker: function() {
+
+    marker.x = currentLayer.getTileX(this.input.activePointer.worldX) * 160;
+    marker.y = currentLayer.getTileY(this.input.activePointer.worldY) * 160;
+
+    if (game.input.mousePointer.isDown)
+    {
+        map.putTile(currentTile, currentLayer.getTileX(marker.x), currentLayer.getTileY(marker.y), currentLayer);
+        // map.fill(currentTile, currentLayer.getTileX(marker.x), currentLayer.getTileY(marker.y), 4, 4,                   currentLayer);
+    }
+
+}
 };
+
