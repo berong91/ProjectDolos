@@ -22,6 +22,7 @@ SpaceHipster.Boot.prototype = {
 
         //have the game centered horizontally
         this.scale.pageAlignHorizontally = true;
+        this.scale.pageAlignVertically = true;
 
         //physics system for movement
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
