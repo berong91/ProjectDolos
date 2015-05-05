@@ -1,6 +1,7 @@
 var SpaceHipster = SpaceHipster || {};
 var xloc = 0;
 var yloc = 0;
+var ID = 0;
 
 //title screen
 SpaceHipster.Game = function () {};
@@ -28,8 +29,9 @@ SpaceHipster.Game.prototype = {
         for (var i = 0; i < numAsteroids; i++) {
             //add sprite
             asteriod = this.asteroids.create(xloc, yloc, 'rock');
+            ID++;
             xloc += 160;
-            if(xloc % 480 == 0){
+            if((xloc % 480) === 0){
                 xloc = 0;
                 yloc += 160;    
             }
@@ -41,6 +43,7 @@ SpaceHipster.Game.prototype = {
             asteriod.body.velocity.y = 0;
             asteriod.body.immovable = true;
             asteriod.body.collideWorldBounds = true;
+            
         }
     },
 };
