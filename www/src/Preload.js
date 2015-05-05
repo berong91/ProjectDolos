@@ -12,25 +12,9 @@ SpaceHipster.Preload.prototype = {
         this.preloadBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY + 128, 'preloadbar');
         this.preloadBar.anchor.setTo(0.5);
 
-        this.load.setPreloadSprite(this.preloadBar);
-
-<<<<<<< HEAD
-  	//load game asset
-  	this.load.image('space', 'asset/images/space.png');
-  	this.load.image('rock', 'asset/images/rare_pepe.jpg');
-    this.load.spritesheet('playership', 'asset/images/player.png', 12, 12);
-    this.load.spritesheet('power', 'asset/images/power.png', 12, 12);
-  	this.load.image('playerParticle', 'asset/images/player-particle.png');
-    this.load.audio('collect', 'asset/audio/collect.ogg');
-    this.load.audio('explosion', 'asset/audio/explosion.ogg');
-  },
-  create: function() {
-  	this.state.start('MainMenu');
-  }
-=======
         //load game asset
         this.load.image('space', 'asset/images/space.png');
-        this.load.image('rock', 'asset/images/rock.png');
+        this.load.image('rock', 'asset/images/rare_pepe.jpg');
         this.load.spritesheet('playership', 'asset/images/player.png', 12, 12);
         this.load.spritesheet('power', 'asset/images/power.png', 12, 12);
         this.load.image('playerParticle', 'asset/images/player-particle.png');
@@ -40,5 +24,4 @@ SpaceHipster.Preload.prototype = {
     create: function () {
         this.state.start('MainMenu');
     }
->>>>>>> 4ae50be4a04fcf6df0b74776ecd010fa0b49dddf
 };
