@@ -1,13 +1,13 @@
-var SpaceHipster = SpaceHipster || {};
+var TMT = TMT || {};
 
-SpaceHipster.game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, '');
+TMT.game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, '');
 
-SpaceHipster.game.state.add('Boot', SpaceHipster.Boot);
-SpaceHipster.game.state.add('Preload', SpaceHipster.Preload);
-SpaceHipster.game.state.add('MainMenu', SpaceHipster.MainMenu);
-SpaceHipster.game.state.add('Game', SpaceHipster.Game);
+TMT.game.state.add('Boot', TMT.Boot);
+TMT.game.state.add('Preload', TMT.Preload);
+TMT.game.state.add('MainMenu', TMT.MainMenu);
+TMT.game.state.add('Game', TMT.Game);
 
-//SpaceHipster.game.state.add('Level', SpaceHipster.Level);
-//SpaceHipster.game.state.add('Generator', SpaceHipster.Generator);
+//TMT.game.state.add('Level', TMT.Level);
+//TMT.game.state.add('Generator', TMT.Generator);
 
-SpaceHipster.game.state.start('Boot');
+TMT.game.state.start('Boot');
