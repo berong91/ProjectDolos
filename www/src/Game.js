@@ -1,13 +1,13 @@
-var SpaceHipster = SpaceHipster || {};
+var TMT = TMT || {};
 var xloc = 50;
 var yloc = 0;
 var marker;
 var currentTile = 0;
 
 //title screen
-SpaceHipster.Game = function () {};
+TMT.Game = function () {};
 
-SpaceHipster.Game.prototype = {
+TMT.Game.prototype = {
     create: function () {
         //set world dimensions
         this.game.world.setBounds(0, 0, this.game.width, this.game.height);

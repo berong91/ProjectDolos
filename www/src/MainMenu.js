@@ -1,9 +1,9 @@
-var SpaceHipster = SpaceHipster || {};
+var TMT = TMT || {};
 
 //title screen
-SpaceHipster.MainMenu = function () {};
+TMT.MainMenu = function () {};
 
-SpaceHipster.MainMenu.prototype = {
+TMT.MainMenu.prototype = {
     create: function () {
         //set world dimensions
         this.game.world.setBounds(0, 0, 300, 200);

@@ -1,11 +1,11 @@
-var SpaceHipster = SpaceHipster || {};
+var TMT = TMT || {};
 
 //loading the game asset
-SpaceHipster.Preload = function () {};
+TMT.Preload = function () {};
 
 var background;
 
-SpaceHipster.Preload.prototype = {
+TMT.Preload.prototype = {
     preload: function () {
         //show loading screen
         background = this.game.add.sprite(this.game.world.centerX, 280, 'logo');
