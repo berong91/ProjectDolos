@@ -10,7 +10,7 @@ SpaceHipster.Game = function () {};
 SpaceHipster.Game.prototype = {
     create: function () {
         //set world dimensions
-        this.game.world.setBounds(0, 0, 600, 600);
+        this.game.world.setBounds(0, 0, this.game.width, this.game.height);
 
         //background
         this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'space');
