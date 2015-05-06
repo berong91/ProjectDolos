@@ -1,9 +1,9 @@
-var SpaceHipster = SpaceHipster || {};
+var TMT = TMT || {};
 
-SpaceHipster.Boot = function () {};
+TMT.Boot = function () {};
 
 //setting game configuration and loading the asset for the loading screen
-SpaceHipster.Boot.prototype = {
+TMT.Boot.prototype = {
     preload: function () {
         //asset we'll use in the loading screen
         this.load.image('background', 'asset/images/background.png');
