@@ -1,6 +1,6 @@
 var TMT = TMT || {};
-var xloc = 90;
-var yloc = 350;
+var xloc;
+var yloc;
 var marker;
 var currentTile = 0;
 
@@ -24,10 +24,11 @@ TMT.Game = function () {};
 TMT.Game.prototype = {
     create: function () {
         //set world dimensions
-        this.game.width = 480;
-        this.game.height= 800;
         this.game.world.setBounds(0, 0, this.game.width, this.game.height);
-        var yloc = (this.game.height/2) - 200
+
+        //set grid init position
+        xloc = ((this.game.world.width/2) - 150);
+        yloc = (this.game.world.height/2) - (0.0625 * this.game.world.height);
 
 		//Sets the beginning lives to three.
 		lifes = 3;
@@ -39,13 +40,13 @@ TMT.Game.prototype = {
 		//sprites
 		
 		//plane is the object that is moving.
-		this.plane = this.game.add.sprite(0, 00, 'plane1');
+		this.plane = this.game.add.sprite(xloc-100, row0col0.y+100, 'plane1');
 		this.plane.scale.setTo(1);
 		this.plane.frame = 2;
 		
 		//add physics to the sprites
 		this.game.physics.arcade.enable(this.plane);
-		this.plane.body.collideWorldBounds = true;
+		this.plane.body.overlapWorldBounds = true;
 		
 		
 		//sounds ADD THE DIFFERENT TYPE OF SOUNDS HERE
@@ -68,8 +69,8 @@ TMT.Game.prototype = {
             asteriod = this.asteroids.create(xloc, yloc, 'terrain');
             
             xloc += 100;
-            if(xloc === 390) {
-                xloc = 90;
+            if(xloc === ((this.game.world.width/2) + 150)) {
+                xloc = ((this.game.world.width/2) - 150);
                 yloc += 100;    
             }
             
@@ -79,7 +80,7 @@ TMT.Game.prototype = {
             asteriod.body.velocity.x = 0;
             asteriod.body.velocity.y = 0;
             asteriod.body.immovable = true;
-            asteriod.body.collideWorldBounds = true;
+            asteriod.body.overlapWorldBounds = true;
 			
 			//THIS IS WHERE YOU ENABLE MOUSE CLICKS!!!!
 			asteriod.inputEnabled = true;
@@ -95,22 +96,27 @@ TMT.Game.prototype = {
 					//adds on-click event to a sprite	
 					//**SPRITE.events.onInputDown.add(this.CLICKFUNCTION, this)**
 					row0col0.events.onInputDown.add(this.onDown, this);
+					row0col0.frame = 3;
 					break;
 				case 1:
 					row0col1 = asteriod;
 					row0col1.events.onInputDown.add(this.onDown, this);
+					row0col1.frame = 3;
 					break;
 				case 2:
 					row0col2 = asteriod;
 					row0col2.events.onInputDown.add(this.onDown, this);
+					row0col2.frame = 3;
 					break;
 				case 3:
 					row1col0 = asteriod;
 					row1col0.events.onInputDown.add(this.onDown, this);
+					row1col0.frame = 3;
 					break;
 				case 4:
 					row1col1 = asteriod;
 					row1col1.events.onInputDown.add(this.onDown, this);
+					row1col1.frame = 3;
 					break;
 				case 5:
 				
@@ -123,14 +129,17 @@ TMT.Game.prototype = {
 				case 6:
 					row2col0 = asteriod;
 					row2col0.events.onInputDown.add(this.onDown, this);
+					row2col0.frame = 3;
 					break;
 				case 7:
 					row2col1 = asteriod;
 					row2col1.events.onInputDown.add(this.onDown, this);
+					row2col1.frame = 3;
 					break;
 				case 8:
 					row2col2 = asteriod;
 					row2col2.events.onInputDown.add(this.onDown, this);
+					row2col2.frame = 3;
 					break;
 				default:
 					break;
@@ -142,7 +151,7 @@ TMT.Game.prototype = {
     	//Sounds must be called inside of this function either directly or with another function entirely (except create and preload)
 		
 		this.plane.body.velocity.x = 100;
-		this.game.physics.arcade.collide(this.plane, this.asteroids, this.playSound, this.checkTile, this);
+		this.game.physics.arcade.overlap(this.plane, this.asteroids, this.playSound, this.checkTile, this);
 	
 		/* Life system, 3 hits and plane is kill.
 		if (lifes <= 0)
