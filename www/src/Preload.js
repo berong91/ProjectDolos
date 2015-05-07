@@ -22,6 +22,7 @@ TMT.Preload.prototype = {
         this.preloadBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY + 170, 'preloadbar');
         this.preloadBar.anchor.setTo(0.5);
         //load game asset
+		this.load.image('diamond', 'asset/images/diamond.png');
         this.load.image('logo', 'asset/images/logo.png');
         this.load.image('space', 'asset/images/space.png');
         this.load.image('pepe', 'asset/images/superpepe.jpg');
@@ -29,9 +30,9 @@ TMT.Preload.prototype = {
         this.load.image('playerParticle', 'asset/images/player-particle.png');
         this.load.image('startButton', 'asset/images/start-button.png');
 
-        this.load.spritesheet('playership', 'asset/images/player.png', 12, 12);
         this.load.spritesheet('power', 'asset/images/power.png', 12, 12);
-
+		this.load.spritesheet('terrain', 'asset/images/terrain.png', 100, 100);
+		
         this.load.audio('collect', 'asset/audio/collect.ogg');
         this.load.audio('explosion', 'asset/audio/explosion.ogg');
 
