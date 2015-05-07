@@ -16,6 +16,8 @@ var row2col0;
 var row2col1;
 var row2col2;
 
+var lifes;
+
 //title screen
 TMT.Game = function () {};
 
@@ -24,17 +26,19 @@ TMT.Game.prototype = {
         //set world dimensions
         this.game.world.setBounds(0, 0, this.game.width, this.game.height);
 
+		//Sets the beginning lives to three.
+		lifes = 3;
+		
         //background
         this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'space');
         this.generateAsteriods();
         
 		//sprites
-		//Test for moving a sprite left to right.
-		
 		
 		//plane is the object that is moving.
-		this.plane = this.game.add.sprite(this.game.world.centerX/10, this.game.world.centerY/2, 'diamond');
-		this.plane.scale.setTo(3);
+		this.plane = this.game.add.sprite(this.game.world.centerX/10, this.game.world.centerY/2, 'plane1');
+		this.plane.scale.setTo(1);
+		this.plane.frame = 2;
 		
 		//add physics to the sprites
 		this.game.physics.arcade.enable(this.plane);
@@ -82,7 +86,11 @@ TMT.Game.prototype = {
 			//!!!CANNOT USE ARRAYS FOR SOME STUPID REASON!!!!
 			switch(i) {
 				case 0:
+					//ROW1COL2 POINTS TO THE CURRENT ASTEROID
 					row0col0 = asteriod;
+					
+					//adds on-click event to a sprite	
+//**SPRITE.events.onInputDown.add(this.CLICKFUNCTION, this)**
 					row0col0.events.onInputDown.add(this.onDown, this);
 					break;
 				case 1:
@@ -100,16 +108,13 @@ TMT.Game.prototype = {
 				case 4:
 					row1col1 = asteriod;
 					row1col1.events.onInputDown.add(this.onDown, this);
-					row1col1.frame = 3;
 					break;
 				case 5:
 				
-					//ROW1COL2 POINTS TO THE CURRENT ASTEROID
-					row1col2 = asteriod;
 					
-					//adds on-click event to a sprite	
-//**SPRITE.events.onInputDown.add(this.CLICKFUNCTION, this)**
+					row1col2 = asteriod;
 					row1col2.events.onInputDown.add(this.onDown, this);
+					//make the a tile more recognizable.
 					row1col2.frame = 3;
 					break;
 				case 6:
@@ -135,10 +140,14 @@ TMT.Game.prototype = {
 		
 		this.plane.body.velocity.x = 100;
 		this.game.physics.arcade.collide(this.plane, row1col2, this.playSound, this.checkTile, this);
-		
-		
-		
+	
+		/* Life system, 3 hits and plane is kill.
+		if (lifes <= 0)
+			this.plane.kill();
+		*/
     },
+	
+	//Checks to see if the tile matches the "air" tile that the plane wants to travel accross. tile.frame 1 is the air tile.
 	checkTile: function(plane, tile) {
 		if (tile.frame === 1)	
 			return false;
@@ -146,18 +155,24 @@ TMT.Game.prototype = {
 			return true;
 	},
 	
-	
+	//This function allows the tiles to cycle between our spritesheet.
 	onDown: function(sprite, pointer) {
 		this.explosionSound.play();
-		if (sprite.frame < 3)
+		if (sprite.frame < 2)
 			sprite.frame++;
 		else
 			sprite.frame = 0;
 	},
-		
+	
+	//This takes no parameters, makes a sound.
 	playSound: function() {
 		this.explosionSound.play();
-		this.plane.body.velocity.x = -600;
+		this.plane.body.velocity.x = -5000;
+		
+		/*
+		This is the life system. When a plane hits the bad tile. In the update function, if there is 0 or less lives, your plane dies. 
+		*/
+		//lifes--;
 	},
 };
 
