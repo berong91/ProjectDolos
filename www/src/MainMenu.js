@@ -6,7 +6,7 @@ TMT.MainMenu = function () {};
 
 TMT.MainMenu.prototype = {
     preload: function () {
-        this.load.audio('bgsound', 'asset/audio/bgsong.ogg');
+        this.load.audio('bgsound', 'asset/audio/flea.mp3');
     },
     create: function () {
         // Set background and give background speed in x
