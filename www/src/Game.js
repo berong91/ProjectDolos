@@ -13,10 +13,6 @@ TMT.Game = function () {};
 
 TMT.Game.prototype = {
     create: function () {
-        //set world dimensions
-
-        this.game.width = 480;
-        this.game.height = 800;
 
         //Sets the beginning lives to three.
         life = 3;
@@ -89,7 +85,7 @@ TMT.Game.prototype = {
         //Sounds must be called inside of this function either directly or with another function entirely (except create and preload)
 
         this.plane.body.velocity.x = 100;
-        this.game.physics.arcade.overlap(this.plane, this.asteroids, this.playSound, this.checkTile, this);
+        this.game.physics.arcade.overlap(this.plane, this.blocks, this.playSound, this.checkTile, this);
 
         /* Life system, 3 hits and plane is kill.
 		if (life <= 0)
