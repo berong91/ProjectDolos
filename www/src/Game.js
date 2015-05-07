@@ -1,6 +1,6 @@
 var TMT = TMT || {};
-var xloc = 50;
-var yloc = 0;
+var xloc = 90;
+var yloc = 350;
 var marker;
 var currentTile = 0;
 
@@ -16,7 +16,9 @@ var row2col0;
 var row2col1;
 var row2col2;
 var blocks = [];
-var lifes;
+
+//Life system.
+var life;
 
 //title screen
 TMT.Game = function () {};
@@ -24,10 +26,13 @@ TMT.Game = function () {};
 TMT.Game.prototype = {
     create: function () {
         //set world dimensions
+        this.game.width = 480;
+        this.game.height = 800;
         this.game.world.setBounds(0, 0, this.game.width, this.game.height);
+        var yloc = (this.game.height / 2) - 200
 
         //Sets the beginning lives to three.
-        lifes = 3;
+        life = 3;
 
         //background
         this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'space');
@@ -36,7 +41,7 @@ TMT.Game.prototype = {
         //sprites
 
         //plane is the object that is moving.
-        this.plane = this.game.add.sprite(this.game.world.centerX / 10, this.game.world.centerY / 2, 'plane1');
+        this.plane = this.game.add.sprite(0, 00, 'plane1');
         this.plane.scale.setTo(1);
         this.plane.frame = 2;
 
@@ -64,10 +69,10 @@ TMT.Game.prototype = {
             //add sprite
             current = this.blocks.create(xloc, yloc, 'terrain');
 
-            xloc += 160;
-            if (xloc === 530) {
-                xloc = 50;
-                yloc += 160;
+            xloc += 100;
+            if (xloc === 390) {
+                xloc = 90;
+                yloc += 100;
             }
 
             current.scale.setTo(1);
@@ -91,9 +96,9 @@ TMT.Game.prototype = {
         this.game.physics.arcade.collide(this.plane, row1col2, this.playSound, this.checkTile, this);
 
         /* Life system, 3 hits and plane is kill.
-		if (lifes <= 0)
-			this.plane.kill();
-		*/
+        if (lifes <= 0)
+            this.plane.kill();
+        */
     },
 
     //Checks to see if the tile matches the "air" tile that the plane wants to travel accross. tile.frame 1 is the air tile.
@@ -119,8 +124,8 @@ TMT.Game.prototype = {
         this.plane.body.velocity.x = -5000;
 
         /*
-		This is the life system. When a plane hits the bad tile. In the update function, if there is 0 or less lives, your plane dies. 
-		*/
-        //lifes--;
+        This is the life system. When a plane hits the bad tile. In the update function, if there is 0 or less lives, your plane dies. 
+        */
+        //life--;
     },
 };
