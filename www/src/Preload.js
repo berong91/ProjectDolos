@@ -27,11 +27,19 @@ TMT.Preload.prototype = {
         this.load.image('space', 'asset/images/space.png');
         this.load.image('pepe', 'asset/images/superpepe.jpg');
         this.load.image('rock', 'asset/images/rock.png');
-        this.load.image('playerParticle', 'asset/images/player-particle.png');
         this.load.image('startButton', 'asset/images/start-button.png');
 
         this.load.spritesheet('power', 'asset/images/power.png', 12, 12);
 		this.load.spritesheet('terrain', 'asset/images/terrain.png', 100, 100);
+		this.load.spritesheet('plane1', 'asset/images/plane100.png', 100, 100);
+		this.load.spritesheet('plane2', 'asset/images/plane100.png', 100, 100);
+		this.load.spritesheet('plane3', 'asset/images/plane100.png', 100, 100);
+		this.load.spritesheet('boat1', 'asset/images/boat100.png', 100, 100);
+		this.load.spritesheet('boat2', 'asset/images/boat200.png', 100, 100);
+		this.load.spritesheet('boat3', 'asset/images/boat300.png', 100, 100);
+		this.load.spritesheet('train1', 'asset/images/train100.png', 100, 100);
+		this.load.spritesheet('train2', 'asset/images/train200.png', 100, 100);
+		this.load.spritesheet('train3', 'asset/images/train300.png', 100, 100);
 		
         this.load.audio('collect', 'asset/audio/collect.ogg');
         this.load.audio('explosion', 'asset/audio/explosion.ogg');
