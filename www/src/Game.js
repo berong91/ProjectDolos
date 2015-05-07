@@ -16,7 +16,8 @@ var row2col0;
 var row2col1;
 var row2col2;
 
-var lifes;
+//Life system.
+var life;
 
 //title screen
 TMT.Game = function () {};
@@ -31,7 +32,7 @@ TMT.Game.prototype = {
         yloc = (this.game.world.height/2) - (0.0625 * this.game.world.height);
 
 		//Sets the beginning lives to three.
-		lifes = 3;
+		life = 3;
 		
         //background
         this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'space');
@@ -154,7 +155,7 @@ TMT.Game.prototype = {
 		this.game.physics.arcade.overlap(this.plane, this.asteroids, this.playSound, this.checkTile, this);
 	
 		/* Life system, 3 hits and plane is kill.
-		if (lifes <= 0)
+		if (life <= 0)
 			this.plane.kill();
 		*/
     },
@@ -184,7 +185,7 @@ TMT.Game.prototype = {
 		/*
 		This is the life system. When a plane hits the bad tile. In the update function, if there is 0 or less lives, your plane dies. 
 		*/
-		//lifes--;
+		//life--;
 	},
 };
 
