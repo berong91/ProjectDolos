@@ -19,19 +19,25 @@ var row2col2;
 //Life system.
 var life;
 
+//Time Elapsed variables
+var timeStart;
+var elapsed;
+var text;
+
 //title screen
 TMT.Game = function () {};
 
 TMT.Game.prototype = {
     create: function () {
         //set world dimensions
-        this.game.width = 480;
+        this.game.wid;th = 480;
         this.game.height= 800;
         this.game.world.setBounds(0, 0, this.game.width, this.game.height);
         var yloc = (this.game.height/2) - 200
 
 		//Sets the beginning lives to three.
 		life = 3;
+		timeStart = new Date;
 		
         //background
         this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'space');
@@ -52,6 +58,8 @@ TMT.Game.prototype = {
 		//sounds ADD THE DIFFERENT TYPE OF SOUNDS HERE
 		//refer to update function on how to use sounds
         this.explosionSound = this.game.add.audio('explosion');
+		text = this.game.add.text(50, 50, 'Time: 0s' , { fontSize: '32px', fill: '#FFF' });
+		
     },
 
     generateAsteriods: function () {
@@ -140,7 +148,14 @@ TMT.Game.prototype = {
         }
     },
     update: function() {
-    	//Sounds must be called inside of this function either directly or with another function entirely (except create and preload)
+    	
+		//Timer
+		var date = new Date;
+		var time = timeStart.getSeconds();
+		elapsed = date.getSeconds() - time;
+		text.text = 'Time: ' + elapsed + 's';
+		
+		//Sounds must be called inside of this function either directly or with another function entirely (except create and preload)
 		
 		this.plane.body.velocity.x = 100;
 		this.game.physics.arcade.collide(this.plane, this.asteroids, this.playSound, this.checkTile, this);
