@@ -1,20 +1,8 @@
 var TMT = TMT || {};
-var xloc = 90;
-var yloc = 350;
+var xloc;
+var yloc;
 var marker;
 var currentTile = 0;
-
-//These represent the positions of each tile (0 - 9)
-//YOU CANNOT USE ARRAYS BECAUSE PHASER HATES ARRAYS
-var row0col0;
-var row0col1;
-var row0col2;
-var row1col0;
-var row1col1;
-var row1col2;
-var row2col0;
-var row2col1;
-var row2col2;
 var blocks = [];
 
 //Life system.
@@ -26,35 +14,42 @@ TMT.Game = function () {};
 TMT.Game.prototype = {
     create: function () {
         //set world dimensions
+
         this.game.width = 480;
         this.game.height = 800;
-        this.game.world.setBounds(0, 0, this.game.width, this.game.height);
-        var yloc = (this.game.height / 2) - 200
 
         //Sets the beginning lives to three.
         life = 3;
+        this.game.world.setBounds(0, 0, this.game.width, this.game.height);
+
+        //set grid init position
+        xloc = ((this.game.world.width / 2) - 150);
+        yloc = (this.game.world.height / 2) - (0.0625 * this.game.world.height);
 
         //background
         this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'space');
+
+        // Generate all the blocks
         this.generateBlocks();
 
-        //sprites
 
+        //sprites
         //plane is the object that is moving.
-        this.plane = this.game.add.sprite(0, 00, 'plane1');
+        this.plane = this.game.add.sprite(xloc - 100, blocks[0].y + 100, 'plane1');
         this.plane.scale.setTo(1);
         this.plane.frame = 2;
 
         //add physics to the sprites
         this.game.physics.arcade.enable(this.plane);
-        this.plane.body.collideWorldBounds = true;
+        this.plane.body.overlapWorldBounds = true;
 
 
         //sounds ADD THE DIFFERENT TYPE OF SOUNDS HERE
         //refer to update function on how to use sounds
         this.explosionSound = this.game.add.audio('explosion');
     },
-
+    
+    // Generate all blocks
     generateBlocks: function () {
         this.blocks = this.game.add.group();
 
@@ -70,14 +65,15 @@ TMT.Game.prototype = {
             current = this.blocks.create(xloc, yloc, 'terrain');
 
             xloc += 100;
-            if (xloc === 390) {
-                xloc = 90;
+            if (xloc === ((this.game.world.width / 2) + 150)) {
+                xloc = ((this.game.world.width / 2) - 150);
                 yloc += 100;
             }
 
             current.scale.setTo(1);
 
             //physics properties
+
             current.body.velocity.x = 0;
             current.body.velocity.y = 0;
             current.body.immovable = true;
@@ -93,14 +89,13 @@ TMT.Game.prototype = {
         //Sounds must be called inside of this function either directly or with another function entirely (except create and preload)
 
         this.plane.body.velocity.x = 100;
-        this.game.physics.arcade.collide(this.plane, row1col2, this.playSound, this.checkTile, this);
+        this.game.physics.arcade.overlap(this.plane, this.asteroids, this.playSound, this.checkTile, this);
 
         /* Life system, 3 hits and plane is kill.
-        if (lifes <= 0)
-            this.plane.kill();
-        */
+		if (life <= 0)
+			this.plane.kill();
+		*/
     },
-
     //Checks to see if the tile matches the "air" tile that the plane wants to travel accross. tile.frame 1 is the air tile.
     checkTile: function (plane, tile) {
         if (tile.frame === 1)
@@ -108,7 +103,6 @@ TMT.Game.prototype = {
         else
             return true;
     },
-
     //This function allows the tiles to cycle between our spritesheet.
     onDown: function (sprite, pointer) {
         this.explosionSound.play();
@@ -117,7 +111,6 @@ TMT.Game.prototype = {
         else
             sprite.frame = 0;
     },
-
     //This takes no parameters, makes a sound.
     playSound: function () {
         this.explosionSound.play();
