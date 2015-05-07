@@ -74,7 +74,6 @@ TMT.Game.prototype = {
             asteriod.body.immovable = true;
             asteriod.body.collideWorldBounds = true;
 			
-			/* on-click event
 			//THIS IS WHERE YOU ENABLE MOUSE CLICKS!!!!
 			asteriod.inputEnabled = true;
             
@@ -83,50 +82,82 @@ TMT.Game.prototype = {
 			//!!!CANNOT USE ARRAYS FOR SOME STUPID REASON!!!!
 			switch(i) {
 				case 0:
+					row0col0 = asteriod;
+					row0col0.events.onInputDown.add(this.onDown, this);
 					break;
 				case 1:
+					row0col1 = asteriod;
+					row0col1.events.onInputDown.add(this.onDown, this);
 					break;
 				case 2:
+					row0col2 = asteriod;
+					row0col2.events.onInputDown.add(this.onDown, this);
 					break;
 				case 3:
+					row1col0 = asteriod;
+					row1col0.events.onInputDown.add(this.onDown, this);
 					break;
 				case 4:
+					row1col1 = asteriod;
+					row1col1.events.onInputDown.add(this.onDown, this);
+					row1col1.frame = 3;
 					break;
 				case 5:
 				
 					//ROW1COL2 POINTS TO THE CURRENT ASTEROID
 					row1col2 = asteriod;
 					
-					//VISIBLE TILE CHANGE FOR EASY VIEWING
-					row1col2.frame = 2;
-					
 					//adds on-click event to a sprite	
 //**SPRITE.events.onInputDown.add(this.CLICKFUNCTION, this)**
 					row1col2.events.onInputDown.add(this.onDown, this);
-					
+					row1col2.frame = 3;
+					break;
+				case 6:
+					row2col0 = asteriod;
+					row2col0.events.onInputDown.add(this.onDown, this);
+					break;
+				case 7:
+					row2col1 = asteriod;
+					row2col1.events.onInputDown.add(this.onDown, this);
+					break;
+				case 8:
+					row2col2 = asteriod;
+					row2col2.events.onInputDown.add(this.onDown, this);
 					break;
 				default:
 					break;
-			}*/
+			}
 			
         }
     },
     update: function() {
     	//Sounds must be called inside of this function either directly or with another function entirely (except create and preload)
 		
-		/* movement
-		this.plane.body.velocity.x = 0;
-		this.game.physics.arcade.collide(this.plane, row1col2, this.playSound, null, this);
-		*/
+		this.plane.body.velocity.x = 100;
+		this.game.physics.arcade.collide(this.plane, row1col2, this.playSound, this.checkTile, this);
+		
+		
 		
     },
-		/* on-click event
+	checkTile: function(plane, tile) {
+		if (tile.frame === 1)	
+			return false;
+		else
+			return true;
+	},
+	
+	
 	onDown: function(sprite, pointer) {
 		this.explosionSound.play();
+		if (sprite.frame < 3)
+			sprite.frame++;
+		else
+			sprite.frame = 0;
 	},
-		*/
+		
 	playSound: function() {
 		this.explosionSound.play();
+		this.plane.body.velocity.x = -600;
 	},
 };
 
