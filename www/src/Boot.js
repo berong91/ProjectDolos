@@ -7,7 +7,6 @@ TMT.Boot.prototype = {
     preload: function () {
         //asset we'll use in the loading screen
         this.load.image('background', 'asset/images/background.png');
-        this.load.image('preloadbar', 'asset/images/preloader-bar.png');
     },
     create: function () {
         //loading screen will have a white background
