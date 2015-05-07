@@ -1,6 +1,6 @@
 var TMT = TMT || {};
-var xloc = 50;
-var yloc = 0;
+var xloc = 90;
+var yloc = 350;
 var marker;
 var currentTile = 0;
 
@@ -24,7 +24,10 @@ TMT.Game = function () {};
 TMT.Game.prototype = {
     create: function () {
         //set world dimensions
+        this.game.width = 480;
+        this.game.height= 800;
         this.game.world.setBounds(0, 0, this.game.width, this.game.height);
+        var yloc = (this.game.height/2) - 200
 
 		//Sets the beginning lives to three.
 		lifes = 3;
@@ -36,7 +39,7 @@ TMT.Game.prototype = {
 		//sprites
 		
 		//plane is the object that is moving.
-		this.plane = this.game.add.sprite(this.game.world.centerX/10, this.game.world.centerY/2, 'plane1');
+		this.plane = this.game.add.sprite(0, 00, 'plane1');
 		this.plane.scale.setTo(1);
 		this.plane.frame = 2;
 		
@@ -64,10 +67,10 @@ TMT.Game.prototype = {
             //add sprite
             asteriod = this.asteroids.create(xloc, yloc, 'terrain');
             
-            xloc += 160;
-            if(xloc === 530){
-                xloc = 50;
-                yloc += 160;    
+            xloc += 100;
+            if(xloc === 390) {
+                xloc = 90;
+                yloc += 100;    
             }
             
             asteriod.scale.setTo(1);
@@ -90,7 +93,7 @@ TMT.Game.prototype = {
 					row0col0 = asteriod;
 					
 					//adds on-click event to a sprite	
-//**SPRITE.events.onInputDown.add(this.CLICKFUNCTION, this)**
+					//**SPRITE.events.onInputDown.add(this.CLICKFUNCTION, this)**
 					row0col0.events.onInputDown.add(this.onDown, this);
 					break;
 				case 1:
@@ -139,7 +142,7 @@ TMT.Game.prototype = {
     	//Sounds must be called inside of this function either directly or with another function entirely (except create and preload)
 		
 		this.plane.body.velocity.x = 100;
-		this.game.physics.arcade.collide(this.plane, row1col2, this.playSound, this.checkTile, this);
+		this.game.physics.arcade.collide(this.plane, this.asteroids, this.playSound, this.checkTile, this);
 	
 		/* Life system, 3 hits and plane is kill.
 		if (lifes <= 0)
