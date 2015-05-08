@@ -19,7 +19,7 @@ TMT.Game = function () {};
 TMT.Game.prototype = {
     create: function () {
 		//Sets the beginning lives to three.
-        life = 3;
+        life = 10;
 
         this.game.world.setBounds(0, 0, this.game.width, this.game.height);
 
@@ -38,7 +38,7 @@ TMT.Game.prototype = {
 
         //sprites
         //plane is the object that is moving.
-        this.plane = this.game.add.sprite(xloc - 100, blocks[0].y + 100, 'plane1');
+        this.plane = this.game.add.sprite(xloc - 500, blocks[0].y + 100, 'plane1');
         this.plane.scale.setTo(1);
         this.plane.frame = 2;
 
@@ -50,6 +50,7 @@ TMT.Game.prototype = {
         //sounds ADD THE DIFFERENT TYPE OF SOUNDS HERE
         //refer to update function on how to use sounds
         this.explosionSound = this.game.add.audio('explosion');
+		this.switchSound = this.game.add.audio('switch');
 		
 		//This will create text in the top left of the game screen.
 		text = this.game.add.text(50, 50, 'Time: 0s' , { fontSize: '32px', fill: '#FFF' });
@@ -119,7 +120,7 @@ TMT.Game.prototype = {
     },
     //This function allows the tiles to cycle between our spritesheet.
     onDown: function (sprite, pointer) {
-        this.explosionSound.play();
+        this.switchSound.play();
         if (sprite.frame < 2)
             sprite.frame++;
         else

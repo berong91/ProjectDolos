@@ -40,8 +40,9 @@ TMT.Preload.prototype = {
         this.load.spritesheet('train2', 'asset/images/spritesheets/train200.png', 100, 100);
         this.load.spritesheet('train3', 'asset/images/spritesheets/train300.png', 100, 100);
 
-        this.load.audio('collect', 'asset/audio/collect.ogg');
+        this.load.audio('switch', 'asset/audio/switch.wav');
         this.load.audio('explosion', 'asset/audio/explosion.ogg');
+		
     },
     create: function () {
         this.state.start('MainMenu');
