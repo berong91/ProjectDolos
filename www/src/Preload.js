@@ -7,20 +7,9 @@ var background;
 
 TMT.Preload.prototype = {
     preload: function () {
-        //show loading screen
-        background = this.game.add.sprite(this.game.world.centerX, 280, 'logo');
-        background.anchor.setTo(0.5);
-        this.time.events.add(Phaser.Timer.SECOND * 4, fadePicture, this);
-
-        var fadePicture = function () {
-            this.add.tween(background).to({
-                alpha: 0
-            }, 2000, Phaser.Easing.Linear.None, true);
-        };
-
         //load game asset
         this.load.image('diamond', 'asset/images/diamond.png');
-
+        this.load.image('background', 'asset/images/background.png');
         this.load.image('space', 'asset/images/space.png');
         this.load.image('pepe', 'asset/images/superpepe.jpg');
         this.load.image('rock', 'asset/images/rock.png');
@@ -44,6 +33,18 @@ TMT.Preload.prototype = {
 		
     },
     create: function () {
+        //show loading screen
+        background = this.game.add.sprite(this.game.world.centerX, 280, 'background');
+        background.anchor.setTo(0.5);
+        this.time.events.add(Phaser.Timer.SECOND * 4, fadePicture, this);
+
+        var fadePicture = function () {
+            this.add.tween(background).to({
+                alpha: 0
+            }, 2000, Phaser.Easing.Linear.None, true);
+        };
+    },
+    update: function(){
         this.state.start('MainMenu');
     },
     render: function () {
