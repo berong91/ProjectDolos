@@ -6,7 +6,7 @@ TMT.MainMenu = function () {};
 
 TMT.MainMenu.prototype = {
     preload: function () {
-        this.load.audio('bgsound', 'asset/audio/bgsong.ogg');
+        this.load.audio('bgsound', 'asset/audio/flea.mp3');
     },
     create: function () {
         // Set background and give background speed in x
@@ -33,6 +33,9 @@ TMT.MainMenu.prototype = {
     },
     startClick: function () {
         this.game.state.start('Game');
+    },
+    render: function () {
+        this.game.debug.text("Time until event: " + this.game.time.events.duration, 32, 32);
     }
 };
 
