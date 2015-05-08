@@ -28,7 +28,6 @@ TMT.Preload.prototype = {
         this.load.image('logo', 'asset/images/logo.png');
         this.load.image('jewsDidIt', 'asset/images/towers.png');
 
-        this.load.spritesheet('power', 'asset/images/power.png', 12, 12);
         this.load.spritesheet('terrain', 'asset/images/terrain.png', 100, 100);
         this.load.spritesheet('plane1', 'asset/images/spritesheets/plane100.png', 100, 100);
         this.load.spritesheet('plane2', 'asset/images/spritesheets/plane200.png', 100, 100);
