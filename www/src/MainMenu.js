@@ -34,9 +34,9 @@ TMT.MainMenu.prototype = {
     startClick: function () {
         this.game.state.start('Game');
     },
-    render: function () {
+    /*render: function () {
         this.game.debug.text("Time until event: " + this.game.time.events.duration, 32, 32);
-    }
+    }*/
 };
 
 function start() {
