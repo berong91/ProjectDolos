@@ -5,7 +5,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "https://appcenter.html5tools-software.intel.com/api/v2.0/redirect/projectrenderers/release-2015-ww13/webapp/templates-phaser-landscape-webapp/sample.zip",
       "projectGuid": "298e0333-ef95-41eb-971e-befffaa3d245",
-      "lastModifiedDate": 1430238369753,
+      "lastModifiedDate": 1431223634187,
       "creationDate": 1430181256093
     },
     "sourceDirectory": "www",
@@ -19,6 +19,15 @@
       {
         "id": "org.apache.cordova.splashscreen",
         "version": "0.3.5",
+        "selectedState": "Included",
+        "data": {},
+        "paramvals": {},
+        "dependsOn": [],
+        "dependedBy": []
+      },
+      {
+        "id": "org.apache.cordova.device",
+        "version": "0.2.13",
         "selectedState": "Included",
         "data": {},
         "paramvals": {},
