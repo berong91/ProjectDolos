@@ -92,6 +92,7 @@ TMT.Game.prototype = {
             current.events.onInputDown.add(this.onDown, this);
             blocks[i] = current;
         }
+        current = blocks[0];
     },
     update: function() {
     	
@@ -135,6 +136,5 @@ TMT.Game.prototype = {
         This is the life system. When a plane hits the bad tile, you lose a life.
         */
         life--;
-		
     },
 };
