@@ -8,14 +8,10 @@ var background;
 TMT.Preload.prototype = {
     preload: function () {
         //load game asset
-        this.load.image('diamond', 'asset/images/diamond.png');
         this.load.image('background', 'asset/images/background.png');
         this.load.image('space', 'asset/images/space.png');
-        this.load.image('pepe', 'asset/images/superpepe.jpg');
-        this.load.image('rock', 'asset/images/rock.png');
         this.load.image('startButton', 'asset/images/start-button.png');
         this.load.image('logo', 'asset/images/logo.png');
-        this.load.image('jewsDidIt', 'asset/images/towers.png');
 
         this.load.spritesheet('terrain', 'asset/images/terrain.png', 100, 100);
         this.load.spritesheet('plane1', 'asset/images/spritesheets/plane100.png', 100, 100);
