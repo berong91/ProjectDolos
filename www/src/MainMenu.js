@@ -23,7 +23,7 @@ TMT.MainMenu.prototype = {
 
         // Add background sound
         bgSound = this.add.audio('bgsound');
-        this.sound.setDecodedCallback([bgSound], start, this);
+        this.sound.setDecodedCallback([bgSound], startBgMusic, this);
 
     },
     update: function () {
@@ -39,6 +39,6 @@ TMT.MainMenu.prototype = {
     }
 };
 
-function start() {
+function startBgMusic() {
     bgSound.loopFull(0.6);
 }

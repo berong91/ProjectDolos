@@ -231,7 +231,7 @@
     "gameAssetDirectory": "asset",
     "gameMetadata": {
       "gameEngineName": "Phaser",
-      "gameEngineVersion": "2.1.1"
+      "gameEngineVersion": "2.3.0"
     },
     "projectTags": [
       "XDK-game-app"
