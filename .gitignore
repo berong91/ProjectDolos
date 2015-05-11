@@ -1,9 +1,19 @@
+# Intel XDK personal config files
 intelxdk.config.android.xml
 intelxdk.config.crosswalk.xml
 intelxdk.config.ios.xml
 intelxdk.config.windows8.xml
 intelxdk.config.additions.xml
-plugins/org.apache.cordova.splashscreen/.fetch.json
-plugins/org.apache.cordova.device/.fetch.json
 *.mobileprovision
 *.xdke
+
+# Cordova plugin jason files
+plugins/org.apache.cordova.splashscreen/.fetch.json
+plugins/org.apache.cordova.device/.fetch.json
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Windows shortcuts
+*.lnk
