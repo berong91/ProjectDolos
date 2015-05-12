@@ -53,6 +53,16 @@ TMT.Game.prototype = {
 
 		//This will create text in the top left of the game screen.
 		text = this.game.add.text(50, 50, 'Time: 0s' , { fontSize: '32px', fill: '#FFF' });
+
+        //timer function-starts at 60, decrements one every 1000 ms
+        var count=60;
+        var counter=setInterval(timer, 1000); 
+        function timer(){
+        count--;
+        text.text = 'Time remaining: ' + count + ' seconds';
+        if(count<=0){
+            text.text = 'Time\'s up!'
+        }
 		
         emitter = this.game.add.emitter(0,0,10);
         emitter.makeParticles('fire');
@@ -144,12 +154,6 @@ TMT.Game.prototype = {
 			case 22: this.progbar.frame = this.plane.kill();
 			break;
 		}
-		//Timer for the top left of the swcreen.
-		//text variable is the created on line 53
-		var date = new Date();
-		var time = timeStart.getSeconds();
-		elapsed = date.getSeconds() - time;
-		text.text = 'Time: ' + elapsed + 's';
 		
 		//Sounds must be called inside of this function either directly or with another function entirely (except create and preload)
 		
