@@ -1,9 +1,8 @@
 {
   "project": {
     "projectSettingsVersion": "1.2",
-    "currentBuildConfiguration": "Windows8",
+    "currentBuildConfiguration": "WebApp",
     "projectFiles": {},
-    "projectDirectories": {},
-    "initialAutoPluginCount": 0
+    "projectDirectories": {}
   }
 }
