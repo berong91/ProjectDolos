@@ -41,7 +41,7 @@ TMT.Game.prototype = {
 
         //sprites
         //plane is the object that is moving.
-        this.plane = this.game.add.sprite(xloc - 500, blocks[0].y + 100, 'plane1');
+        this.plane = this.game.add.sprite(xloc - 500, blocks[0].y + 100, 'plane1', 2);
         this.plane.scale.setTo(1);
         this.plane.frame = 0;
 
@@ -126,7 +126,20 @@ TMT.Game.prototype = {
             return false;
         else
             return true;
-    },
+    
+	/*
+		Random note to further expand on this function. We need to grab
+		what type of vehicle and tile being interacted with.
+		
+		Three if statements:
+			if plane -> check if air
+			if boat  -> check if water
+			if train -> check if tracks
+			
+		if (plane
+	*/
+	
+	},
     //This function allows the tiles to cycle between our spritesheet.
     onDown: function (sprite, pointer) {
         switchSound.play();
