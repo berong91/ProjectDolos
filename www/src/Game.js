@@ -59,6 +59,21 @@ TMT.Game.prototype = {
         emitter.gravity = 200;
     },
     
+    //Create a plane
+    generatePlane: function () {
+
+    },
+
+    //Create a boat
+    generateBoat: function () {
+
+    },
+
+    //Create a train
+    generateTrain: function () {
+
+    },
+
     // Generate all blocks
     generateBlocks: function () {
         this.blocks = this.game.add.group();
@@ -149,8 +164,10 @@ TMT.Game.prototype = {
 			this.plane.kill();
         }
     },
+    
     /*
-		Takes a vehicle and a tile. Check to see if the vehicle matches the correct tile.
+		This function is called by the game physics overlap.
+        Takes a vehicle and a tile. Check to see if the vehicle matches the correct tile.
 		Boat:  If tile.frame = 0 is true, false if otherwise.
 		Plane: If tile.frame = 1 is true, false if otherwise.
 		Train: If tile.frame = 2 is true, false if otherwise.
