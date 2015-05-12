@@ -11,7 +11,7 @@ var dead = false;
 
 //Time Elapsed variables
 var count;
-
+var text;
 var emitter;
 
 //title screen
@@ -24,7 +24,6 @@ TMT.Game.prototype = {
 
         this.game.world.setBounds(0, 0, this.game.width, this.game.height);
 
-		timeStart = new Date();
 		
         //set grid init position
         xloc = ((this.game.world.width / 2) - 150);
