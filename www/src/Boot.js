@@ -9,6 +9,10 @@ TMT.Boot.prototype = {
         this.load.image('background', 'asset/images/background.png');
     },
     create: function () {
+		//set scale of the game
+		this.scale.pageAlignHorizontally = true;
+        this.scale.pageAlignVertically = true;
+		
         //loading screen will have a white background
         this.game.stage.backgroundColor = '#000';
 
