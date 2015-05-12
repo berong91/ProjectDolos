@@ -25,7 +25,7 @@ TMT.Game.prototype = {
         life = 3;
 
         this.game.world.setBounds(0, 0, this.game.width, this.game.height);
-		
+
 		timeStart = new Date();
 		
         //set grid init position
@@ -39,7 +39,7 @@ TMT.Game.prototype = {
         this.generateBlocks();
 		
 		//adding the loading bar sprite
-		this.progbar = this.game.add.sprite(this.game.world.width/2 - 200, this.game.height*0.9, 'progress');
+		this.progbar = this.game.add.sprite(this.game.world.width/2 - 200, this.game.height-125, 'progress');
 
         //sprites
         //plane is the object that is moving.
@@ -57,6 +57,19 @@ TMT.Game.prototype = {
         emitter = this.game.add.emitter(0,0,10);
         emitter.makeParticles('fire');
         emitter.gravity = 200;
+		
+		
+		//timer function-starts at 60, decrements one every 1000 ms
+		var count=60;
+		var counter=setInterval(timer, 1000); 
+		function timer(){
+		count--;
+		text.text = 'Time remaining: ' + count + ' seconds';
+		if(count<=0){
+			text.text = 'Time\'s up!'
+		}
+}
+
     },
     
     //Create a plane
@@ -144,12 +157,10 @@ TMT.Game.prototype = {
 			case 22: this.progbar.frame = this.plane.kill();
 			break;
 		}
-		//Timer for the top left of the swcreen.
-		//text variable is the created on line 53
-		var date = new Date();
-		var time = timeStart.getSeconds();
-		elapsed = date.getSeconds() - time;
-		text.text = 'Time: ' + elapsed + 's';
+	
+		
+		
+		
 		
 		//Sounds must be called inside of this function either directly or with another function entirely (except create and preload)
 		
