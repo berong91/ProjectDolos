@@ -7,11 +7,14 @@ var blocks = [];
 
 //Life system.
 var life;
+var dead = false;
 
 //Time Elapsed variables
 var timeStart;
 var elapsed;
 var text;
+
+var emitter;
 
 //title screen
 TMT.Game = function () {};
@@ -19,7 +22,7 @@ TMT.Game = function () {};
 TMT.Game.prototype = {
     create: function () {
 		//Sets the beginning lives to three.
-        life = 10;
+        life = 3;
 
         this.game.world.setBounds(0, 0, this.game.width, this.game.height);
 
@@ -40,7 +43,7 @@ TMT.Game.prototype = {
         //plane is the object that is moving.
         this.plane = this.game.add.sprite(xloc - 500, blocks[0].y + 100, 'plane1');
         this.plane.scale.setTo(1);
-        this.plane.frame = 2;
+        this.plane.frame = 0;
 
         //add physics to the sprites
         this.game.physics.arcade.enable(this.plane);
@@ -49,6 +52,9 @@ TMT.Game.prototype = {
 		//This will create text in the top left of the game screen.
 		text = this.game.add.text(50, 50, 'Time: 0s' , { fontSize: '32px', fill: '#FFF' });
 		
+        emitter = this.game.add.emitter(0,0,10);
+        emitter.makeParticles('fire');
+        emitter.gravity = 200;
     },
     
     // Generate all blocks
@@ -65,6 +71,7 @@ TMT.Game.prototype = {
         for (var i = 0; i < numBlocks; i++) {
             //add sprite
             current = this.blocks.create(xloc, yloc, 'terrain');
+
 
             xloc += 100;
             if (xloc === ((this.game.world.width / 2) + 150)) {
@@ -85,6 +92,9 @@ TMT.Game.prototype = {
             current.inputEnabled = true;
             current.events.onInputDown.add(this.onDown, this);
             blocks[i] = current;
+
+            //Initializes blank map
+            blocks[i].frame = 3;
         }
         current = blocks[0];
     },
@@ -103,8 +113,12 @@ TMT.Game.prototype = {
 		this.game.physics.arcade.overlap(this.plane, this.blocks, this.playSound, this.checkTile, this);
 	
 		
-		if (life <= 0)
+		if (life <= 0) {
+            if(!dead)
+                this.explosion(this.plane.body.x, this.plane.body.y);
+                dead = true;
 			this.plane.kill();
+        }
     },
     //Checks to see if the tile matches the "air" tile that the plane wants to travel accross. tile.frame 1 is the air tile.
     checkTile: function (plane, tile) {
@@ -126,9 +140,23 @@ TMT.Game.prototype = {
         explosionSound.play();
         this.plane.body.velocity.x = -6000;
 
+
         /*
         This is the life system. When a plane hits the bad tile, you lose a life.
         */
         life--;
     },
+
+    //Particle explosion
+    explosion: function (x, y) {
+        emitter.x = x;
+        emitter.y = y;
+
+        //1) boolean for 'explode' (particles generate all at once)
+        //2) particle lifespan (ms)
+        //3) ignore
+        //4) number of particles
+        emitter.start(true, 1500, null, 8);
+    },
+    
 };
