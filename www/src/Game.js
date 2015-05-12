@@ -37,7 +37,9 @@ TMT.Game.prototype = {
 
         // Generate all the blocks
         this.generateBlocks();
-
+		
+		//adding the loading bar sprite
+		this.progbar = this.game.add.sprite(this.game.world.width/2 - 200, this.game.height-125, 'progress');
 
         //sprites
         //plane is the object that is moving.
@@ -99,7 +101,32 @@ TMT.Game.prototype = {
         current = blocks[0];
     },
     update: function() {
-    	
+    	switch(elapsed) {
+			case 1: this.progbar.frame = 11
+			break;
+			case 2: this.progbar.frame = 10
+			break;
+			case 4: this.progbar.frame = 9
+			break;
+			case 6: this.progbar.frame = 8
+			break;
+			case 8: this.progbar.frame = 7
+			break;
+			case 10: this.progbar.frame = 6
+			break;
+			case 12: this.progbar.frame = 5
+			break;
+			case 14: this.progbar.frame = 4
+			break;
+			case 16: this.progbar.frame = 3
+			break;
+			case 18: this.progbar.frame = 2
+			break;
+			case 20: this.progbar.frame = 1
+			break;
+			case 22: this.progbar.frame = this.plane.kill();
+			break;
+		}
 		//Timer for the top left of the swcreen.
 		//text variable is the created on line 53
 		var date = new Date();
