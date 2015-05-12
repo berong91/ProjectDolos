@@ -10,9 +10,7 @@ var life;
 var dead = false;
 
 //Time Elapsed variables
-var timeStart;
-var elapsed;
-var text;
+var count;
 
 var emitter;
 
@@ -52,17 +50,18 @@ TMT.Game.prototype = {
         this.plane.body.overlapWorldBounds = true;
 
 		//This will create text in the top left of the game screen.
-		text = this.game.add.text(50, 50, 'Time: 0s' , { fontSize: '32px', fill: '#FFF' });
+		text = this.game.add.text(50, 50, 'Time remaining: 60 seconds' , { fontSize: '32px', fill: '#FFF' });
 
         //timer function-starts at 60, decrements one every 1000 ms
-        var count=60;
+        count=60;
         var counter= setInterval(timer, 1000); 
-        function timer(){
-        count--;
-        text.text = 'Time remaining: ' + count + ' seconds';
-        if(count<=0){
-            text.text = 'Time\'s up!';
-        }
+        
+		function timer(){
+        	count--;
+        	text.text = 'Time remaining: ' + count + ' seconds';
+        	if(count<=0){
+            	text.text = 'Time\'s up!';
+        	}
 		}
 		
         emitter = this.game.add.emitter(0,0,10);
@@ -130,32 +129,28 @@ TMT.Game.prototype = {
         current = blocks[0];
     },
     update: function() {
-    	switch(elapsed) {
-			case 0: this.progbar.frame = 10;
+    	switch(count) {
+			case 60: this.progbar.frame = 10;
 			break;
-			case 1: this.progbar.frame = 10;
+			case 54: this.progbar.frame = 9;
 			break;
-			case 2: this.progbar.frame = 10;
+			case 48: this.progbar.frame = 8;
 			break;
-			case 4: this.progbar.frame = 9;
+			case 42: this.progbar.frame = 7;
 			break;
-			case 6: this.progbar.frame = 8;
+			case 36: this.progbar.frame = 6;
 			break;
-			case 8: this.progbar.frame = 7;
+			case 30: this.progbar.frame = 5;
 			break;
-			case 10: this.progbar.frame = 6;
+			case 24: this.progbar.frame = 4;
 			break;
-			case 12: this.progbar.frame = 5;
+			case 18: this.progbar.frame = 3;
 			break;
-			case 14: this.progbar.frame = 4;
+			case 12: this.progbar.frame = 2;
 			break;
-			case 16: this.progbar.frame = 3;
+			case 6: this.progbar.frame = 1;
 			break;
-			case 18: this.progbar.frame = 2;
-			break;
-			case 20: this.progbar.frame = 1;
-			break;
-			case 22: this.progbar.frame = this.plane.kill();
+			case 0: this.progbar.frame = this.plane.kill();
 			break;
 		}
 		
