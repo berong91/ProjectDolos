@@ -120,25 +120,31 @@ TMT.Game.prototype = {
 			this.plane.kill();
         }
     },
-    //Checks to see if the tile matches the "air" tile that the plane wants to travel accross. tile.frame 1 is the air tile.
-    checkTile: function (plane, tile) {
-        if (tile.frame === 1)
-            return false;
-        else
-            return true;
-    
-	/*
-		Random note to further expand on this function. We need to grab
-		what type of vehicle and tile being interacted with.
-		
-		Three if statements:
-			if plane -> check if air
-			if boat  -> check if water
-			if train -> check if tracks
-			
-		if (plane
+    /*
+		Takes a vehicle and a tile. Check to see if the vehicle matches the correct tile.
+		Boat:  If tile.frame = 0 is true, false if otherwise.
+		Plane: If tile.frame = 1 is true, false if otherwise.
+		Train: If tile.frame = 2 is true, false if otherwise.
 	*/
-	
+    checkTile: function (vehicle, tile) {
+        if (vehicle.key === 'boat1'){
+			if (tile.frame === 0)
+				return false;
+			else
+				return true;
+		}
+		else if (vehicle.key === 'plane1'){
+			if (tile.frame === 1)
+				return false;
+			else
+				return true;
+		}
+		else if (vehicle.key === 'train1'){
+			if (tile.frame === 2)
+				return false;
+			else
+				return true;
+		}
 	},
     //This function allows the tiles to cycle between our spritesheet.
     onDown: function (sprite, pointer) {
