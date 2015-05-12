@@ -102,7 +102,9 @@ TMT.Game.prototype = {
     },
     update: function() {
     	switch(elapsed) {
-			case 1: this.progbar.frame = 11
+			case 0: this.progbar.frame = 10
+			break;
+			case 1: this.progbar.frame = 10
 			break;
 			case 2: this.progbar.frame = 10
 			break;
