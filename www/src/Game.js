@@ -30,7 +30,7 @@ TMT.Game.prototype = {
         yloc = (this.game.world.height / 2) - (0.0625 * this.game.world.height);
 
         //background
-        this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'space');
+        this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'gamebg');
 
         // Generate all the blocks
         this.generateBlocks();
@@ -46,12 +46,6 @@ TMT.Game.prototype = {
         this.game.physics.arcade.enable(this.plane);
         this.plane.body.overlapWorldBounds = true;
 
-
-        //sounds ADD THE DIFFERENT TYPE OF SOUNDS HERE
-        //refer to update function on how to use sounds
-        this.explosionSound = this.game.add.audio('explosion');
-		this.switchSound = this.game.add.audio('switch');
-		
 		//This will create text in the top left of the game screen.
 		text = this.game.add.text(50, 50, 'Time: 0s' , { fontSize: '32px', fill: '#FFF' });
 		
@@ -92,6 +86,7 @@ TMT.Game.prototype = {
             current.events.onInputDown.add(this.onDown, this);
             blocks[i] = current;
         }
+        current = blocks[0];
     },
     update: function() {
     	
@@ -120,7 +115,7 @@ TMT.Game.prototype = {
     },
     //This function allows the tiles to cycle between our spritesheet.
     onDown: function (sprite, pointer) {
-        this.switchSound.play();
+        switchSound.play();
         if (sprite.frame < 2)
             sprite.frame++;
         else
@@ -128,13 +123,12 @@ TMT.Game.prototype = {
     },
     //This takes no parameters, makes a sound.
     playSound: function () {
-        this.explosionSound.play();
+        explosionSound.play();
         this.plane.body.velocity.x = -6000;
 
         /*
         This is the life system. When a plane hits the bad tile, you lose a life.
         */
         life--;
-		
     },
 };
