@@ -63,22 +63,13 @@ TMT.Game.prototype = {
         if(count<=0){
             text.text = 'Time\'s up!'
         }
+		}
 		
         emitter = this.game.add.emitter(0,0,10);
         emitter.makeParticles('fire');
         emitter.gravity = 200;
 		
-		
-		//timer function-starts at 60, decrements one every 1000 ms
-		var count=60;
-		var counter=setInterval(timer, 1000); 
-		function timer(){
-		count--;
-		text.text = 'Time remaining: ' + count + ' seconds';
-		if(count<=0){
-			text.text = 'Time\'s up!'
-		}
-}
+	
 
     },
     
