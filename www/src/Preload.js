@@ -3,19 +3,18 @@ var TMT = TMT || {};
 //loading the game asset
 TMT.Preload = function () {};
 
-var background;
+// Global variables for game music
+var bgSound;
+var explosionSound;
+var switchSound;
 
 TMT.Preload.prototype = {
     preload: function () {
         //load game asset
-        this.load.image('diamond', 'asset/images/diamond.png');
         this.load.image('background', 'asset/images/background.png');
-        this.load.image('space', 'asset/images/space.png');
-        this.load.image('pepe', 'asset/images/superpepe.jpg');
-        this.load.image('rock', 'asset/images/rock.png');
+        this.load.image('gamebg', 'asset/images/BG 480x800.png');
         this.load.image('startButton', 'asset/images/start-button.png');
         this.load.image('logo', 'asset/images/logo.png');
-        this.load.image('jewsDidIt', 'asset/images/towers.png');
 
         this.load.spritesheet('terrain', 'asset/images/terrain.png', 100, 100);
         this.load.spritesheet('plane1', 'asset/images/spritesheets/plane100.png', 100, 100);
@@ -30,24 +29,24 @@ TMT.Preload.prototype = {
 
         this.load.audio('switch', 'asset/audio/switch.wav');
         this.load.audio('explosion', 'asset/audio/explosion.ogg');
-		
+        this.load.audio('bgsound', 'asset/audio/flea.mp3');
     },
     create: function () {
         //show loading screen
-        background = this.game.add.sprite(this.game.world.centerX, 280, 'background');
-        background.anchor.setTo(0.5);
-        this.time.events.add(Phaser.Timer.SECOND * 4, fadePicture, this);
+        this.background = this.game.add.sprite(this.game.world.centerX, 280, 'background');
+        this.background.anchor.setTo(0.5);
 
-        var fadePicture = function () {
-            this.add.tween(background).to({
-                alpha: 0
-            }, 2000, Phaser.Easing.Linear.None, true);
-        };
+        // Load all music
+        bgSound = this.add.audio('bgsound');
+        explosionSound = this.game.add.audio('explosion');
+        switchSound = this.game.add.audio('switch');
+        this.sound.setDecodedCallback([bgSound, explosionSound, switchSound], this.startBgMusic, this);
     },
-    update: function(){
+    update: function () {
+
+    },
+    startBgMusic: function () {
+        bgSound.loopFull(0.6);
         this.state.start('MainMenu');
-    },
-    render: function () {
-        this.game.debug.text("Time until event: " + this.game.time.events.duration, 32, 32);
     }
 };

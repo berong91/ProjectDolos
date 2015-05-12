@@ -1,16 +1,15 @@
 var TMT = TMT || {};
-var bgSound;
 
 //title screen
 TMT.MainMenu = function () {};
 
 TMT.MainMenu.prototype = {
     preload: function () {
-        this.load.audio('bgsound', 'asset/audio/flea.mp3');
+
     },
     create: function () {
         // Set background and give background speed in x
-        this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'space');
+        this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'gamebg');
         this.background.autoScroll(-20, 0);
 
         // Add logo image
@@ -21,10 +20,6 @@ TMT.MainMenu.prototype = {
         this.startButton = this.game.add.button(this.game.width / 2, 400, 'startButton', this.startClick, this);
         this.startButton.anchor.setTo(0.5, 0.8);
 
-        // Add background sound
-        bgSound = this.add.audio('bgsound');
-        this.sound.setDecodedCallback([bgSound], start, this);
-
     },
     update: function () {
         if (!!this.ready) {
@@ -34,11 +29,7 @@ TMT.MainMenu.prototype = {
     startClick: function () {
         this.game.state.start('Game');
     },
-    /*render: function () {
+    render: function () {
         this.game.debug.text("Time until event: " + this.game.time.events.duration, 32, 32);
-    }*/
+    }
 };
-
-function start() {
-    bgSound.loopFull(0.6);
-}
