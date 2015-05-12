@@ -15,8 +15,9 @@ TMT.Preload.prototype = {
         this.load.image('gamebg', 'asset/images/BG 480x800.png');
         this.load.image('startButton', 'asset/images/start-button.png');
         this.load.image('logo', 'asset/images/logo.png');
+        this.load.image('fire', 'asset/images/fire.png');
 
-        this.load.spritesheet('terrain', 'asset/images/terrain.png', 100, 100);
+        this.load.spritesheet('terrain', 'asset/images/spritesheets/terrain100.png', 100, 100);
         this.load.spritesheet('plane1', 'asset/images/spritesheets/plane100.png', 100, 100);
         this.load.spritesheet('plane2', 'asset/images/spritesheets/plane200.png', 100, 100);
         this.load.spritesheet('plane3', 'asset/images/spritesheets/plane300.png', 100, 100);
