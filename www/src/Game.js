@@ -56,12 +56,12 @@ TMT.Game.prototype = {
 
         //timer function-starts at 60, decrements one every 1000 ms
         var count=60;
-        var counter=setInterval(timer, 1000); 
+        var counter= setInterval(timer, 1000); 
         function timer(){
         count--;
         text.text = 'Time remaining: ' + count + ' seconds';
         if(count<=0){
-            text.text = 'Time\'s up!'
+            text.text = 'Time\'s up!';
         }
 		}
 		
@@ -131,29 +131,29 @@ TMT.Game.prototype = {
     },
     update: function() {
     	switch(elapsed) {
-			case 0: this.progbar.frame = 10
+			case 0: this.progbar.frame = 10;
 			break;
-			case 1: this.progbar.frame = 10
+			case 1: this.progbar.frame = 10;
 			break;
-			case 2: this.progbar.frame = 10
+			case 2: this.progbar.frame = 10;
 			break;
-			case 4: this.progbar.frame = 9
+			case 4: this.progbar.frame = 9;
 			break;
-			case 6: this.progbar.frame = 8
+			case 6: this.progbar.frame = 8;
 			break;
-			case 8: this.progbar.frame = 7
+			case 8: this.progbar.frame = 7;
 			break;
-			case 10: this.progbar.frame = 6
+			case 10: this.progbar.frame = 6;
 			break;
-			case 12: this.progbar.frame = 5
+			case 12: this.progbar.frame = 5;
 			break;
-			case 14: this.progbar.frame = 4
+			case 14: this.progbar.frame = 4;
 			break;
-			case 16: this.progbar.frame = 3
+			case 16: this.progbar.frame = 3;
 			break;
-			case 18: this.progbar.frame = 2
+			case 18: this.progbar.frame = 2;
 			break;
-			case 20: this.progbar.frame = 1
+			case 20: this.progbar.frame = 1;
 			break;
 			case 22: this.progbar.frame = this.plane.kill();
 			break;
