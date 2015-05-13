@@ -168,21 +168,12 @@ TMT.Game.prototype = {
 		Update function that will handle:
 		1)time progress bar 
 		2)vehicle unmodified speed
-		3)vehicle life points
+		3)vehicle life points will be check within the overlap function
 		4)vehicle overlap with tiles
 	*/
 	update: function() {
     	//method that will be later refined to show progress better.
 		this.progressBar();
-		
-		//Check to see if any vehicles have died recently.
-		/* This is an example of how it could work.
-		for (i = blah; i < blah.length; i++)
-			this.lifeCheck(i);
-		*/
-		this.lifeCheck(this.plane);
-		this.lifeCheck(this.boat);
-		this.lifeCheck(this.train);
 		
 		//Sounds must be called inside of this function either directly
 		//or with another function entirely (except create and preload)
@@ -271,24 +262,39 @@ TMT.Game.prototype = {
 		This function allows the tiles to cycle between our 
 		spritesheet.
     */
-	onDown: function (sprite, pointer) {
+	onDown: function (tile, pointer) {
         switchSound.play();
-        if (sprite.frame < 2)
-            sprite.frame++;
+        if (tile.frame < 2)
+            tile.frame++;
         else
-            sprite.frame = 0;
+            tile.frame = 0;
     },
     
 	/*
 		This function will always be called whenever ANY vehicle hits
-		the wrong tile. Can be used for checking all of the vehicles
-		lives?
+		the wrong tile. Will check to see if the vehicle has died.
 	*/
     playSound: function (vehicle, tile) {
-        explosionSound.play();
-		vehicle.body.velocity.x = -1000;
-
+        //right, down, left, up
+		explosionSound.play();
+		switch(vehicle.frame){
+			case 0: //vehicle is going right
+				vehicle.body.x = vehicle.body.x - 50;
+				break;
+			case 1: //vehicle is going down
+				vehicle.body.y = vehicle.body.y - 50;
+				break;
+			case 2: //vehicle is going left
+				vehicle.body.x = vehicle.body.x + 50;
+				break;
+			case 3: //vehicle is going up
+				vehicle.body.y = vehicle.body.x + 50;
+				break;
+		}
 		vehicle.life--;
+		
+		//Check to see if any vehicles have died recently.
+		this.lifeCheck(vehicle);
     },
     /*
 		Explosion graphic that will happen to whichever vehicle that
