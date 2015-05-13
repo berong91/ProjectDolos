@@ -1,5 +1,10 @@
 var TMT = TMT || {};
 
+// Global variables for game music
+var bgSound;
+var explosionSound;
+var switchSound;
+
 TMT.Boot = function () {};
 
 //setting game configuration and loading the asset for the loading screen
@@ -7,12 +12,16 @@ TMT.Boot.prototype = {
     preload: function () {
         //asset we'll use in the loading screen
         this.load.image('background', 'asset/images/background.png');
+        
+        this.load.audio('switch', 'asset/audio/switch.wav');
+        this.load.audio('explosion', 'asset/audio/explosion.ogg');
+        this.load.audio('bgsound', 'asset/audio/flea.mp3');
     },
     create: function () {
-		//set scale of the game
-		this.scale.pageAlignHorizontally = true;
+        //set scale of the game
+        this.scale.pageAlignHorizontally = true;
         this.scale.pageAlignVertically = true;
-		
+        
         //loading screen will have a white background
         this.game.stage.backgroundColor = '#000';
 
@@ -37,8 +46,19 @@ TMT.Boot.prototype = {
         
         this.game.add.tween(this.background).to( { alpha: 1 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, true);
         this.game.time.events.add(Phaser.Timer.SECOND * 5, this.finish, this);
+        
+        // Load all music
+        bgSound = this.add.audio('bgsound');
+        explosionSound = this.game.add.audio('explosion');
+        switchSound = this.game.add.audio('switch');
+        this.sound.setDecodedCallback([bgSound, explosionSound, switchSound], this.startBgMusic, this);
+        
+        this.game.time.events.add(Phaser.Timer.SECOND * 5, this.finish, this);
     },
-    finish: function(){
+    startBgMusic: function(){
+        bgSound.loopFull(0.6);
+    },
+    finish: function() {
         this.state.start('Preload');
     }
 };

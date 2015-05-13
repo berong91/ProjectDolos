@@ -36,7 +36,7 @@ TMT.Game.prototype = {
         this.generateBlocks();
 		
 		//adding the loading bar sprite
-		this.progbar = this.game.add.sprite(this.game.world.width/2 - 200, this.game.height-125, 'progress');
+		this.progbar = this.game.add.sprite(this.game.world.width/2 - 200, this.game.height * 0.85, 'progress');
 
         this.generatePlane();
 		this.generateBoat();
