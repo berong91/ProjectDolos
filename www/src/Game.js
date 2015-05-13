@@ -1,8 +1,8 @@
 var TMT = TMT || {};
+
 var xloc;
 var yloc;
-var marker;
-var currentTile = 0;
+
 var blocks = [];
 var vehicles = [];
 
@@ -13,6 +13,8 @@ var dead = false;
 //Time Elapsed variables
 var count;
 var text;
+
+//emitter for the explosion for vehicle collisions
 var emitter;
 
 //title screen
@@ -25,7 +27,6 @@ TMT.Game.prototype = {
 
         this.game.world.setBounds(0, 0, this.game.width, this.game.height);
 
-		
         //set grid init position
         xloc = ((this.game.world.width / 2) - 150);
         yloc = (this.game.world.height / 2) - (0.0625 * this.game.world.height);
@@ -45,13 +46,18 @@ TMT.Game.prototype = {
         this.generatePlane();
 		this.generateBoat();
 		this.generateTrain();
+		
 		//This will create text in the top left of the game screen.
 		text = this.game.add.text(50, 50, 'Time remaining: 60 seconds' , { fontSize: '32px', fill: '#FFF' });
 
         //timer function-starts at 60, decrements one every 1000 ms
         count=60;
         var counter= setInterval(timer, 1000); 
-        
+        /*
+			This will run a timer that will update the text in the top 
+			left of the game screen to reflect the time left in the 
+			timer. (Inside of create function)
+		*/
 		function timer(){
         	count--;
         	text.text = 'Time remaining: ' + count + ' seconds';
@@ -67,43 +73,44 @@ TMT.Game.prototype = {
 	
 
     },
-    
-    //Create a plane
+    /*
+		Create a plane. For now, only creates one plane as referenced 
+		by this.plane
+	*/
     generatePlane: function () {
-		//sprites
-        //plane is the object that is moving.
+        //Display setting for the plane.
         this.plane = this.vehicles.create(xloc - 500, blocks[0].y + 100, 'plane1', 2);
         this.plane.scale.setTo(1);
         this.plane.frame = 0;
-
-        //add physics to the sprites
+        //add physics to the new plane.
         this.game.physics.arcade.enable(this.plane);
         this.plane.body.overlapWorldBounds = true;
-    },
-
-    //Create a boat
-    generateBoat: function () {
-		
-		//sprites
-        //plane is the object that is moving.
+	},
+    /*
+		Create a boat. For now, only creates one boat as referenced by
+		this.boat
+	*/
+    generateBoat: function () {	
+        //Display settings for the boat.
         this.boat = this.vehicles.create(xloc - 500, blocks[0].y, 'boat1', 2);
         this.boat.scale.setTo(1);
         this.boat.frame = 0;
 
-        //add physics to the sprites
+        //add physics to the new boat.
         this.game.physics.arcade.enable(this.boat);
         this.boat.body.overlapWorldBounds = true;
     },
-
-    //Create a train
+    /*
+		Create train. For now, only creates one train as referenced by
+		this.train
+	*/
     generateTrain: function () {
-		//sprites
-        //plane is the object that is moving.
+		//Display settings for the train.
         this.train = this.vehicles.create(xloc - 500, blocks[0].y + 200, 'train1', 2);
         this.train.scale.setTo(1);
         this.train.frame = 0;
 
-        //add physics to the sprites
+        //Add physics to the new train.
         this.game.physics.arcade.enable(this.train);
         this.train.body.overlapWorldBounds = true;
     },
@@ -149,8 +156,36 @@ TMT.Game.prototype = {
         }
         current = blocks[0];
     },
-    update: function() {
-    	switch(count) {
+    
+	/*
+		Update function that will handle:
+		1)time progress bar [will be put into separate function later]
+		2)vehicle unmodified speed
+		3)vehicle life points (no vehicle currently has its own "life"
+		4)vehicle overlap with tiles
+	*/
+	update: function() {
+    	
+		this.progressBar();
+		
+		//Sounds must be called inside of this function either directly or with another function entirely (except create and preload)
+		
+		this.plane.body.velocity.x = 120;
+		this.boat.body.velocity.x = 80;
+		this.train.body.velocity.x = 100;
+		this.game.physics.arcade.overlap(this.vehicles, this.blocks, this.playSound, this.checkTile, this);
+		
+		//Life logic function
+		if (life <= 0) {
+            if(!dead)
+                this.explosion(this.plane);
+            dead = true;
+			this.plane.kill();
+        }
+    },
+    
+    progressBar: function() {
+		switch(count) {
 			case 60: this.progbar.frame = 10;
 			break;
 			case 54: this.progbar.frame = 9;
@@ -174,61 +209,38 @@ TMT.Game.prototype = {
 			case 0: this.progbar.frame = this.plane.kill();
 			break;
 		}
-		
-		//Sounds must be called inside of this function either directly or with another function entirely (except create and preload)
-		
-		this.plane.body.velocity.x = 100;
-		this.boat.body.velocity.x = 100;
-		this.train.body.velocity.x = 100;
-		this.game.physics.arcade.overlap(this.vehicles, this.blocks, this.temp, this.checkTile, this);
-		//this.game.physics.arcade.overlap(this.plane, this.blocks, this.playSound(this.plane), this.checkTile, this);
-		//this.game.physics.arcade.overlap(this.boat, this.blocks, this.playSound(this.boat), this.checkTile, this);
-		//this.game.physics.arcade.overlap(this.train, this.blocks, this.playSound(this.train), this.checkTile, this);
-		
-		
-		/*if (life <= 0) {
-            if(!dead)
-                this.explosion(this.plane.body.x, this.plane.body.y);
-                dead = true;
-			this.plane.kill();
-        }*/
-    },
-    
-    /*
+	},
+	
+	/*
 		This function is called by the game physics overlap.
-        Takes a vehicle and a tile. Check to see if the vehicle matches the correct tile.
-		Boat:  If tile.frame = 0 is true, false if otherwise.
-		Plane: If tile.frame = 1 is true, false if otherwise.
-		Train: If tile.frame = 2 is true, false if otherwise.
+        Takes a vehicle and a tile. Check to see if the vehicle matches 
+		the correct tile.
 	*/
     checkTile: function (vehicle, tile) {
         if (vehicle.key === 'boat1'){
-			if (tile.frame === 0)
+			if (tile.frame === 0) //boat travels over water
 				return false;
-			else {
-				vehicle.body.velocity.x = -2000;
+			else
 				return true;
-			}
 		}
 		else if (vehicle.key === 'plane1'){
-			if (tile.frame === 1)
+			if (tile.frame === 1) //plane travels over air
 				return false;
-			else {
-				vehicle.body.velocity.x = -3000;
+			else 
 				return true;
-			}
 		}
 		else if (vehicle.key === 'train1'){
-			if (tile.frame === 2)
+			if (tile.frame === 2) //train travels over train tracks
 				return false;
-			else {
-				vehicle.body.velocity.x = -1000;
+			else 
 				return true;
-			}
 		}
 	},
-    //This function allows the tiles to cycle between our spritesheet.
-    onDown: function (sprite, pointer) {
+    /*
+		This function allows the tiles to cycle between our 
+		spritesheet.
+    */
+	onDown: function (sprite, pointer) {
         switchSound.play();
         if (sprite.frame < 2)
             sprite.frame++;
@@ -241,18 +253,19 @@ TMT.Game.prototype = {
 		the wrong tile. Can be used for checking all of the vehicles
 		lives?
 	*/
-    playSound: function (vehicle) {
+    playSound: function (vehicle, tile) {
         explosionSound.play();
+		vehicle.body.velocity.x = -1000;
 
-        /*
-        This is the life system. When a plane hits the bad tile, you lose a life.
-        */
-        life--;
+		life--;
     },
-    //Particle explosion
-    explosion: function (x, y) {
-        emitter.x = x;
-        emitter.y = y;
+    /*
+		Explosion graphic that will happen to whichever vehicle that
+		reaches 0 life. Takes a vehicle as its parameter.
+	*/
+    explosion: function (vehicle) {
+        emitter.x = vehicle.body.x;
+        emitter.y = vehicle.body.y;
 
         //1) boolean for 'explode' (particles generate all at once)
         //2) particle lifespan (ms)
