@@ -38,16 +38,9 @@ TMT.Game.prototype = {
 		//adding the loading bar sprite
 		this.progbar = this.game.add.sprite(this.game.world.width/2 - 200, this.game.height-125, 'progress');
 
-        //sprites
-        //plane is the object that is moving.
-        this.plane = this.game.add.sprite(xloc - 500, blocks[0].y + 100, 'plane1', 2);
-        this.plane.scale.setTo(1);
-        this.plane.frame = 0;
-
-        //add physics to the sprites
-        this.game.physics.arcade.enable(this.plane);
-        this.plane.body.overlapWorldBounds = true;
-
+        this.generatePlane();
+		this.generateBoat();
+		this.generateTrain();
 		//This will create text in the top left of the game screen.
 		text = this.game.add.text(50, 50, 'Time remaining: 60 seconds' , { fontSize: '32px', fill: '#FFF' });
 
@@ -73,17 +66,41 @@ TMT.Game.prototype = {
     
     //Create a plane
     generatePlane: function () {
+		//sprites
+        //plane is the object that is moving.
+        this.plane = this.game.add.sprite(xloc - 500, blocks[0].y + 100, 'plane1', 2);
+        this.plane.scale.setTo(1);
+        this.plane.frame = 0;
 
+        //add physics to the sprites
+        this.game.physics.arcade.enable(this.plane);
+        this.plane.body.overlapWorldBounds = true;
     },
 
     //Create a boat
     generateBoat: function () {
+		//sprites
+        //plane is the object that is moving.
+        this.boat = this.game.add.sprite(xloc - 500, blocks[0].y, 'boat1', 2);
+        this.boat.scale.setTo(1);
+        this.boat.frame = 0;
 
+        //add physics to the sprites
+        this.game.physics.arcade.enable(this.boat);
+        this.boat.body.overlapWorldBounds = true;
     },
 
     //Create a train
     generateTrain: function () {
+		//sprites
+        //Train is the object that is moving.
+        this.train = this.game.add.sprite(xloc - 500, blocks[0].y + 200, 'train1', 2);
+        this.train.scale.setTo(1);
+        this.train.frame = 0;
 
+        //add physics to the sprites
+        this.game.physics.arcade.enable(this.train);
+        this.train.body.overlapWorldBounds = true;
     },
 
     // Generate all blocks
@@ -156,8 +173,12 @@ TMT.Game.prototype = {
 		//Sounds must be called inside of this function either directly or with another function entirely (except create and preload)
 		
 		this.plane.body.velocity.x = 100;
-		this.game.physics.arcade.overlap(this.plane, this.blocks, this.playSound, this.checkTile, this);
-	
+		this.boat.body.velocity.x = 100;
+		this.train.body.velocity.x = 100;
+		//this.game.physics.arcade.overlap(this.plane, this.blocks, this.playSound, this.checkTile, this);
+		this.game.physics.arcade.overlap(this.boat, this.blocks, this.playSound, this.checkTile, this);
+		//this.game.physics.arcade.overlap(this.train, this.blocks, this.playSound, this.checkTile, this);
+		
 		
 		if (life <= 0) {
             if(!dead)
@@ -205,7 +226,7 @@ TMT.Game.prototype = {
     //This takes no parameters, makes a sound.
     playSound: function () {
         explosionSound.play();
-        this.plane.body.velocity.x = -6000;
+        this.boat.body.velocity.x = -2000;
 
 
         /*
