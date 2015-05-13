@@ -166,25 +166,34 @@ TMT.Game.prototype = {
     
 	/*
 		Update function that will handle:
-		1)time progress bar [will be put into separate function later]
+		1)time progress bar 
 		2)vehicle unmodified speed
-		3)vehicle life points (no vehicle currently has its own "life"
+		3)vehicle life points
 		4)vehicle overlap with tiles
 	*/
 	update: function() {
     	//method that will be later refined to show progress better.
 		this.progressBar();
 		
-		//Check to see if any vehicles have died recently
+		//Check to see if any vehicles have died recently.
+		/* This is an example of how it could work.
+		for (i = blah; i < blah.length; i++)
+			this.lifeCheck(i);
+		*/
 		this.lifeCheck(this.plane);
 		this.lifeCheck(this.boat);
 		this.lifeCheck(this.train);
 		
-		//Sounds must be called inside of this function either directly or with another function entirely (except create and preload)
+		//Sounds must be called inside of this function either directly
+		//or with another function entirely (except create and preload)
+		
 		
 		this.plane.body.velocity.x = 120;
 		this.boat.body.velocity.x = 80;
 		this.train.body.velocity.x = 100;
+		
+		//Overlap that allows all members of vehicles to interact with 
+		//tiles.
 		this.game.physics.arcade.overlap(this.vehicles, this.blocks, this.playSound, this.checkTile, this);
 		
     },
