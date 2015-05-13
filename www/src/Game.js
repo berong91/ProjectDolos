@@ -1,5 +1,6 @@
 var TMT = TMT || {};
 
+//Anchors for the grid. 
 var xloc;
 var yloc;
 
@@ -77,12 +78,13 @@ TMT.Game.prototype = {
 	*/
     generatePlane: function () {
         //Display setting for the plane.
-        this.plane = this.vehicles.create(xloc - 500, blocks[0].y + 100, 'plane1', 2);
+        this.plane = this.vehicles.create(xloc - 150, blocks[0].y + 100, 'plane1', 2);
         this.plane.scale.setTo(1);
         this.plane.frame = 0;
         
 		this.plane.life = 3;
 		this.plane.dead = false;
+		this.plane.moving = false;
 		
 		//add physics to the new plane.
         this.game.physics.arcade.enable(this.plane);
@@ -94,12 +96,13 @@ TMT.Game.prototype = {
 	*/
     generateBoat: function () {	
         //Display settings for the boat.
-        this.boat = this.vehicles.create(xloc - 500, blocks[0].y, 'boat1', 2);
+        this.boat = this.vehicles.create(xloc - 150, blocks[0].y, 'boat1', 2);
         this.boat.scale.setTo(1);
         this.boat.frame = 0;
 
 		this.boat.life = 3;
 		this.boat.dead = false;
+		this.boat.moving = false;
 		
         //add physics to the new boat.
         this.game.physics.arcade.enable(this.boat);
@@ -111,18 +114,24 @@ TMT.Game.prototype = {
 	*/
     generateTrain: function () {
 		//Display settings for the train.
-        this.train = this.vehicles.create(xloc - 500, blocks[0].y + 200, 'train1', 2);
+        this.train = this.vehicles.create(xloc - 150, blocks[0].y + 200, 'train1', 2);
         this.train.scale.setTo(1);
         this.train.frame = 0;
 
 		this.train.life = 3;
 		this.train.dead = false;
+		this.train.moving = false;
 		
         //Add physics to the new train.
         this.game.physics.arcade.enable(this.train);
         this.train.body.overlapWorldBounds = true;
+		
     },
 
+	enableMoving: function(vehicle) {
+		vehicle.moving = true;	
+	},
+	
     // Generate all blocks
     generateBlocks: function () {
         this.blocks = this.game.add.group();
@@ -163,7 +172,7 @@ TMT.Game.prototype = {
         }
         current = blocks[0];
     },
-    
+	
 	/*
 		Update function that will handle:
 		1)time progress bar 
@@ -177,11 +186,12 @@ TMT.Game.prototype = {
 		
 		//Sounds must be called inside of this function either directly
 		//or with another function entirely (except create and preload)
-		
-		
-		this.plane.body.velocity.x = 120;
-		this.boat.body.velocity.x = 80;
-		this.train.body.velocity.x = 100;
+		if(this.plane.moving)
+			this.plane.body.velocity.x = 80;
+		if(this.boat.moving)
+			this.boat.body.velocity.x = 60;
+		if(this.train.moving)
+			this.train.body.velocity.x = 70;
 		
 		//Overlap that allows all members of vehicles to interact with 
 		//tiles.
@@ -228,7 +238,8 @@ TMT.Game.prototype = {
 			break;
 			case 6: this.progbar.frame = 1;
 			break;
-			case 0: this.progbar.frame = this.plane.kill();
+			case 0: this.progbar.frame = 0;
+			this.plane.kill();
 			break;
 		}
 	},
@@ -263,7 +274,12 @@ TMT.Game.prototype = {
 		spritesheet.
     */
 	onDown: function (tile, pointer) {
-        switchSound.play();
+        if (!this.train.moving){
+			setTimeout(this.enableMoving(this.train), 3);
+			setTimeout(this.enableMoving(this.plane), 3);
+			setTimeout(this.enableMoving(this.boat), 3);
+		}
+		switchSound.play();
         if (tile.frame < 2)
             tile.frame++;
         else
