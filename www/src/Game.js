@@ -306,16 +306,16 @@ TMT.Game.prototype = {
 		explosionSound.play();
 		switch(vehicle.frame){
 			case 0: //vehicle is going right
-				vehicle.body.x = vehicle.body.x - 50;
+				vehicle.body.x = vehicle.body.x - 100;
 				break;
 			case 1: //vehicle is going down
-				vehicle.body.y = vehicle.body.y - 50;
+				vehicle.body.y = vehicle.body.y - 100;
 				break;
 			case 2: //vehicle is going left
-				vehicle.body.x = vehicle.body.x + 50;
+				vehicle.body.x = vehicle.body.x + 100;
 				break;
 			case 3: //vehicle is going up
-				vehicle.body.y = vehicle.body.x + 50;
+				vehicle.body.y = vehicle.body.x + 100;
 				break;
 		}
 		vehicle.life--;
@@ -338,4 +338,8 @@ TMT.Game.prototype = {
         emitter.start(true, 1500, null, 8);
     },
     
+	victory: function() {
+			
+	}
+	
 };
