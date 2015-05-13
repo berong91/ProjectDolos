@@ -4,6 +4,7 @@ var yloc;
 var marker;
 var currentTile = 0;
 var blocks = [];
+var vehicles = [];
 
 //Life system.
 var life;
@@ -37,7 +38,10 @@ TMT.Game.prototype = {
 		
 		//adding the loading bar sprite
 		this.progbar = this.game.add.sprite(this.game.world.width/2 - 200, this.game.height * 0.85, 'progress');
-
+		
+		//attempt at making vehicles group
+		this.vehicles = this.game.add.group();
+		this.vehicles.enableBody = true;
         this.generatePlane();
 		this.generateBoat();
 		this.generateTrain();
@@ -68,7 +72,7 @@ TMT.Game.prototype = {
     generatePlane: function () {
 		//sprites
         //plane is the object that is moving.
-        this.plane = this.game.add.sprite(xloc - 500, blocks[0].y + 100, 'plane1', 2);
+        this.plane = this.vehicles.create(xloc - 500, blocks[0].y + 100, 'plane1', 2);
         this.plane.scale.setTo(1);
         this.plane.frame = 0;
 
@@ -79,9 +83,10 @@ TMT.Game.prototype = {
 
     //Create a boat
     generateBoat: function () {
+		
 		//sprites
         //plane is the object that is moving.
-        this.boat = this.game.add.sprite(xloc - 500, blocks[0].y, 'boat1', 2);
+        this.boat = this.vehicles.create(xloc - 500, blocks[0].y, 'boat1', 2);
         this.boat.scale.setTo(1);
         this.boat.frame = 0;
 
@@ -93,8 +98,8 @@ TMT.Game.prototype = {
     //Create a train
     generateTrain: function () {
 		//sprites
-        //Train is the object that is moving.
-        this.train = this.game.add.sprite(xloc - 500, blocks[0].y + 200, 'train1', 2);
+        //plane is the object that is moving.
+        this.train = this.vehicles.create(xloc - 500, blocks[0].y + 200, 'train1', 2);
         this.train.scale.setTo(1);
         this.train.frame = 0;
 
@@ -175,17 +180,18 @@ TMT.Game.prototype = {
 		this.plane.body.velocity.x = 100;
 		this.boat.body.velocity.x = 100;
 		this.train.body.velocity.x = 100;
-		//this.game.physics.arcade.overlap(this.plane, this.blocks, this.playSound, this.checkTile, this);
-		this.game.physics.arcade.overlap(this.boat, this.blocks, this.playSound, this.checkTile, this);
-		//this.game.physics.arcade.overlap(this.train, this.blocks, this.playSound, this.checkTile, this);
+		this.game.physics.arcade.overlap(this.vehicles, this.blocks, this.temp, this.checkTile, this);
+		//this.game.physics.arcade.overlap(this.plane, this.blocks, this.playSound(this.plane), this.checkTile, this);
+		//this.game.physics.arcade.overlap(this.boat, this.blocks, this.playSound(this.boat), this.checkTile, this);
+		//this.game.physics.arcade.overlap(this.train, this.blocks, this.playSound(this.train), this.checkTile, this);
 		
 		
-		if (life <= 0) {
+		/*if (life <= 0) {
             if(!dead)
                 this.explosion(this.plane.body.x, this.plane.body.y);
                 dead = true;
 			this.plane.kill();
-        }
+        }*/
     },
     
     /*
@@ -199,20 +205,26 @@ TMT.Game.prototype = {
         if (vehicle.key === 'boat1'){
 			if (tile.frame === 0)
 				return false;
-			else
+			else {
+				vehicle.body.velocity.x = -2000;
 				return true;
+			}
 		}
 		else if (vehicle.key === 'plane1'){
 			if (tile.frame === 1)
 				return false;
-			else
+			else {
+				vehicle.body.velocity.x = -3000;
 				return true;
+			}
 		}
 		else if (vehicle.key === 'train1'){
 			if (tile.frame === 2)
 				return false;
-			else
+			else {
+				vehicle.body.velocity.x = -1000;
 				return true;
+			}
 		}
 	},
     //This function allows the tiles to cycle between our spritesheet.
@@ -223,18 +235,20 @@ TMT.Game.prototype = {
         else
             sprite.frame = 0;
     },
-    //This takes no parameters, makes a sound.
-    playSound: function () {
+    
+	/*
+		This function will always be called whenever ANY vehicle hits
+		the wrong tile. Can be used for checking all of the vehicles
+		lives?
+	*/
+    playSound: function (vehicle) {
         explosionSound.play();
-        this.boat.body.velocity.x = -2000;
-
 
         /*
         This is the life system. When a plane hits the bad tile, you lose a life.
         */
         life--;
     },
-
     //Particle explosion
     explosion: function (x, y) {
         emitter.x = x;
