@@ -220,25 +220,25 @@ TMT.Game.prototype = {
 		switch(count) {
 			case 60: this.progbar.frame = 10;
 			break;
-			case 54: this.progbar.frame = 9;
+			case 59: this.progbar.frame = 9;
 			break;
-			case 48: this.progbar.frame = 8;
+			case 58: this.progbar.frame = 8;
 			break;
-			case 42: this.progbar.frame = 7;
+			case 57: this.progbar.frame = 7;
 			break;
-			case 36: this.progbar.frame = 6;
+			case 56: this.progbar.frame = 6;
 			break;
-			case 30: this.progbar.frame = 5;
+			case 55: this.progbar.frame = 5;
 			break;
-			case 24: this.progbar.frame = 4;
+			case 54: this.progbar.frame = 4;
 			break;
-			case 18: this.progbar.frame = 3;
+			case 53: this.progbar.frame = 3;
 			break;
-			case 12: this.progbar.frame = 2;
+			case 52: this.progbar.frame = 2;
 			break;
-			case 6: this.progbar.frame = 1;
+			case 51: this.progbar.frame = 1;
 			break;
-			case 0: this.progbar.frame = 0;
+			case 50: this.progbar.frame = 0;
 			this.plane.kill();
 			break;
 		}
