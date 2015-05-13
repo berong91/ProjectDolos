@@ -11,7 +11,7 @@ var dead = false;
 
 //Time Elapsed variables
 var count;
-
+var text;
 var emitter;
 
 //title screen
@@ -24,7 +24,6 @@ TMT.Game.prototype = {
 
         this.game.world.setBounds(0, 0, this.game.width, this.game.height);
 
-		timeStart = new Date();
 		
         //set grid init position
         xloc = ((this.game.world.width / 2) - 150);
@@ -37,7 +36,7 @@ TMT.Game.prototype = {
         this.generateBlocks();
 		
 		//adding the loading bar sprite
-		this.progbar = this.game.add.sprite(this.game.world.width/2 - 200, this.game.height-125, 'progress');
+		this.progbar = this.game.add.sprite(this.game.world.width/2 - 200, this.game.height * 0.85, 'progress');
 
         //sprites
         //plane is the object that is moving.
