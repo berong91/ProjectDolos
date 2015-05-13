@@ -6,10 +6,6 @@ var yloc;
 var blocks = [];
 var vehicles = [];
 
-//Life system.
-var life;
-var dead = false;
-
 //Time Elapsed variables
 var count;
 var text;
@@ -22,9 +18,9 @@ TMT.Game = function () {};
 
 TMT.Game.prototype = {
     create: function () {
-		//Sets the beginning lives to three.
-        life = 3;
 
+		//Sets the dimensions of the game to the dimensions of the 
+		//"canvas" which is your entire game window.
         this.game.world.setBounds(0, 0, this.game.width, this.game.height);
 
         //set grid init position
@@ -53,7 +49,8 @@ TMT.Game.prototype = {
         //timer function-starts at 60, decrements one every 1000 ms
         count=60;
         var counter= setInterval(timer, 1000); 
-        /*
+        
+		/*
 			This will run a timer that will update the text in the top 
 			left of the game screen to reflect the time left in the 
 			timer. (Inside of create function)
@@ -66,6 +63,7 @@ TMT.Game.prototype = {
         	}
 		}
 		
+		//Allows the game to access the explosion animation.
         emitter = this.game.add.emitter(0,0,10);
         emitter.makeParticles('fire');
         emitter.gravity = 200;
@@ -82,7 +80,11 @@ TMT.Game.prototype = {
         this.plane = this.vehicles.create(xloc - 500, blocks[0].y + 100, 'plane1', 2);
         this.plane.scale.setTo(1);
         this.plane.frame = 0;
-        //add physics to the new plane.
+        
+		this.plane.life = 3;
+		this.plane.dead = false;
+		
+		//add physics to the new plane.
         this.game.physics.arcade.enable(this.plane);
         this.plane.body.overlapWorldBounds = true;
 	},
@@ -96,6 +98,9 @@ TMT.Game.prototype = {
         this.boat.scale.setTo(1);
         this.boat.frame = 0;
 
+		this.boat.life = 3;
+		this.boat.dead = false;
+		
         //add physics to the new boat.
         this.game.physics.arcade.enable(this.boat);
         this.boat.body.overlapWorldBounds = true;
@@ -110,6 +115,9 @@ TMT.Game.prototype = {
         this.train.scale.setTo(1);
         this.train.frame = 0;
 
+		this.train.life = 3;
+		this.train.dead = false;
+		
         //Add physics to the new train.
         this.game.physics.arcade.enable(this.train);
         this.train.body.overlapWorldBounds = true;
@@ -140,7 +148,6 @@ TMT.Game.prototype = {
             current.scale.setTo(1);
 
             //physics properties
-
             current.body.velocity.x = 0;
             current.body.velocity.y = 0;
             current.body.immovable = true;
@@ -165,8 +172,13 @@ TMT.Game.prototype = {
 		4)vehicle overlap with tiles
 	*/
 	update: function() {
-    	
+    	//method that will be later refined to show progress better.
 		this.progressBar();
+		
+		//Check to see if any vehicles have died recently
+		this.lifeCheck(this.plane);
+		this.lifeCheck(this.boat);
+		this.lifeCheck(this.train);
 		
 		//Sounds must be called inside of this function either directly or with another function entirely (except create and preload)
 		
@@ -175,15 +187,25 @@ TMT.Game.prototype = {
 		this.train.body.velocity.x = 100;
 		this.game.physics.arcade.overlap(this.vehicles, this.blocks, this.playSound, this.checkTile, this);
 		
-		//Life logic function
-		if (life <= 0) {
-            if(!dead)
-                this.explosion(this.plane);
-            dead = true;
-			this.plane.kill();
-        }
     },
-    
+    /*
+		Checks the life of all the vehicles to see whether or not they
+		have recently died. Called by the update method.
+	*/
+	lifeCheck: function(vehicle) {
+		//Life logic function
+		if (vehicle.life <= 0) {
+            if(!vehicle.dead)
+                this.explosion(vehicle);
+            vehicle.dead = true;
+			vehicle.kill();
+        }
+	},
+	
+	/*
+		Updates the progress bar that will represent the time remaining
+		until the player wins the level.
+	*/
     progressBar: function() {
 		switch(count) {
 			case 60: this.progbar.frame = 10;
@@ -257,7 +279,7 @@ TMT.Game.prototype = {
         explosionSound.play();
 		vehicle.body.velocity.x = -1000;
 
-		life--;
+		vehicle.life--;
     },
     /*
 		Explosion graphic that will happen to whichever vehicle that
