@@ -40,7 +40,7 @@ TMT.Game.prototype = {
 		this.adjustLevel(level);
 
         //background
-        this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'gamebg');
+        this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'peaks');
 
         // Generate all the blocks
         this.generateBlocks();
@@ -57,7 +57,10 @@ TMT.Game.prototype = {
 		this.generateTrain();
 		
 		//This will create text in the top left of the game screen.
-		text = this.game.add.text(xloc/2, yloc/4, 'Time: ' + MAXTIME + '' , { fontSize: this.game.world.width/15+ 'px', fill: '#FFF' });
+		text = this.game.add.text(xloc/2, yloc/4, 'Time: ' + MAXTIME + '' , { fontSize: this.game.world.width/15+ 'px', fill: '#ffffff' });
+		text.stroke = '#000000';
+		text.strokeThickness = 6;
+		
 		count = MAXTIME;
         var counter= setInterval(timer, 1000); 
         
