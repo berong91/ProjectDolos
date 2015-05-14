@@ -25,10 +25,33 @@ TMT.LevelSelect.prototype = {
         this.lev3butt.anchor.setTo(0.5, 0.5);
         this.lev4butt.anchor.setTo(0.5, 0.5);
         this.logo.anchor.setTo(0.5, 0.5);
+		this.tutbutt.inputEnabled = true;
+		this.lev1butt.inputEnabled = true;
+		this.lev2butt.inputEnabled = true;
+		this.lev3butt.inputEnabled = true;
+		this.lev4butt.inputEnabled = true;
+		this.tutbutt.events.onInputDown.add(this.tutorialclickevent, this);
+		
 		},
 		tutorialclickevent: function () {
-			level =1;
-        this.game.state.start('game');
+			level = 0;
+			this.game.state.start('Game');
+		},
+		leveloneclickevent: function () {
+			level = 1;
+			this.game.state.start('Game');
+		},
+		leveltwoclickevent: function () {
+			level = 2;
+			this.game.state.start('Game');
+		},
+		levelthreeclickevent:function () {
+			level = 3;
+			this.game.state.start('Game');
+		},
+		levelfourclickevent: function () {
+			level = 4;
+			this.game.state.start('Game');
 		},
 		update: function () {
 			
