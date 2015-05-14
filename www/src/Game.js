@@ -87,7 +87,7 @@ TMT.Game.prototype = {
         this.gameEnd();
     },
     /*
-		This will allow the game to dynamically adjust it's grid 
+		This will allow the game to dynamically adjust its grid 
 		according to level. Level initially starts off at -1 but will 
 		be changed according to the level select.
 	*/
