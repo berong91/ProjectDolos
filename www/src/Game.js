@@ -84,7 +84,7 @@ TMT.Game.prototype = {
         emitter.gravity = 200;
         
         //code snippet to test the gameEnd UI
-        //this.gameEnd();
+        this.gameEnd();
     },
     /*
 		This will allow the game to dynamically adjust it's grid 
@@ -416,9 +416,9 @@ TMT.Game.prototype = {
     },
     
 	postScore: function () {
-        $('#Name').val(prompt());
-        $('#Score').val(prompt());
-        alert($("#actionForm").serialize());
+        $('#Name').val("Guest");
+        $('#Score').val(count);
+        $("#actionForm").serialize();
         
         $("form").on("submit", function (e) {
             e.preventDefault();            
@@ -429,10 +429,6 @@ TMT.Game.prototype = {
                 success: function( data ) {
                     console.log("Success");
                 },
-                error: function(xhr, status, error) {
-                    // check status && error
-                    alert(xhr + "\n" +status + "\n" + error );
-                    },
             });
         });   
         $("form").submit();
