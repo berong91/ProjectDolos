@@ -31,6 +31,10 @@ TMT.LevelSelect.prototype = {
 		this.lev3butt.inputEnabled = true;
 		this.lev4butt.inputEnabled = true;
 		this.tutbutt.events.onInputDown.add(this.tutorialclickevent, this);
+		this.lev1butt.events.onInputDown.add(this.leveloneclickevent, this);
+		this.lev2butt.events.onInputDown.add(this.leveltwoclickevent, this);
+		this.lev3butt.events.onInputDown.add(this.levelthreeclickevent, this);
+		this.lev4butt.events.onInputDown.add(this.levelfourclickevent, this);
 		
 		},
 		tutorialclickevent: function () {
