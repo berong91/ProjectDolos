@@ -75,7 +75,7 @@ TMT.Game.prototype = {
         	if(count<=0){
             	text.text = 'Time\'s up!';
         	}
-			this.vehicles.forEach.kill();
+			this.vehicles.forEach.kill;
 		}
 		
 		//Allows the game to access the explosion animation.
