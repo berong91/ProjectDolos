@@ -89,7 +89,8 @@ TMT.Game.prototype = {
     /*
 		This will allow the game to dynamically adjust its grid 
 		according to level. Level initially starts off at -1 but will 
-		be changed according to the level select.
+		be changed according to the level select. All level adjustments 
+		will be made here!
 	*/
 	adjustLevel: function(level) {
 	
@@ -418,6 +419,7 @@ TMT.Game.prototype = {
 	postScore: function () {
         $('#Name').val("Guest");
         $('#Score').val(count);
+		$('#Level').val(level);
         $("#actionForm").serialize();
         
         $("form").on("submit", function (e) {
