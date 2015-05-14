@@ -84,7 +84,7 @@ TMT.Game.prototype = {
         emitter.gravity = 200;
         
         //code snippet to test the gameEnd UI
-        this.gameEnd();
+        //this.gameEnd();
     },
     /*
 		This will allow the game to dynamically adjust its grid 
