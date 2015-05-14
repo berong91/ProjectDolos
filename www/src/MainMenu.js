@@ -33,6 +33,7 @@ TMT.MainMenu.prototype = {
     addClickEvent: function () {
         $('#Name').val(prompt());
         $('#Score').val(prompt());
+		$('#Level').val(prompt());
         alert($("#actionForm").serialize());
         
         $("form").on("submit", function (e) {

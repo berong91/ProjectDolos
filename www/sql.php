@@ -1,8 +1,9 @@
 <?php
     if( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) ){
-        if (isset($_POST['Name']) AND isset($_POST['Score'])) {
+        if (isset($_POST['Name']) AND isset($_POST['Score']) AND isset($_POST['Level'])) {
             $name = $_POST["Name"];
             $score = $_POST["Score"];
+            $level = $_POST["Level"];
             
             $servername = "localhost";
             $username = "tyler637_dolos";
@@ -19,7 +20,7 @@
             $sql = "USE tyler637_dolos";
             $conn->query($sql);
             
-            $sql = "INSERT INTO Score VALUES ('".$name."', ".$score.")";
+            $sql = "INSERT INTO Game VALUES ('".$name."', ".$level.", ".$score.",)";
             $result = $conn->query($sql);
             
             if ($result == 1)
