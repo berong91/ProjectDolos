@@ -22,7 +22,7 @@ TMT.Preload.prototype = {
         this.load.image('level3', 'asset/images/SorryChris/level3.png');
         this.load.image('level4', 'asset/images/SorryChris/level4.png');
         this.load.image('tutorial', 'asset/images/SorryChris/tutorial.png');
-        this.load.image('peaks', 'asset/images/peaks.png');
+        this.load.image('peaks', 'asset/images/bgSmall.png');
         
         
         this.load.spritesheet('progress', 'asset/images/progress.png', 400, 40);
