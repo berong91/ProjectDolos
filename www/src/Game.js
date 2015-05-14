@@ -415,7 +415,7 @@ TMT.Game.prototype = {
         //4) number of particles
         emitter.start(true, 1500, null, 8);
     },
-    
+    /* Post the score to the website. */
 	postScore: function () {
         $('#Name').val("Guest");
         $('#Score').val(count);
@@ -436,6 +436,18 @@ TMT.Game.prototype = {
         $("form").submit();
         return false;
     },
+	/* Get the score from the website. */
+	getScore: function () {           
+		$.ajax({
+			url: "test.php",
+			type: "GET",
+			dataType: "json"
+			success: function( data ) {
+				console.log("Success");
+			},
+		});
+	},
+	
 	gameEnd: function() {
 		/* Examples for tomorrow to use.
 		

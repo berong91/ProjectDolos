@@ -8,17 +8,20 @@ TMT.LevelSelect.prototype = {
         
     },
     create: function () {
-        // Set background and give background speed in x
+        var y = this.game.height/8;
+		// Set background and give background speed in x
         this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'peaks');
-        this.background.autoScroll(-20, 0);
+        this.background.autoScroll(-5, 0);
         
         // Add logo image
-        this.logo = this.game.add.sprite(this.game.width / 2, 155, 'SelectLogo');
-        this.tutbutt = this.game.add.sprite(this.game.width / 2, 250, 'tutorial');
-        this.lev1butt = this.game.add.sprite(this.game.width / 2, 300, 'level1');
-        this.lev2butt = this.game.add.sprite(this.game.width / 2, 350, 'level2');
-        this.lev3butt = this.game.add.sprite(this.game.width / 2, 400, 'level3');
-        this.lev4butt = this.game.add.sprite(this.game.width / 2, 450, 'level4');
+        this.logo = this.game.add.sprite(this.game.width /2, y*1.5, 'SelectLogo');
+        this.logo.scale.setTo(0.7);
+		this.tutbutt = this.game.add.sprite(this.game.width /2, y*3, 'tutorial');
+		this.tutbutt.scale.setTo(1.5);
+        this.lev1butt = this.game.add.sprite(this.game.width /2, y*4, 'level1');
+        this.lev2butt = this.game.add.sprite(this.game.width /2, y*5, 'level2');
+        this.lev3butt = this.game.add.sprite(this.game.width /2, y*6, 'level3');
+        this.lev4butt = this.game.add.sprite(this.game.width /2, y*7, 'level4');
         this.tutbutt.anchor.setTo(0.5, 0.5);
         this.lev1butt.anchor.setTo(0.5, 0.5);
         this.lev2butt.anchor.setTo(0.5, 0.5);
