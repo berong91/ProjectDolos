@@ -57,7 +57,10 @@ TMT.Game.prototype = {
 		this.generateTrain();
 		
 		//This will create text in the top left of the game screen.
-		text = this.game.add.text(xloc/2, yloc/4, 'Time: ' + MAXTIME + '' , { fontSize: this.game.world.width/15+ 'px', fill: '#000' });
+		text = this.game.add.text(xloc/2, yloc/4, 'Time: ' + MAXTIME + '' , { fontSize: this.game.world.width/15+ 'px', fill: '#ffffff' });
+		text.stroke = '#000000';
+		text.strokeThickness = 6;
+		
 		count = MAXTIME;
         var counter= setInterval(timer, 1000); 
         
