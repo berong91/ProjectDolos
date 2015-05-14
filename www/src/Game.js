@@ -18,21 +18,18 @@ var scoreText;
 var emitter;
 
 //Scale for the entire game
-var theScale = 75;
+var theScale;
 
 //title screen
 TMT.Game = function () {};
 
 TMT.Game.prototype = {
-    create: function () {
-		
-		//Sets the dimensions of the game to the dimensions of the 
-		//"canvas" which is your entire game window.
-        this.game.world.setBounds(0, 0, this.game.width, this.game.height);
 
-        //set grid init position
-        xloc = this.game.world.width/2 - (theScale * 1.5);
-        yloc = this.game.world.height / 3;
+	
+	create: function () {
+		
+		//Game level modifier.
+		this.adjustLevel(level);
 
         //background
         this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'gamebg');
@@ -82,6 +79,40 @@ TMT.Game.prototype = {
 		//this.gameEnd();
     },
     /*
+		This will allow the game to dynamically adjust it's grid 
+		according to level. Level initially starts off at -1 but will 
+		be changed according to the level select.
+	*/
+	adjustLevel: function(level) {
+	
+		//Sets the dimensions of the game to the dimensions of the 
+		//"canvas" which is your entire game window.
+		this.game.world.setBounds(0, 0, this.game.width, this.game.height);
+
+		if (level === -1) {
+			theScale = 75;
+
+			//set grid init position
+			xloc = this.game.world.width/2 - (theScale * 1.5);
+			yloc = this.game.world.height / 3;
+		}
+		if (level === 0) {
+			theScale = 100;
+
+			//set grid init position
+			xloc = this.game.world.width/2 - (theScale * 0.5);
+			yloc = this.game.world.height/2 - (theScale * 0.5);
+		}
+		if (level === 1) {
+			theScale = 75;
+
+			//set grid init position
+			xloc = this.game.world.width/2 - (theScale * 1.5);
+			yloc = this.game.world.height / 3;
+		}
+	
+	},
+	/*
 		Create a plane. For now, only creates one plane as referenced 
 		by this.plane
 	*/
@@ -358,7 +389,7 @@ TMT.Game.prototype = {
 		
 		var menu = this.game.add.sprite(this.game.world.width /2 - 150, this.game.height * 0.4, 'continueUp');
 		var retry = this.game.add.sprite(this.game.world.width /2 - 150, this.game.height * 0.4+105, 'backUp');
-		var result = this.game.add.text(this.game.world.width /2 - 150, yloc*.50, 'Result is PANTS' , { fontSize: this.game.world.width/10+ 'px', fill: '#F00' });
+		var result = this.game.add.text(this.game.world.width /2 - 150, yloc*0.50, 'Result is PANTS' , { fontSize: this.game.world.width/10+ 'px', fill: '#F00' });
 	}
 	
 };
