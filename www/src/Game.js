@@ -1,14 +1,17 @@
 var TMT = TMT || {};
 
-//Anchors for the grid. 
+//Grid variables 
 var xloc;
 var yloc;
+var rows;
+var cols;
 
 var blocks = [];
 var vehicles = [];
 
 //Time Elapsed variables
 var count;
+var MAXTIME;
 var text;
 
 //Score text
@@ -49,11 +52,8 @@ TMT.Game.prototype = {
 		this.generateTrain();
 		
 		//This will create text in the top left of the game screen.
-		text = this.game.add.text(xloc/2, yloc/4, 'Time: 60' , { fontSize: this.game.world.width/15+ 'px', fill: '#FFF' });
-
-		
-        //timer function-starts at 60, decrements one every 1000 ms
-        count=60;
+		text = this.game.add.text(xloc/2, yloc/4, 'Time: ' + MAXTIME + '' , { fontSize: this.game.world.width/15+ 'px', fill: '#FFF' });
+		count = MAXTIME;
         var counter= setInterval(timer, 1000); 
         
 		/*
@@ -88,17 +88,23 @@ TMT.Game.prototype = {
 		//Sets the dimensions of the game to the dimensions of the 
 		//"canvas" which is your entire game window.
 		this.game.world.setBounds(0, 0, this.game.width, this.game.height);
-
+		
+		//level = 0;
 		if (level === -1) {
+			MAXTIME = 20;
 			theScale = 75;
-
-			//set grid init position
+						
+			//set grid init position and grid elements
 			xloc = this.game.world.width/2 - (theScale * 1.5);
 			yloc = this.game.world.height / 3;
+			rows = 3;
+			cols = 3;
 		}
 		if (level === 0) {
+			MAXTIME = 30;
 			theScale = 100;
-
+			rows = 1;
+			cols = 1;
 			//set grid init position
 			xloc = this.game.world.width/2 - (theScale * 0.5);
 			yloc = this.game.world.height/2 - (theScale * 0.5);
@@ -185,24 +191,28 @@ TMT.Game.prototype = {
         this.blocks.enableBody = true;
 
         //phaser's random number generator
-        var numBlocks = 9;
+        var numBlocks = cols * rows;
         var current;
 
-		var blank = 0;
+		var col = 1;
 		var x = xloc;
 		var y = yloc;
         for (var i = 0; i < numBlocks; i++) {
             //add sprite
             current = this.blocks.create(x, y, 'terrain');
 
-
+			//x location of next tile is the next scaled tile.
             x += theScale;
-            if (blank++ === 2) {
+            
+			//If the number of current columns match the desired amount 
+			//of columns, switch the x back and move the y position. 
+			if (col++ === cols) {
                 x = xloc;
                 y += theScale;
-				blank = 0;
+				col = 1;
             }
 
+			//Change the scale of the tile from 100px.
             current.scale.setTo(theScale / 100);
 
             //physics properties
@@ -259,7 +269,7 @@ TMT.Game.prototype = {
             if(!vehicle.dead)
                 this.explosion(vehicle);
             vehicle.dead = true;
-			vehicle.destroy();
+			vehicle.kill();
         }
 	},
 	
@@ -268,28 +278,29 @@ TMT.Game.prototype = {
 		until the player wins the level.
 	*/
     progressBar: function() {
+		var percent = Math.floor(MAXTIME / count);
 		switch(count) {
-			case 60: this.progbar.frame = 10;
+			case 100: this.progbar.frame = 10;
 			break;
-			case 59: this.progbar.frame = 9;
+			case 90: this.progbar.frame = 9;
 			break;
-			case 58: this.progbar.frame = 8;
+			case 80: this.progbar.frame = 8;
 			break;
-			case 57: this.progbar.frame = 7;
+			case 70: this.progbar.frame = 7;
 			break;
-			case 56: this.progbar.frame = 6;
+			case 60: this.progbar.frame = 6;
 			break;
-			case 55: this.progbar.frame = 5;
+			case 50: this.progbar.frame = 5;
 			break;
-			case 54: this.progbar.frame = 4;
+			case 40: this.progbar.frame = 4;
 			break;
-			case 53: this.progbar.frame = 3;
+			case 30: this.progbar.frame = 3;
 			break;
-			case 52: this.progbar.frame = 2;
+			case 20: this.progbar.frame = 2;
 			break;
-			case 51: this.progbar.frame = 1;
+			case 10: this.progbar.frame = 1;
 			break;
-			case 50: this.progbar.frame = 0;
+			case 1: this.progbar.frame = 0;
 			break;
 		}
 	},
