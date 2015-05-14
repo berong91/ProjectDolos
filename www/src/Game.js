@@ -171,7 +171,7 @@ TMT.Game.prototype = {
 	*/
     generateBoat: function () {	
         //Display settings for the boat.
-        this.boat = this.vehicles.create(xloc - (theScale), yloc, 'boat1', 2);
+        this.boat = this.vehicles.create(xloc - 100, yloc, 'boat1', 2);
         this.boat.scale.setTo(theScale/100);
         this.boat.frame = 0;
 
