@@ -17,19 +17,22 @@ var scoreText;
 //emitter for the explosion for vehicle collisions
 var emitter;
 
+//Scale for the entire game
+var theScale = 75;
+
 //title screen
 TMT.Game = function () {};
 
 TMT.Game.prototype = {
     create: function () {
-
+		
 		//Sets the dimensions of the game to the dimensions of the 
 		//"canvas" which is your entire game window.
         this.game.world.setBounds(0, 0, this.game.width, this.game.height);
 
         //set grid init position
-        xloc = ((this.game.world.width / 2) - 150);
-        yloc = (this.game.world.height / 2) - (0.0625 * this.game.world.height);
+        xloc = this.game.world.width/2 - (theScale * 1.5);
+        yloc = this.game.world.height / 3;
 
         //background
         this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'gamebg');
@@ -38,7 +41,8 @@ TMT.Game.prototype = {
         this.generateBlocks();
 		
 		//adding the loading bar sprite
-		this.progbar = this.game.add.sprite(this.game.world.width/2 - 200, this.game.height * 0.85, 'progress');
+		this.progbar = this.game.add.sprite(xloc, this.game.height * 0.85, 'progress');
+		this.progbar.scale.setTo((theScale*3)/400);
 		
 		//attempt at making vehicles group
 		this.vehicles = this.game.add.group();
@@ -48,7 +52,7 @@ TMT.Game.prototype = {
 		this.generateTrain();
 		
 		//This will create text in the top left of the game screen.
-		text = this.game.add.text(50, 50, 'Time remaining: 60 seconds' , { fontSize: '32px', fill: '#FFF' });
+		text = this.game.add.text(xloc/2, yloc/4, 'Time: 60' , { fontSize: this.game.world.width/15+ 'px', fill: '#FFF' });
 
 		
         //timer function-starts at 60, decrements one every 1000 ms
@@ -62,10 +66,11 @@ TMT.Game.prototype = {
 		*/
 		function timer(){
         	count--;
-        	text.text = 'Time remaining: ' + count + ' seconds';
+        	text.text = 'Time: ' + count;
         	if(count<=0){
             	text.text = 'Time\'s up!';
         	}
+			this.vehicles.forEach.kill();
 		}
 		
 		//Allows the game to access the explosion animation.
@@ -73,8 +78,7 @@ TMT.Game.prototype = {
         emitter.makeParticles('fire');
         emitter.gravity = 200;
 		
-	
-
+		//this.gameEnd();
     },
     /*
 		Create a plane. For now, only creates one plane as referenced 
@@ -82,8 +86,8 @@ TMT.Game.prototype = {
 	*/
     generatePlane: function () {
         //Display setting for the plane.
-        this.plane = this.vehicles.create(xloc - 150, blocks[0].y + 100, 'plane1', 2);
-        this.plane.scale.setTo(1);
+        this.plane = this.vehicles.create(xloc - 150, yloc + theScale, 'plane1', 2);
+        this.plane.scale.setTo(theScale/100);
         this.plane.frame = 0;
         
 		this.plane.life = 3;
@@ -102,8 +106,8 @@ TMT.Game.prototype = {
 	*/
     generateBoat: function () {	
         //Display settings for the boat.
-        this.boat = this.vehicles.create(xloc - 150, blocks[0].y, 'boat1', 2);
-        this.boat.scale.setTo(1);
+        this.boat = this.vehicles.create(xloc - 150, yloc, 'boat1', 2);
+        this.boat.scale.setTo(theScale/100);
         this.boat.frame = 0;
 
 		this.boat.life = 3;
@@ -122,8 +126,8 @@ TMT.Game.prototype = {
 	*/
     generateTrain: function () {
 		//Display settings for the train.
-        this.train = this.vehicles.create(xloc - 150, blocks[0].y + 200, 'train1', 2);
-        this.train.scale.setTo(1);
+        this.train = this.vehicles.create(xloc - 150, yloc + (theScale*2), 'train1', 2);
+        this.train.scale.setTo(theScale/100);
         this.train.frame = 0;
 
 		this.train.life = 3;
@@ -152,18 +156,22 @@ TMT.Game.prototype = {
         var numBlocks = 9;
         var current;
 
+		var blank = 0;
+		var x = xloc;
+		var y = yloc;
         for (var i = 0; i < numBlocks; i++) {
             //add sprite
-            current = this.blocks.create(xloc, yloc, 'terrain');
+            current = this.blocks.create(x, y, 'terrain');
 
 
-            xloc += 100;
-            if (xloc === ((this.game.world.width / 2) + 150)) {
-                xloc = ((this.game.world.width / 2) - 150);
-                yloc += 100;
+            x += theScale;
+            if (blank++ === 2) {
+                x = xloc;
+                y += theScale;
+				blank = 0;
             }
 
-            current.scale.setTo(1);
+            current.scale.setTo(theScale / 100);
 
             //physics properties
             current.body.velocity.x = 0;
@@ -198,11 +206,11 @@ TMT.Game.prototype = {
 		
 		//Checks whether or not the vehicle has been "allowed to move."
 		if(this.plane.moving)
-			this.plane.body.velocity.x = 80;
+			this.plane.body.velocity.x = this.game.width/10;
 		if(this.boat.moving)
-			this.boat.body.velocity.x = 80;
+			this.boat.body.velocity.x = this.game.width/15;
 		if(this.train.moving)
-			this.train.body.velocity.x = 80;
+			this.train.body.velocity.x = this.game.width/12;
 		
 		//Overlap that allows all members of vehicles to interact with 
 		//tiles.
@@ -250,7 +258,6 @@ TMT.Game.prototype = {
 			case 51: this.progbar.frame = 1;
 			break;
 			case 50: this.progbar.frame = 0;
-			this.plane.kill();
 			break;
 		}
 	},
@@ -338,8 +345,8 @@ TMT.Game.prototype = {
         emitter.start(true, 1500, null, 8);
     },
     
-	victory: function() {
-			
+	gameEnd: function() {
+		var win = this.game.add.sprite(this.game.world.width * .05, this.game.height * 0.05, 'scorebg');	
 	}
 	
 };
