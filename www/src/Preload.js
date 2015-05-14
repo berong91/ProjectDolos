@@ -11,11 +11,19 @@ TMT.Preload.prototype = {
         this.load.image('startButton', 'asset/images/buttons/startDown.png');
         this.load.image('logo', 'asset/images/logo.png');
         this.load.image('fire', 'asset/images/fire.png');
-        this.load.image('scorebg', 'asset/images/Scorebg.png');
         this.load.image('backUp', 'asset/images/buttons/backUp.png');
         this.load.image('backDown', 'asset/images/buttons/backDown.png');
         this.load.image('continueDown', 'asset/images/buttons/continueDown.png');
         this.load.image('continueUp', 'asset/images/buttons/continueUp.png');
+		this.load.image('levelselect', 'asset/images/levelselect.png');
+		this.load.image('SelectLogo', 'asset/images/SorryChris/SelectLogo.png');
+		this.load.image('level1', 'asset/images/SorryChris/level1.png');
+		this.load.image('level2', 'asset/images/SorryChris/level2.png');
+		this.load.image('level3', 'asset/images/SorryChris/level3.png');
+		this.load.image('level4', 'asset/images/SorryChris/level4.png');
+		this.load.image('tutorial', 'asset/images/SorryChris/Tutorial.png');
+		this.load.image('peaks', 'asset/images/Peaks.png');
+		
         
         this.load.spritesheet('progress', 'asset/images/progress.png', 400, 40);
         this.load.spritesheet('terrain', 'asset/images/spritesheets/terrain100.png', 100, 100);
