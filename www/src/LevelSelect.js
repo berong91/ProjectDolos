@@ -31,32 +31,36 @@ TMT.LevelSelect.prototype = {
         this.lev3butt.inputEnabled = true;
         this.lev4butt.inputEnabled = true;
         this.tutbutt.events.onInputDown.add(this.tutorialclickevent, this);
+        this.lev1butt.events.onInputDown.add(this.leveloneclickevent, this);
+        this.lev2butt.events.onInputDown.add(this.leveltwoclickevent, this);
+        this.lev3butt.events.onInputDown.add(this.levelthreeclickevent, this);
+        this.lev4butt.events.onInputDown.add(this.levelfourclickevent, this);
         
-        },
-        tutorialclickevent: function () {
-    level = 0;
-    this.game.state.start('Game');
-        },
-        leveloneclickevent: function () {
-    level = 1;
-    this.game.state.start('Game');
-        },
-        leveltwoclickevent: function () {
-    level = 2;
-    this.game.state.start('Game');
-        },
-        levelthreeclickevent:function () {
-    level = 3;
-    this.game.state.start('Game');
-        },
-        levelfourclickevent: function () {
-    level = 4;
-    this.game.state.start('Game');
-        },
-        update: function () {
-    
-        },
-        startClickEvent: function () {
+    },
+    tutorialclickevent: function () {
+        level = 0;
         this.game.state.start('Game');
-        },
+    },
+    leveloneclickevent: function () {
+        level = 1;
+        this.game.state.start('Game');
+    },
+    leveltwoclickevent: function () {
+        level = 2;
+        this.game.state.start('Game');
+    },
+    levelthreeclickevent:function () {
+        level = 3;
+        this.game.state.start('Game');
+    },
+    levelfourclickevent: function () {
+        level = 4;
+        this.game.state.start('Game');
+    },
+    update: function () {
+        
+    },
+    startClickEvent: function () {
+        this.game.state.start('Game');
+    },
 };
