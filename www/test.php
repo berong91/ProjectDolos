@@ -32,7 +32,7 @@
     } else {
             echo "0 results";
     }
-    echo "End of php"."<br>";
+    echo "End of php"."<br><br>";
     $conn->close();
 ?>
 <html>
