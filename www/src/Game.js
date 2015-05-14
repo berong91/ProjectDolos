@@ -78,6 +78,7 @@ TMT.Game.prototype = {
         emitter.makeParticles('fire');
         emitter.gravity = 200;
 		
+		//code snippet to test the gameEnd UI
 		//this.gameEnd();
     },
     /*
@@ -227,7 +228,7 @@ TMT.Game.prototype = {
             if(!vehicle.dead)
                 this.explosion(vehicle);
             vehicle.dead = true;
-			vehicle.kill();
+			vehicle.destroy();
         }
 	},
 	
@@ -346,7 +347,18 @@ TMT.Game.prototype = {
     },
     
 	gameEnd: function() {
-		var win = this.game.add.sprite(this.game.world.width * .05, this.game.height * 0.05, 'scorebg');	
+		/* Examples for tomorrow to use.
+		
+		startClickEvent: function () {
+        	this.game.state.start('Game');
+    	},
+			this.startButton = this.game.add.button(this.game.width / 2, 400, 'startButton', this.startClickEvent, this);
+		
+		*/
+		
+		var menu = this.game.add.sprite(this.game.world.width /2 - 150, this.game.height * 0.4, 'continueUp');
+		var retry = this.game.add.sprite(this.game.world.width /2 - 150, this.game.height * 0.4+105, 'backUp');
+		var result = this.game.add.text(this.game.world.width /2 - 150, yloc*.50, 'Result is PANTS' , { fontSize: this.game.world.width/10+ 'px', fill: '#F00' });
 	}
 	
 };
