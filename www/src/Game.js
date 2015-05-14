@@ -40,7 +40,7 @@ TMT.Game.prototype = {
 		this.adjustLevel(level);
 
         //background
-        this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'gamebg');
+        this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'peaks');
 
         // Generate all the blocks
         this.generateBlocks();
@@ -57,7 +57,7 @@ TMT.Game.prototype = {
 		this.generateTrain();
 		
 		//This will create text in the top left of the game screen.
-		text = this.game.add.text(xloc/2, yloc/4, 'Time: ' + MAXTIME + '' , { fontSize: this.game.world.width/15+ 'px', fill: '#FFF' });
+		text = this.game.add.text(xloc/2, yloc/4, 'Time: ' + MAXTIME + '' , { fontSize: this.game.world.width/15+ 'px', fill: '#000' });
 		count = MAXTIME;
         var counter= setInterval(timer, 1000); 
         
@@ -113,7 +113,7 @@ TMT.Game.prototype = {
 			
 			//adjust variables here
 			MAXTIME = 30;
-			theScale = 100;
+			theScale = 70;
 			rows = 1;
 			cols = 3;
 			
@@ -168,7 +168,7 @@ TMT.Game.prototype = {
 	*/
     generateBoat: function () {	
         //Display settings for the boat.
-        this.boat = this.vehicles.create(xloc - 150, yloc, 'boat1', 2);
+        this.boat = this.vehicles.create(xloc - (theScale), yloc, 'boat1', 2);
         this.boat.scale.setTo(theScale/100);
         this.boat.frame = 0;
 
