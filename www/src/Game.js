@@ -6,6 +6,11 @@ var yloc;
 var rows;
 var cols;
 
+//vehicle speed
+var trainSpeed;
+var planeSpeed;
+var boatSpeed;
+
 var blocks = [];
 var vehicles = [];
 
@@ -89,32 +94,49 @@ TMT.Game.prototype = {
 		//"canvas" which is your entire game window.
 		this.game.world.setBounds(0, 0, this.game.width, this.game.height);
 		
-		//level = 0;
+		//level = 1;
 		if (level === -1) {
 			MAXTIME = 20;
 			theScale = 75;
-						
+			
+			//vehicle speed
+			planeSpeed = this.game.width/10;
+			boatSpeed = this.game.width/15;
+			trainSpeed = this.game.width/12;
+			
 			//set grid init position and grid elements
 			xloc = this.game.world.width/2 - (theScale * 1.5);
 			yloc = this.game.world.height / 3;
-			rows = 3;
-			cols = 3;
+			rows = cols = 3;
 		}
 		if (level === 0) {
 			MAXTIME = 30;
 			theScale = 100;
 			rows = 1;
 			cols = 1;
+			
+			//vehicle speed
+			planeSpeed = this.game.width/10;
+			boatSpeed = this.game.width/15;
+			trainSpeed = this.game.width/12;
+			
 			//set grid init position
 			xloc = this.game.world.width/2 - (theScale * 0.5);
 			yloc = this.game.world.height/2 - (theScale * 0.5);
 		}
 		if (level === 1) {
+			MAXTIME = 20;
 			theScale = 75;
-
-			//set grid init position
+			
+			//vehicle speed
+			planeSpeed = this.game.width/10;
+			boatSpeed = this.game.width/15;
+			trainSpeed = this.game.width/12;
+			
+			//set grid init position and grid elements
 			xloc = this.game.world.width/2 - (theScale * 1.5);
 			yloc = this.game.world.height / 3;
+			rows = cols = 3;
 		}
 	
 	},
@@ -248,11 +270,11 @@ TMT.Game.prototype = {
 		
 		//Checks whether or not the vehicle has been "allowed to move."
 		if(this.plane.moving)
-			this.plane.body.velocity.x = this.game.width/10;
+			this.plane.body.velocity.x = planeSpeed;
 		if(this.boat.moving)
-			this.boat.body.velocity.x = this.game.width/15;
+			this.boat.body.velocity.x = boatSpeed;
 		if(this.train.moving)
-			this.train.body.velocity.x = this.game.width/12;
+			this.train.body.velocity.x = trainSpeed;
 		
 		//Overlap that allows all members of vehicles to interact with 
 		//tiles.
@@ -278,8 +300,8 @@ TMT.Game.prototype = {
 		until the player wins the level.
 	*/
     progressBar: function() {
-		var percent = Math.floor(MAXTIME / count);
-		switch(count) {
+		var percent = Math.floor(count / MAXTIME * 100);
+		switch(percent) {
 			case 100: this.progbar.frame = 10;
 			break;
 			case 90: this.progbar.frame = 9;
@@ -300,7 +322,7 @@ TMT.Game.prototype = {
 			break;
 			case 10: this.progbar.frame = 1;
 			break;
-			case 1: this.progbar.frame = 0;
+			case 0: this.progbar.frame = 0;
 			break;
 		}
 	},
