@@ -75,9 +75,9 @@ minus money, vehicle slows
 End of level
 when timer==0, check:
 if(numberOfCrashes <= (THRESHHOLD)){
-	win;
+    win;
 }else{
-	lose;
+    lose;
 } 
 */
 
