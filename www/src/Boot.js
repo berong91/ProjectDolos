@@ -52,8 +52,8 @@ TMT.Boot.prototype = {
         explosionSound = this.game.add.audio('explosion');
         switchSound = this.game.add.audio('switch');
         this.sound.setDecodedCallback([bgSound, explosionSound, switchSound], this.startBgMusic, this);
-        
-        this.game.time.events.add(Phaser.Timer.SECOND * 5, this.finish, this);
+        this.finish();
+        //this.game.time.events.add(Phaser.Timer.SECOND * 5, this.finish, this);
     },
     startBgMusic: function(){
         bgSound.loopFull(0.6);
