@@ -2,6 +2,7 @@ var TMT = TMT || {};
 
 // Global variables for game music
 var bgSound;
+var level;
 var explosionSound;
 var switchSound;
 

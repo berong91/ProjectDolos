@@ -28,7 +28,7 @@ TMT.MainMenu.prototype = {
         }
     },
     startClickEvent: function () {
-        this.game.state.start('Game');
+        this.game.state.start('LevelSelect');
     },
     addClickEvent: function () {
         $('#Name').val(prompt());
