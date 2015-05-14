@@ -11,6 +11,9 @@ var vehicles = [];
 var count;
 var text;
 
+//Score text
+var scoreText;
+
 //emitter for the explosion for vehicle collisions
 var emitter;
 
@@ -47,6 +50,7 @@ TMT.Game.prototype = {
 		//This will create text in the top left of the game screen.
 		text = this.game.add.text(50, 50, 'Time remaining: 60 seconds' , { fontSize: '32px', fill: '#FFF' });
 
+		
         //timer function-starts at 60, decrements one every 1000 ms
         count=60;
         var counter= setInterval(timer, 1000); 
@@ -89,6 +93,8 @@ TMT.Game.prototype = {
 		//add physics to the new plane.
         this.game.physics.arcade.enable(this.plane);
         this.plane.body.overlapWorldBounds = true;
+		this.plane.body.width = this.plane.body.width / 2;
+    	this.plane.body.height = this.plane.body.height / 2;
 	},
     /*
 		Create a boat. For now, only creates one boat as referenced by
@@ -107,6 +113,8 @@ TMT.Game.prototype = {
         //add physics to the new boat.
         this.game.physics.arcade.enable(this.boat);
         this.boat.body.overlapWorldBounds = true;
+		this.boat.body.width = this.boat.body.width / 2;
+    	this.boat.body.height = this.boat.body.height / 2;
     },
     /*
 		Create train. For now, only creates one train as referenced by
@@ -125,7 +133,8 @@ TMT.Game.prototype = {
         //Add physics to the new train.
         this.game.physics.arcade.enable(this.train);
         this.train.body.overlapWorldBounds = true;
-		
+		this.train.body.width = this.train.body.width / 2;
+    	this.train.body.height = this.train.body.height / 2;
     },
 
 	enableMoving: function(vehicle) {
@@ -186,12 +195,14 @@ TMT.Game.prototype = {
 		
 		//Sounds must be called inside of this function either directly
 		//or with another function entirely (except create and preload)
+		
+		//Checks whether or not the vehicle has been "allowed to move."
 		if(this.plane.moving)
 			this.plane.body.velocity.x = 80;
 		if(this.boat.moving)
-			this.boat.body.velocity.x = 60;
+			this.boat.body.velocity.x = 80;
 		if(this.train.moving)
-			this.train.body.velocity.x = 70;
+			this.train.body.velocity.x = 80;
 		
 		//Overlap that allows all members of vehicles to interact with 
 		//tiles.
@@ -220,25 +231,25 @@ TMT.Game.prototype = {
 		switch(count) {
 			case 60: this.progbar.frame = 10;
 			break;
-			case 54: this.progbar.frame = 9;
+			case 59: this.progbar.frame = 9;
 			break;
-			case 48: this.progbar.frame = 8;
+			case 58: this.progbar.frame = 8;
 			break;
-			case 42: this.progbar.frame = 7;
+			case 57: this.progbar.frame = 7;
 			break;
-			case 36: this.progbar.frame = 6;
+			case 56: this.progbar.frame = 6;
 			break;
-			case 30: this.progbar.frame = 5;
+			case 55: this.progbar.frame = 5;
 			break;
-			case 24: this.progbar.frame = 4;
+			case 54: this.progbar.frame = 4;
 			break;
-			case 18: this.progbar.frame = 3;
+			case 53: this.progbar.frame = 3;
 			break;
-			case 12: this.progbar.frame = 2;
+			case 52: this.progbar.frame = 2;
 			break;
-			case 6: this.progbar.frame = 1;
+			case 51: this.progbar.frame = 1;
 			break;
-			case 0: this.progbar.frame = 0;
+			case 50: this.progbar.frame = 0;
 			this.plane.kill();
 			break;
 		}
@@ -275,9 +286,9 @@ TMT.Game.prototype = {
     */
 	onDown: function (tile, pointer) {
         if (!this.train.moving){
-			setTimeout(this.enableMoving(this.train), 3);
-			setTimeout(this.enableMoving(this.plane), 3);
-			setTimeout(this.enableMoving(this.boat), 3);
+			setTimeout(this.enableMoving(this.train), 300000000);
+			setTimeout(this.enableMoving(this.plane), 300000);
+			setTimeout(this.enableMoving(this.boat), 23400);
 		}
 		switchSound.play();
         if (tile.frame < 2)
@@ -295,16 +306,16 @@ TMT.Game.prototype = {
 		explosionSound.play();
 		switch(vehicle.frame){
 			case 0: //vehicle is going right
-				vehicle.body.x = vehicle.body.x - 50;
+				vehicle.body.x = vehicle.body.x - 100;
 				break;
 			case 1: //vehicle is going down
-				vehicle.body.y = vehicle.body.y - 50;
+				vehicle.body.y = vehicle.body.y - 100;
 				break;
 			case 2: //vehicle is going left
-				vehicle.body.x = vehicle.body.x + 50;
+				vehicle.body.x = vehicle.body.x + 100;
 				break;
 			case 3: //vehicle is going up
-				vehicle.body.y = vehicle.body.x + 50;
+				vehicle.body.y = vehicle.body.x + 100;
 				break;
 		}
 		vehicle.life--;
@@ -327,4 +338,8 @@ TMT.Game.prototype = {
         emitter.start(true, 1500, null, 8);
     },
     
+	victory: function() {
+			
+	}
+	
 };
