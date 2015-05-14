@@ -97,7 +97,7 @@ TMT.Game.prototype = {
 		//"canvas" which is your entire game window.
 		this.game.world.setBounds(0, 0, this.game.width, this.game.height);
 		
-		//level = 1;
+		//level = -1;
 		if (level === -1) {
 			MAXTIME = 20;
 			theScale = 75;
