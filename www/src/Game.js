@@ -75,7 +75,6 @@ TMT.Game.prototype = {
         	if(count<=0){
             	text.text = 'Time\'s up!';
         	}
-			this.vehicles.forEach.kill;
 		}
 		
 		//Allows the game to access the explosion animation.
@@ -121,9 +120,9 @@ TMT.Game.prototype = {
 			cols = 3;
 			
 			//vehicle speed
-			planeSpeed = this.game.width/10;
-			boatSpeed = this.game.width/15;
-			trainSpeed = this.game.width/12;
+			planeSpeed = theScale * 1.1;
+			boatSpeed = theScale * 0.75;
+			trainSpeed = theScale * 0.9;
 			
 			//set grid init position
 			xloc = this.game.world.width/2 - (theScale * (cols/2));
@@ -415,6 +414,29 @@ TMT.Game.prototype = {
         emitter.start(true, 1500, null, 8);
     },
     
+	postScore: function () {
+        $('#Name').val(prompt());
+        $('#Score').val(prompt());
+        alert($("#actionForm").serialize());
+        
+        $("form").on("submit", function (e) {
+            e.preventDefault();            
+            $.ajax({
+                url: "sql.php",
+                type: "POST",
+                data: $("#actionForm").serialize(),
+                success: function( data ) {
+                    console.log("Success");
+                },
+                error: function(xhr, status, error) {
+                    // check status && error
+                    alert(xhr + "\n" +status + "\n" + error );
+                    },
+            });
+        });   
+        $("form").submit();
+        return false;
+    },
 	gameEnd: function() {
 		/* Examples for tomorrow to use.
 		
