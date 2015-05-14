@@ -110,10 +110,12 @@ TMT.Game.prototype = {
 			rows = cols = 3;
 		}
 		if (level === 0) {
+			
+			//adjust variables here
 			MAXTIME = 30;
 			theScale = 100;
 			rows = 1;
-			cols = 1;
+			cols = 3;
 			
 			//vehicle speed
 			planeSpeed = this.game.width/10;
@@ -121,8 +123,8 @@ TMT.Game.prototype = {
 			trainSpeed = this.game.width/12;
 			
 			//set grid init position
-			xloc = this.game.world.width/2 - (theScale * 0.5);
-			yloc = this.game.world.height/2 - (theScale * 0.5);
+			xloc = this.game.world.width/2 - (theScale * (cols/2));
+			yloc = this.game.world.height/2 - (theScale * (rows/2));
 		}
 		if (level === 1) {
 			MAXTIME = 20;
