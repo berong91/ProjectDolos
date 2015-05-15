@@ -416,7 +416,7 @@ TMT.Game.prototype = {
         emitter.start(true, 1500, null, 8);
     },
     /* Post the score to the website. */
-	postScore: function () {
+	/*postScore: function () {
         $('#Name').val("Guest");
         $('#Score').val(count);
 		$('#Level').val(level);
@@ -435,9 +435,9 @@ TMT.Game.prototype = {
         });   
         $("form").submit();
         return false;
-    },
+    },*/
 	/* Get the score from the website. */
-	getScore: function () {           
+	/*getScore: function () {           
 		$.ajax({
 			url: "test.php",
 			type: "GET",
@@ -446,7 +446,7 @@ TMT.Game.prototype = {
 				console.log("Success");
 			},
 		});
-	},
+	},*/
 	
 	gameEnd: function() {
 		/* Examples for tomorrow to use.
