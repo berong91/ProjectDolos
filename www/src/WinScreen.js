@@ -20,15 +20,23 @@ TMT.WinScreen.prototype={
         this.logo=this.game.add.sprite(this.game.width/2,y*1.5,'gameend');
         this.logo.scale.setTo(0.7);
         this.logo.anchor.setTo(0.5,0.5);        
+        
+        // Add back button
+        this.backButton = this.game.add.button(this.game.width / 2, y*5, 'backUp', this.backClickEvent, this);
+        this.backButton.anchor.setTo(0.5, 0.8);
+        this.backButton.scale.set(0.5, 0.5);
     },
     update: function(){
         if(name || name.length !== 0){
-            this.game.add.text(this.game.width / 2 - 150, y * 4, 'Hello ' + name,
+            this.game.add.text(this.game.width / 2 - 170, y * 3, 'Hello ' + name,
             { font: "32px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
             name = "";
         }
     },
     startClickEvent:function(){
+        this.game.state.start('MainMenu');
+    },
+    backClickEvent: function(){
         this.game.state.start('MainMenu');
     },
     generateRandomName:function(){

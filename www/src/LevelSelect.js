@@ -40,7 +40,7 @@ TMT.LevelSelect.prototype = {
         this.lev3butt.events.onInputDown.add(this.levelthreeclickevent, this);
         this.lev4butt.events.onInputDown.add(this.levelfourclickevent, this);
         
-        // Add leader board button
+        // Add back button
         this.backButton = this.game.add.button(this.game.width / 2, y*7.5, 'backUp', this.backClickEvent, this);
         this.backButton.anchor.setTo(0.5, 0.8);
         this.backButton.scale.set(0.5, 0.5);
