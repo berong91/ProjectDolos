@@ -34,17 +34,17 @@ var theScale;
 TMT.Game = function () {};
 
 TMT.Game.prototype = {
-
+    
     
     create: function () {
         
         //Game level modifier.
         this.adjustLevel(level);
-
+        
         //background
         this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'peaks');
 		//this.background.autoScroll(-2, 0);
-
+        
         // Generate all the blocks
         this.generateBlocks();
         
@@ -61,8 +61,8 @@ TMT.Game.prototype = {
         if (level !== 0) {
 			this.generateVehicle(xloc + (theScale*2) + 100, yloc+(theScale*2), 2, 'train1');
 			this.generateVehicle(xloc - 100, yloc+theScale, 0, 'plane1');
-		}
-			
+        }
+        
         //This will create text in the top left of the game screen.
         text = this.game.add.text(xloc/2, yloc/4, 'Time: ' + MAXTIME + '' , { fontSize: this.game.world.width/15+ 'px', fill: '#ffffff' });
         text.stroke = '#000000';
@@ -71,18 +71,23 @@ TMT.Game.prototype = {
         count = MAXTIME;
         var counter= setInterval(timer, 1000); 
         
+        // Add leader board button
+        this.backButton = this.game.add.button(xloc/2 + 500, yloc/4 + 50, 'backUp', this.backClickEvent, this);
+        this.backButton.anchor.setTo(0.5, 0.8);
+        this.backButton.scale.set(0.5, 0.5);
+        
 		/*
 			This will run a timer that will update the text in the top 
 			left of the game screen to reflect the time left in the 
 			timer. (Inside of create function)
-		*/
+        */
 		function timer(){
         	count--;
         	text.text = 'Time: ' + count;
         	if(count<=0){
             	text.text = 'Time\'s up!';
-        	}
-		}
+            }
+        }
 		
 		//Allows the game to access the explosion animation.
         emitter = this.game.add.emitter(0,0,10);
@@ -92,14 +97,17 @@ TMT.Game.prototype = {
         //code snippet to test the gameEnd UI
         //this.gameEnd();
     },
+    backClickEvent: function(){
+        this.game.state.start('MainMenu');
+    },
     /*
 		This will allow the game to dynamically adjust its grid 
 		according to level. Level initially starts off at -1 but will 
 		be changed according to the level select. All level adjustments 
 		will be made here!
-	*/
+    */
 	adjustLevel: function(level) {
-	
+        
 		//Sets the dimensions of the game to the dimensions of the 
 		//"canvas" which is your entire game window.
 		this.game.world.setBounds(0, 0, this.game.width, this.game.height);
@@ -119,11 +127,11 @@ TMT.Game.prototype = {
 			xloc = this.game.world.width/2 - (theScale * 1.5);
 			yloc = this.game.world.height / 3;
 			rows = cols = 3;
-		}
+        }
 		if (level === 0) {
 			
 			//adjust variables here
-			MAXTIME = 30;
+			MAXTIME = 10;
 			theScale = 70;
 			rows = 1;
 			cols = 3;
@@ -136,7 +144,7 @@ TMT.Game.prototype = {
 			//set grid init position
 			xloc = this.game.world.width/2 - (theScale * (cols/2));
 			yloc = this.game.world.height/2 - (theScale * (rows/2));
-		}
+        }
 		if (level === 1) {
 			MAXTIME = 20;
 			theScale = 75;
@@ -150,9 +158,9 @@ TMT.Game.prototype = {
 			xloc = this.game.world.width/2 - (theScale * 1.5);
 			yloc = this.game.world.height / 3;
 			rows = cols = 3;
-		}
-	
-	},
+        }
+        
+    },
 	generateVehicle: function(x, y, frame, type) {
 		//Display setting for the plane.
         vehicles[v] = this.vehicles.create(x, y, type, frame);
@@ -169,8 +177,8 @@ TMT.Game.prototype = {
         vehicles[v].body.width = vehicles[v].body.width / 2;
         vehicles[v].body.height = vehicles[v].body.height / 2;
 		v++;
-	},
-
+    },
+    
     enableMoving: function(vehicle) {
         vehicle.moving = true;    
     },
@@ -178,21 +186,21 @@ TMT.Game.prototype = {
     // Generate all blocks
     generateBlocks: function () {
         this.blocks = this.game.add.group();
-
+        
         //enable physics in them
         this.blocks.enableBody = true;
-
+        
         //phaser's random number generator
         var numBlocks = cols * rows;
         var current;
-
+        
         var col = 1;
         var x = xloc;
         var y = yloc;
         for (var i = 0; i < numBlocks; i++) {
             //add sprite
             current = this.blocks.create(x, y, 'terrain');
-
+            
             //x location of next tile is the next scaled tile.
             x += theScale;
             
@@ -203,21 +211,21 @@ TMT.Game.prototype = {
                 y += theScale;
                 col = 1;
             }
-
+            
             //Change the scale of the tile from 100px.
             current.scale.setTo(theScale / 100);
-
+            
             //physics properties
             current.body.velocity.x = 0;
             current.body.velocity.y = 0;
             current.body.immovable = true;
             current.body.collideWorldBounds = true;
-
+            
             //THIS IS WHERE YOU ENABLE MOUSE CLICKS!!!!
             current.inputEnabled = true;
             current.events.onInputDown.add(this.onDown, this);
             blocks[i] = current;
-
+            
             //Initializes blank map
             blocks[i].frame = 3;
         }
@@ -245,17 +253,17 @@ TMT.Game.prototype = {
 			if(vehicles[i].moving){
             	if (vehicles[i].key === 'plane1'){
 					vehicles[i].body.velocity.x = planeSpeed;
-				}
+                }
 				else if (vehicles[i].key === 'boat1'){
 					vehicles[i].body.velocity.x = boatSpeed;
-				}
+                }
 				else if (vehicles[i].key === 'train1'){
 					vehicles[i].body.velocity.x = -1 * trainSpeed;
-				}
-			}
+                }
+            }
 			else 
-				this.Hit(vehicles[i]);	
-		}
+            this.Hit(vehicles[i]);	
+        }
     },
     /*
         Checks the life of all the vehicles to see whether or not they
@@ -265,7 +273,7 @@ TMT.Game.prototype = {
         //Life logic function
         if (vehicle.life <= 0) {
             if(!vehicle.dead)
-                this.explosion(vehicle);
+            this.explosion(vehicle);
             vehicle.dead = true;
             vehicle.kill();
 			return false;
@@ -308,8 +316,8 @@ TMT.Game.prototype = {
 	TimeCheck: function() {
 		if(count === 0){
 			this.game.state.start('WinScreen');
-		}
-	},
+        }
+    },
     
     /*
         This function is called by the game physics overlap.
@@ -319,21 +327,21 @@ TMT.Game.prototype = {
     checkTile: function (vehicle, tile) {
         if (vehicle.key === 'boat1'){
             if (tile.frame === 0) //boat travels over water
-                return false;
+            return false;
             else
-                return true;
+            return true;
         }
         else if (vehicle.key === 'plane1'){
             if (tile.frame === 1) //plane travels over air
-                return false;
+            return false;
             else 
-                return true;
+            return true;
         }
         else if (vehicle.key === 'train1'){
             if (tile.frame === 2) //train travels over train tracks
-                return false;
+            return false;
             else 
-                return true;
+            return true;
         }
     },
     /*
@@ -344,9 +352,9 @@ TMT.Game.prototype = {
         
         switchSound.play();
         if (tile.frame < 2)
-            tile.frame++;
+        tile.frame++;
         else
-            tile.frame = 0;
+        tile.frame = 0;
     },
     
     /*
@@ -365,14 +373,14 @@ TMT.Game.prototype = {
 			vehicle.body.velocity.y = 0;
 			vehicle.body.velocity.x = 0;
 			vehicle.isHit = true;
-		}
+        }
         //Check to see if any vehicles have died recently.
         this.lifeCheck(vehicle);
 		
     },
 	/*
 		Fixed hit.
-	*/
+    */
 	Hit: function (vehicle) {
 		if (count === (vehicle.thecountDown - 3)){
 			vehicle.isHit = false;
@@ -380,8 +388,8 @@ TMT.Game.prototype = {
 			vehicle.body.velocity.y = vehicle.holdy;
 			vehicle.holdx = vehicle.holdy = 0;
 			this.enableMoving(vehicle);
-		}	
-	},
+        }	
+    },
     /*
         Explosion graphic that will happen to whichever vehicle that
         reaches 0 life. Takes a vehicle as its parameter.
@@ -389,7 +397,7 @@ TMT.Game.prototype = {
     explosion: function (vehicle) {
         emitter.x = vehicle.body.x;
         emitter.y = vehicle.body.y;
-
+        
         //1) boolean for 'explode' (particles generate all at once)
         //2) particle lifespan (ms)
         //3) ignore
@@ -404,15 +412,15 @@ TMT.Game.prototype = {
         $("#actionForm").serialize();
         
         $("form").on("submit", function (e) {
-            e.preventDefault();            
-            $.ajax({
-                url: "sql.php",
-                type: "POST",
-                data: $("#actionForm").serialize(),
-                success: function( data ) {
-                    console.log("Success");
-                },
-            });
+        e.preventDefault();            
+        $.ajax({
+        url: "sql.php",
+        type: "POST",
+        data: $("#actionForm").serialize(),
+        success: function( data ) {
+        console.log("Success");
+        },
+        });
         });   
         $("form").submit();
         return false;
@@ -420,28 +428,28 @@ TMT.Game.prototype = {
 	/* Get the score from the website. */
 	/*getScore: function () {           
 		$.ajax({
-			url: "test.php",
-			type: "GET",
-			dataType: "json"
-			success: function( data ) {
-				console.log("Success");
-			},
+        url: "test.php",
+        type: "GET",
+        dataType: "json"
+        success: function( data ) {
+        console.log("Success");
+        },
 		});
-	},*/
+    },*/
 	
 	gameEnd: function() {
 		/* Examples for tomorrow to use.
-		
-		startClickEvent: function () {
+            
+            startClickEvent: function () {
         	this.game.state.start('Game');
-    	},
+            },
 			this.startButton = this.game.add.button(this.game.width / 2, 400, 'startButton', this.startClickEvent, this);
-		
-		*/
+            
+        */
 		
 		var menu = this.game.add.sprite(this.game.world.width /2 - 150, this.game.height * 0.4, 'continueUp');
 		var retry = this.game.add.sprite(this.game.world.width /2 - 150, this.game.height * 0.4+105, 'backUp');
 		var result = this.game.add.text(this.game.world.width /2 - 150, yloc*0.50, 'Result is PANTS' , { fontSize: this.game.world.width/10+ 'px', fill: '#F00' });
-	}
+    }
 	
 };
