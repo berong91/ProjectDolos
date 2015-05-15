@@ -1,5 +1,6 @@
 var TMT = TMT || {};
 
+var lol;
 //Grid variables 
 var xloc;
 var yloc;
@@ -13,11 +14,13 @@ var boatSpeed;
 
 var blocks = [];
 var vehicles = [];
+var v = 0;
 
 //Time Elapsed variables
 var count;
 var MAXTIME;
 var text;
+var countStart;
 
 //Score text
 var scoreText;
@@ -41,7 +44,7 @@ TMT.Game.prototype = {
 
         //background
         this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'peaks');
-		this.background.autoScroll(-20, 0);
+		this.background.autoScroll(-2, 0);
 
         // Generate all the blocks
         this.generateBlocks();
@@ -53,9 +56,9 @@ TMT.Game.prototype = {
         //attempt at making vehicles group
         this.vehicles = this.game.add.group();
         this.vehicles.enableBody = true;
-        this.generatePlane();
-        this.generateBoat();
-        this.generateTrain();
+        this.generateVehicle(xloc - 100, yloc+theScale, 0, 'plane1');
+        this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
+        this.generateVehicle(xloc + (theScale*2) + 100, yloc+(theScale*2), 2, 'train1');
         
         //This will create text in the top left of the game screen.
         text = this.game.add.text(xloc/2, yloc/4, 'Time: ' + MAXTIME + '' , { fontSize: this.game.world.width/15+ 'px', fill: '#ffffff' });
@@ -72,7 +75,7 @@ TMT.Game.prototype = {
 		*/
 		function timer(){
         	count--;
-        	text.text = 'Time: ' + count;
+        	text.text = vehicles[0].moving + 'Time: ' + count + lol;
         	if(count<=0){
             	text.text = 'Time\'s up!';
         	}
@@ -146,66 +149,23 @@ TMT.Game.prototype = {
 		}
 	
 	},
-	/*
-		Create a plane. For now, only creates one plane as referenced 
-		by this.plane
-	*/
-    generatePlane: function () {
-        //Display setting for the plane.
-        this.plane = this.vehicles.create(xloc - 150, yloc + theScale, 'plane1', 2);
-        this.plane.scale.setTo(theScale/100);
-        this.plane.frame = 0;
+	generateVehicle: function(x, y, frame, type) {
+		//Display setting for the plane.
+        vehicles[v] = this.vehicles.create(x, y, type, frame);
+        vehicles[v].scale.setTo(theScale/100);
         
-        this.plane.life = 3;
-        this.plane.dead = false;
-        this.plane.moving = false;
+        vehicles[v].life = 3;
+        vehicles[v].dead = false;
+        vehicles[v].moving = true;
+		vehicles[v].isHit = false;
         
         //add physics to the new plane.
-        this.game.physics.arcade.enable(this.plane);
-        this.plane.body.overlapWorldBounds = true;
-        this.plane.body.width = this.plane.body.width / 2;
-        this.plane.body.height = this.plane.body.height / 2;
-    },
-    /*
-        Create a boat. For now, only creates one boat as referenced by
-        this.boat
-    */
-    generateBoat: function () {    
-        //Display settings for the boat.
-        this.boat = this.vehicles.create(xloc - 100, yloc, 'boat1', 2);
-        this.boat.scale.setTo(theScale/100);
-        this.boat.frame = 0;
-
-        this.boat.life = 3;
-        this.boat.dead = false;
-        this.boat.moving = false;
-        
-        //add physics to the new boat.
-        this.game.physics.arcade.enable(this.boat);
-        this.boat.body.overlapWorldBounds = true;
-        this.boat.body.width = this.boat.body.width / 2;
-        this.boat.body.height = this.boat.body.height / 2;
-    },
-    /*
-        Create train. For now, only creates one train as referenced by
-        this.train
-    */
-    generateTrain: function () {
-        //Display settings for the train.
-        this.train = this.vehicles.create(xloc - 150, yloc + (theScale*2), 'train1', 2);
-        this.train.scale.setTo(theScale/100);
-        this.train.frame = 0;
-
-        this.train.life = 3;
-        this.train.dead = false;
-        this.train.moving = false;
-        
-        //Add physics to the new train.
-        this.game.physics.arcade.enable(this.train);
-        this.train.body.overlapWorldBounds = true;
-        this.train.body.width = this.train.body.width / 2;
-        this.train.body.height = this.train.body.height / 2;
-    },
+        this.game.physics.arcade.enable(vehicles[v]);
+        vehicles[v].body.overlapWorldBounds = true;
+        vehicles[v].body.width = vehicles[v].body.width / 2;
+        vehicles[v].body.height = vehicles[v].body.height / 2;
+		v++;
+	},
 
     enableMoving: function(vehicle) {
         vehicle.moving = true;    
@@ -271,20 +231,23 @@ TMT.Game.prototype = {
         //method that will be later refined to show progress better.
         this.progressBar();
         
-        //Sounds must be called inside of this function either directly
-        //or with another function entirely (except create and preload)
+		//Overlap that allows all members of vehicles to interact with 
+        //tiles.
+		this.game.physics.arcade.overlap(this.vehicles, this.blocks, this.playSound, this.checkTile, this);
         
         //Checks whether or not the vehicle has been "allowed to move."
-        if(this.plane.moving)
-            this.plane.body.velocity.x = planeSpeed;
-        if(this.boat.moving)
-            this.boat.body.velocity.x = boatSpeed;
-        if(this.train.moving)
-            this.train.body.velocity.x = trainSpeed;
+        for(var i = 0; i < vehicles.length; i++)
+			if(vehicles[i].moving){
+            	if (vehicles[i].key === 'plane1')
+					vehicles[i].body.velocity.x = planeSpeed;
+				else if (vehicles[i].key === 'boat1')
+					vehicles[i].body.velocity.x = boatSpeed;
+				else if (vehicles[i].key === 'train1')
+					vehicles[i].body.velocity.x = -1 * trainSpeed;
+			}
         
-        //Overlap that allows all members of vehicles to interact with 
-        //tiles.
-        this.game.physics.arcade.overlap(this.vehicles, this.blocks, this.playSound, this.checkTile, this);
+        
+        
         
     },
     /*
@@ -298,7 +261,9 @@ TMT.Game.prototype = {
                 this.explosion(vehicle);
             vehicle.dead = true;
             vehicle.kill();
+			return false;
         }
+		return true;
     },
     
     /*
@@ -363,11 +328,7 @@ TMT.Game.prototype = {
         spritesheet.
     */
     onDown: function (tile, pointer) {
-        if (!this.train.moving){
-            setTimeout(this.enableMoving(this.train), 300000000);
-            setTimeout(this.enableMoving(this.plane), 300000);
-            setTimeout(this.enableMoving(this.boat), 23400);
-        }
+        
         switchSound.play();
         if (tile.frame < 2)
             tile.frame++;
@@ -381,25 +342,32 @@ TMT.Game.prototype = {
     */
     playSound: function (vehicle, tile) {
         //right, down, left, up
-        explosionSound.play();
-        switch(vehicle.frame){
-            case 0: //vehicle is going right
-                vehicle.body.x = vehicle.body.x - 100;
-                break;
-            case 1: //vehicle is going down
-                vehicle.body.y = vehicle.body.y - 100;
-                break;
-            case 2: //vehicle is going left
-                vehicle.body.x = vehicle.body.x + 100;
-                break;
-            case 3: //vehicle is going up
-                vehicle.body.y = vehicle.body.x + 100;
-                break;
-        }
-        vehicle.life--;
-        
+		if (!vehicle.isHit){
+			explosionSound.play();
+			vehicle.life--;
+			vehicle.thecountDown = count;
+			vehicle.moving = false;
+			vehicle.holdx = vehicle.body.velocity.x;
+			vehicle.holdy = vehicle.body.velocity.y;
+			vehicle.body.velocity.y = 0;
+			vehicle.body.velocity.x = 0;
+			vehicle.isHit = true;
+		}
+		else{
+		}
+		if (count === (vehicle.thecountDown - 3)){
+			lol = 'reach here';
+			vehicle.isHit = false;
+			vehicle.body.velocity.x = boatSpeed;
+			vehicle.body.velocity.y = boatSpeed;
+			vehicle.holdx = vehicle.holdy = 0;
+			this.enableMoving(vehicle);
+		}
+		
+   
         //Check to see if any vehicles have died recently.
         this.lifeCheck(vehicle);
+		
     },
     /*
         Explosion graphic that will happen to whichever vehicle that
