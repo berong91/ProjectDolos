@@ -1,4 +1,4 @@
-varTMT=TMT||{};
+var TMT=TMT||{};
 
 //titlescreen
 TMT.WinScreen=function(){};
@@ -8,7 +8,7 @@ TMT.WinScreen.prototype={
         
     },
     create:function(){
-        vary=this.game.height/8;
+        var y=this.game.height/8;
         //Setbackgroundandgivebackgroundspeedinx
         this.background=this.game.add.tileSprite(0,0,this.game.width,this.game.height,'peaks');
         //this.background.autoScroll(-5,0);
