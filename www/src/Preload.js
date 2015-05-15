@@ -11,6 +11,8 @@ TMT.Preload.prototype = {
         this.load.image('startButton', 'asset/images/buttons/startDown.png');
         this.load.image('board', 'asset/images/buttons/highScoresUp.png');
         this.load.image('board1', 'asset/images/buttons/highScoresDown.png');
+        this.load.image('soundOn', 'asset/images/buttons/soundOnUp.png');
+        this.load.image('soundOff', 'asset/images/buttons/soundOffUp.png');
         
         this.load.image('logo', 'asset/images/logo.png');
         this.load.image('fire', 'asset/images/fire.png');
