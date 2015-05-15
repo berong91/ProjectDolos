@@ -2,37 +2,52 @@
     $servername = "localhost";
     $username = "tyler637_dolos";
     $password = "Dolos123";
-
-    // Create connection
-    $conn = new mysqli($servername, $username, $password);
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-        echo "Server could not be connected to...";
-    }
-    echo "Connected successfully"."<br/>";
-
-    $sql = "USE tyler637_dolos";
-    $result = $conn->query($sql);
+    $my_db = "tyler637_dolos";
     
-    $sql = "SELECT * FROM Game";
-    $result = $conn->query($sql);
-    $arr;
-    $i = 0;
-
-    if ($result->num_rows > 0) {
-        // output data of each row
-        while($row = $result->fetch_assoc()) {
-            echo "Name: " . $row["Name"]. "- Level: " . $row["Level"]. " - Score: " . $row["Score"]. "<br>";
-            $arr[$i][0] = $row["Name"];
-            $arr[$i][1] = $row["Level"];
-            $arr[$i][2] = $row["Score"];
-            $i++;
+    try {
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $my_db);
+        
+        // Check connection
+        if ($conn->connect_error) {
+            die('Connect Error (' . $conn->connect_errno . ') '
+            . $conn->connect_error);
         }
-    } else {
-            echo "0 results";
+        
+        $sql = "SELECT * FROM Game";        
+        
+        if ($result = $conn->query($sql)) {
+            while($r = $result->fetch_array(MYSQLI_ASSOC)) {
+                $arr[] = $r;
+            }
+        }
+        
+        $conn->close();
+        
+        } catch (Exception $e) {
+        echo 'Caught exception: ',  $e->getMessage(), "\n";    
     }
-    $conn->close();
-    echo json_encode($arr);
+    
+    echo json_encode($arr)."<br/>";
 ?>
+
+
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script type="text/javascript">
+            // pass PHP variable declared above to JavaScript variable
+            var obj = <?php echo json_encode($arr) ?>;
+            var ar = $.map(obj, function(el) { return el; });
+            var arr = [];
+            
+            console.log(ar);
+            
+            for (i = 0; i < ar.length; i++){
+                arr[i] = $.map(ar[i], function(el) { return el; });
+            }
+            
+            console.log(arr);
+        </script>
+    </head>
+</html>
