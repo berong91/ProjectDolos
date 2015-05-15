@@ -44,13 +44,13 @@ TMT.Game.prototype = {
         
         //background
         this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'peaks');
-		//this.background.autoScroll(-2, 0);
+        //this.background.autoScroll(-2, 0);
         
         // Generate all the blocks
         this.generateBlocks();
         
-		this.spawnVehicles(level);
-		
+        this.spawnVehicles(level);
+        
         //adding the loading bar sprite
         this.progbar = this.game.add.sprite(xloc, this.game.height * 0.85, 'progress');
         this.progbar.scale.setTo((theScale*3)/400);
@@ -68,19 +68,19 @@ TMT.Game.prototype = {
         this.backButton.anchor.setTo(0.5, 0.8);
         this.backButton.scale.set(0.5, 0.5);
         
-		/*
-			This will run a timer that will update the text in the top 
-			left of the game screen to reflect the time left in the 
-			timer. (Inside of create function)
+        /*
+            This will run a timer that will update the text in the top 
+            left of the game screen to reflect the time left in the 
+            timer. (Inside of create function)
         */
-		function timer(){
-        	count--;
-        	text.text = 'Time: ' + count;
-        	if(count<=0){
-            	text.text = 'Time\'s up!';
+        function timer(){
+            count--;
+            text.text = 'Time: ' + count;
+            if(count<=0){
+                text.text = 'Time\'s up!';
             }
         }
-		
+        
     //Allows the game to access the explosion animation.
     emitter = this.game.add.emitter(0,0,10);
     emitter.makeParticles('fire');
@@ -90,50 +90,50 @@ TMT.Game.prototype = {
     //this.gameEnd();
 },
 /*
-	Clears all variables so levels can be restarted without a problem.
-*/	
+    Clears all variables so levels can be restarted without a problem.
+*/  
 backClickEvent: function(){
     this.vehicles = null;
-	this.background = null;
-	this.blocks = null;
-	this.progbar = null;
-	vehicles = [];
-	v = 0;
-	text = null;
-	count = null;
-	clearInterval(counter);
-	counter = null;
-	level = -99;
-	this.game.state.start('MainMenu');
+    this.background = null;
+    this.blocks = null;
+    this.progbar = null;
+    vehicles = [];
+    v = 0;
+    text = null;
+    count = null;
+    clearInterval(counter);
+    counter = null;
+    level = -99;
+    this.game.state.start('MainMenu');
 },
 
 spawnVehicles: function(level) {
-	
-	//attempt at making vehicles group
-	this.vehicles = this.game.add.group();
-	this.vehicles.enableBody = true;
-	if (level === 0) {
-		this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
-	}
-	else if (level === 1) {
-		this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
-		this.generateVehicle(xloc + (theScale*2) + 100, yloc+(theScale*2), 2, 'train1');
-		this.generateVehicle(xloc - 100, yloc+theScale, 0, 'plane1');
-	}
-	/*else if (level === 2) {
-		this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
-		this.generateVehicle(xloc + (theScale*2) + 100, yloc+(theScale*2), 2, 'train1');
-		this.generateVehicle(xloc - 100, yloc+theScale, 0, 'plane1');
-		for (var i = 0; i < vehicles.length; i++) {
-			this.vehicleWait(vehicles[i], 5);	
-		}
-	}*/
+    
+    //attempt at making vehicles group
+    this.vehicles = this.game.add.group();
+    this.vehicles.enableBody = true;
+    if (level === 0) {
+        this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
+    }
+    else if (level === 1) {
+        this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
+        this.generateVehicle(xloc + (theScale*2) + 100, yloc+(theScale*2), 2, 'train1');
+        this.generateVehicle(xloc - 100, yloc+theScale, 0, 'plane1');
+    }
+    /*else if (level === 2) {
+        this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
+        this.generateVehicle(xloc + (theScale*2) + 100, yloc+(theScale*2), 2, 'train1');
+        this.generateVehicle(xloc - 100, yloc+theScale, 0, 'plane1');
+        for (var i = 0; i < vehicles.length; i++) {
+            this.vehicleWait(vehicles[i], 5);   
+        }
+    }*/
 },
 
 /*vehicleWait: function(vehicle, wait) {
-	var releaseTime = MAXTIME - wait;
-	vehicle.kill();
-	vehicle.revive();
+    var releaseTime = MAXTIME - wait;
+    vehicle.kill();
+    vehicle.revive();
 },*/
 /*
     This will allow the game to dynamically adjust its grid 
@@ -194,12 +194,12 @@ adjustLevel: function(level) {
         yloc = this.game.world.height / 3;
         rows = cols = 3;
     }
-	
-	if (level === 2) {
-		MAXTIME = 30;
-		theScale = 75;
-		
-		//vehicle speed
+    
+    if (level === 2) {
+        MAXTIME = 30;
+        theScale = 75;
+        
+        //vehicle speed
         planeSpeed = this.game.width/10;
         boatSpeed = this.game.width/15;
         trainSpeed = this.game.width/12;
@@ -208,8 +208,8 @@ adjustLevel: function(level) {
         xloc = this.game.world.width/2 - (theScale * 1.5);
         yloc = this.game.world.height / 3;
         rows = cols = 3;
-		
-	}
+        
+    }
     
 },
 generateVehicle: function(x, y, frame, type) {
@@ -313,7 +313,7 @@ update: function() {
             }
         }
         else 
-        this.Hit(vehicles[i]);	
+        this.Hit(vehicles[i]);  
     }
 },
 /*
@@ -439,7 +439,7 @@ Hit: function (vehicle) {
         vehicle.body.velocity.y = vehicle.holdy;
         vehicle.holdx = vehicle.holdy = 0;
         this.enableMoving(vehicle);
-    }	
+    }   
 },
 /*
     Explosion graphic that will happen to whichever vehicle that
