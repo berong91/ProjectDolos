@@ -23,19 +23,19 @@ TMT.LeaderBoard.prototype = {
         if (arr.length > 0){
             // Add text title, player and score
             this.game.add.text(this.game.width / 2 - 30, 64 + i * 32, 'Top 10',
-            { font: "32px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
+            { font: "12px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
             this.game.add.text(this.game.width / 2 - 250, 64 + i * 32, 'Player',
-            { font: "32px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
+            { font: "12px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
             this.game.add.text(this.game.width / 2 + 150, 64 + i * 32, 'Score', 
-            { font: "32px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
+            { font: "12px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
             
             // add all array data
             for (var i = 0; i < arr.length; i++)
             {
                 this.game.add.text(this.game.width / 2 - 250, 64 + i * 32, arr[i][0], 
-                { font: "32px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
+                { font: "12px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
                 this.game.add.text(this.game.width / 2 + 150, 64 + i * 32, arr[i][1], 
-                { font: "32px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
+                { font: "12px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
             }
             arr = [];
         }
