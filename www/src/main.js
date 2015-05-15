@@ -1,5 +1,5 @@
 var TMT = TMT || {};
-var level = -1;
+var level = -99;
 
 TMT.game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, '');
 

@@ -27,6 +27,7 @@ TMT.Preload.prototype = {
         this.load.image('gameend', 'asset/images/SorryChris/gameend.png');
         this.load.image('tutorial', 'asset/images/SorryChris/tutorial.png');
         this.load.image('peaks', 'asset/images/bgSmall.png');
+		this.load.image('rules', 'asset/images/rules.png');
         
         
         
