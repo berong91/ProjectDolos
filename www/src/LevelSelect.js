@@ -16,12 +16,12 @@ TMT.LevelSelect.prototype = {
         // Add logo image
         this.logo = this.game.add.sprite(this.game.width /2, y*1.5, 'SelectLogo');
         this.logo.scale.setTo(0.7);
-		this.tutbutt = this.game.add.sprite(this.game.width /2, y*3, 'tutorial');
+		this.tutbutt = this.game.add.sprite(this.game.width /2, y*2.5, 'tutorial');
 		this.tutbutt.scale.setTo(1.5);
-        this.lev1butt = this.game.add.sprite(this.game.width /2, y*4, 'level1');
-        this.lev2butt = this.game.add.sprite(this.game.width /2, y*5, 'level2');
-        this.lev3butt = this.game.add.sprite(this.game.width /2, y*6, 'level3');
-        this.lev4butt = this.game.add.sprite(this.game.width /2, y*7, 'level4');
+        this.lev1butt = this.game.add.sprite(this.game.width /2, y*3.5, 'level1');
+        this.lev2butt = this.game.add.sprite(this.game.width /2, y*4.5, 'level2');
+        this.lev3butt = this.game.add.sprite(this.game.width /2, y*5.5, 'level3');
+        this.lev4butt = this.game.add.sprite(this.game.width /2, y*6.5, 'level4');
         this.tutbutt.anchor.setTo(0.5, 0.5);
         this.lev1butt.anchor.setTo(0.5, 0.5);
         this.lev2butt.anchor.setTo(0.5, 0.5);
@@ -40,6 +40,10 @@ TMT.LevelSelect.prototype = {
         this.lev3butt.events.onInputDown.add(this.levelthreeclickevent, this);
         this.lev4butt.events.onInputDown.add(this.levelfourclickevent, this);
         
+        // Add leader board button
+        this.backButton = this.game.add.button(this.game.width / 2, y*7.5, 'backUp', this.backClickEvent, this);
+        this.backButton.anchor.setTo(0.5, 0.8);
+        this.backButton.scale.set(0.5, 0.5);
     },
     tutorialclickevent: function () {
         level = 0;
@@ -67,4 +71,7 @@ TMT.LevelSelect.prototype = {
     startClickEvent: function () {
         this.game.state.start('Game');
     },
+    backClickEvent: function(){
+        this.game.state.start('MainMenu');
+    }
 };

@@ -15,7 +15,9 @@ TMT.LeaderBoard.prototype = {
         // Add logo image
         this.readBoardData();
         
-        
+        // Add leader board button
+        this.backButton = this.game.add.button(this.game.width / 2, 500, 'backUp', this.backClickEvent, this);
+        this.backButton.anchor.setTo(0.5, 0.8);
     },
     update: function () {        
         if (arr.length > 0){
@@ -36,10 +38,6 @@ TMT.LeaderBoard.prototype = {
                 { font: "32px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
             }
             arr = [];
-            
-            // Add leader board button
-            this.backButton = this.game.add.button(this.game.width / 2, 500, 'backUp', this.backClickEvent, this);
-            this.backButton.anchor.setTo(0.5, 0.8);
         }
     },
     readBoardData: function() {
