@@ -9,15 +9,15 @@ TMT.LevelSelect.prototype = {
     },
     create: function () {
         var y = this.game.height/8;
-		// Set background and give background speed in x
+        // Set background and give background speed in x
         this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'peaks');
         //this.background.autoScroll(-5, 0);
         
         // Add logo image
         this.logo = this.game.add.sprite(this.game.width /2, y*1.5, 'SelectLogo');
         this.logo.scale.setTo(0.7);
-		this.tutbutt = this.game.add.sprite(this.game.width /2, y*2.5, 'tutorial');
-		this.tutbutt.scale.setTo(1.5);
+        this.tutbutt = this.game.add.sprite(this.game.width /2, y*2.5, 'tutorial');
+        this.tutbutt.scale.setTo(1.5);
         this.lev1butt = this.game.add.sprite(this.game.width /2, y*3.5, 'level1');
         this.lev2butt = this.game.add.sprite(this.game.width /2, y*4.5, 'level2');
         this.lev3butt = this.game.add.sprite(this.game.width /2, y*5.5, 'level3');
@@ -40,7 +40,7 @@ TMT.LevelSelect.prototype = {
         this.lev3butt.events.onInputDown.add(this.levelthreeclickevent, this);
         this.lev4butt.events.onInputDown.add(this.levelfourclickevent, this);
         
-        // Add leader board button
+        // Add back button
         this.backButton = this.game.add.button(this.game.width / 2, y*7.5, 'backUp', this.backClickEvent, this);
         this.backButton.anchor.setTo(0.5, 0.8);
         this.backButton.scale.set(0.5, 0.5);
