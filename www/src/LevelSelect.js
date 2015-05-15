@@ -11,7 +11,7 @@ TMT.LevelSelect.prototype = {
         var y = this.game.height/8;
 		// Set background and give background speed in x
         this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'peaks');
-        this.background.autoScroll(-5, 0);
+        //this.background.autoScroll(-5, 0);
         
         // Add logo image
         this.logo = this.game.add.sprite(this.game.width /2, y*1.5, 'SelectLogo');
