@@ -5,7 +5,7 @@ TMT.WinScreen = function () {};
 
 TMT.WinScreen.prototype = {
     preload: function () {
-        
+		
     },
     create: function () {
         var y = this.game.height/8;
