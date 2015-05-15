@@ -1,5 +1,6 @@
 var TMT = TMT || {};
 
+var lol;
 //Grid variables 
 var xloc;
 var yloc;
@@ -22,6 +23,9 @@ var MAXTIME;
 var text;
 var countStart;
 
+//timer is kill or no
+var stoptime = false;
+
 //Score text
 var scoreText;
 
@@ -30,6 +34,8 @@ var emitter;
 
 //Scale for the entire game
 var theScale;
+
+var counter;
 
 //title screen
 TMT.Game = function () {};
@@ -60,27 +66,18 @@ TMT.Game.prototype = {
         text.stroke = '#000000';
         text.strokeThickness = 6;
         
-        count = MAXTIME;
-        counter= setInterval(timer, 1000); 
+		count = MAXTIME;
         
         // Add leader board button
         this.backButton = this.game.add.button(xloc/2 + 500, yloc/4 + 50, 'backUp', this.backClickEvent, this);
         this.backButton.anchor.setTo(0.5, 0.8);
         this.backButton.scale.set(0.5, 0.5);
+		
+		this.overlayrules();
         
-        /*
-            This will run a timer that will update the text in the top 
-            left of the game screen to reflect the time left in the 
-            timer. (Inside of create function)
-        */
-        function timer(){
-            count--;
-            text.text = 'Time: ' + count;
-            if(count<=0){
-                text.text = 'Time\'s up!';
-            }
-        }
-        
+		if (stoptime === false) {
+			this.timing();
+		}
     //Allows the game to access the explosion animation.
     emitter = this.game.add.emitter(0,0,10);
     emitter.makeParticles('fire');
@@ -89,6 +86,25 @@ TMT.Game.prototype = {
     //code snippet to test the gameEnd UI
     //this.gameEnd();
 },
+timing: function() {
+    counter= setInterval(timer, 1000); 
+	/*
+			This will run a timer that will update the text in the top 
+			left of the game screen to reflect the time left in the 
+			timer. (Inside of create function)
+        */
+		
+		function timer(){
+				lol = 'timer ran';
+				console.log(lol);
+				count--;
+				text.text = 'Time: ' + count;
+				if(count<=0){
+					text.text = 'Time\'s up!';
+				}
+			}
+},
+
 /*
     Clears all variables so levels can be restarted without a problem.
 */  
@@ -171,7 +187,7 @@ adjustLevel: function(level) {
         MAXTIME = 10;
         theScale = 70;
         rows = 1;
-        cols = 3;
+        cols = 1;
         
         //vehicle speed
         planeSpeed = theScale * 1.1;
@@ -283,6 +299,48 @@ generateBlocks: function () {
         blocks[i].frame = 3;
     }
     current = blocks[0];
+},
+
+stopTimer: function() {
+	clearInterval(counter);
+},
+
+startTimer: function() {
+	timekill = false;
+	this.timing();
+},
+
+overlayclickevent: function() {
+	this.rules.kill();
+	this.pause();
+	this.startTimer();
+	},
+
+overlayrules: function() {
+	if(level === 0) {
+		stoptime = true;
+		this.rules = this.game.add.sprite(xloc-200, yloc-200, 'rules');
+		this.rules.inputEnabled = true;
+		this.rules.events.onInputDown.add(this.overlayclickevent, this);
+		this.game.paused = false;
+		this.pause();
+		this.stopTimer();
+	}
+},
+
+pause: function() {
+	lol = 'in pause';
+	if(this.game.paused === false){
+		lol = 'game paused';
+		this.game.paused = true;		
+		return true;
+	}
+	if(this.game.paused === true){
+		lol = 'game unpaused';
+		this.game.paused = false;
+		return false;
+	}
+	return null;
 },
 
 /*

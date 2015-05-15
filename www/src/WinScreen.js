@@ -5,6 +5,7 @@ TMT.WinScreen=function(){};
 
 var name;
 var y;
+
 TMT.WinScreen.prototype={
     preload:function(){
         this.generateRandomName();
@@ -39,6 +40,9 @@ TMT.WinScreen.prototype={
     backClickEvent: function(){
         this.game.state.start('MainMenu');
     },
+    /*
+        This method get a random name from https://randomuser.me/ API.
+        */
     generateRandomName:function(){
         $.ajax({
             url:'http://api.randomuser.me/',
@@ -57,6 +61,7 @@ TMT.WinScreen.prototype={
     }    
 };
 
+// This method will capitalize the first char of each word of input string
 function capitalizeFirstChar(str) {
     return str.toLowerCase().replace(/\b[a-z]/g, function(letter) {
         return letter.toUpperCase();
