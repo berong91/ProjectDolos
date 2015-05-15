@@ -1,3 +1,9 @@
+commit 955dfefc0eaf5546a9f6deddd3b54285fb00d30a
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Fri May 15 13:10:26 2015 -0700
+
+    Add random name generate to WinScreen.js
+
 commit 2d857dbd1c9d243b2a9d9eb4330a49679bdb850c
 Author: Chris Horak <gyromorgian@gmail.com>
 Date:   Fri May 15 10:57:12 2015 -0700
