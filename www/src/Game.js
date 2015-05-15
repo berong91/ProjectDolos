@@ -70,11 +70,6 @@ TMT.Game.prototype = {
         count = MAXTIME;
         var counter= setInterval(timer, 1000); 
         
-        // Add leader board button
-        this.backButton = this.game.add.button(xloc/2 + 500, yloc/4 + 50, 'backUp', this.backClickEvent, this);
-        this.backButton.anchor.setTo(0.5, 0.8);
-        this.backButton.scale.set(0.5, 0.5);
-        
         /*
             This will run a timer that will update the text in the top 
             left of the game screen to reflect the time left in the 
@@ -95,9 +90,6 @@ TMT.Game.prototype = {
         
         //code snippet to test the gameEnd UI
         //this.gameEnd();
-    },
-    backClickEvent: function(){
-        this.game.state.start('MainMenu');
     },
     /*
         This will allow the game to dynamically adjust its grid 
