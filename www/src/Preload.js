@@ -29,10 +29,8 @@ TMT.Preload.prototype = {
         this.load.image('gameend', 'asset/images/SorryChris/gameend.png');
         this.load.image('tutorial', 'asset/images/SorryChris/tutorial.png');
         this.load.image('peaks', 'asset/images/bgSmall.png');
-        
-        
-        
-        
+		this.load.image('rules', 'asset/images/rules.png');
+       
         this.load.spritesheet('progress', 'asset/images/progress.png', 400, 40);
         this.load.spritesheet('terrain', 'asset/images/spritesheets/terrain100.png', 100, 100);
         this.load.spritesheet('plane1', 'asset/images/spritesheets/plane100.png', 100, 100);
@@ -48,6 +46,7 @@ TMT.Preload.prototype = {
     create: function () {
     },
     update: function () {
+        // When we finish loading all game asset, go to MainMenu state
         this.state.start('MainMenu');
     }
 };

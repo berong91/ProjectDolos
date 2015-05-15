@@ -12,7 +12,7 @@ TMT.LeaderBoard.prototype = {
         this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'peaks');
         this.background.autoScroll(-5, 0);
         
-        // Add logo image
+        // Read leadere board data and put it in array arr
         this.readBoardData();
         
         // Add back button
@@ -20,9 +20,12 @@ TMT.LeaderBoard.prototype = {
         this.backButton.anchor.setTo(0.5, 0.8);
         this.backButton.scale.set(0.5, 0.5);
     },
-    update: function () {        
+    update: function () {   
+        /*
+            If arr array has data, then we draw text into the page.
+        */
         if (arr.length > 0){
-            // Add text title, player and score
+            // Add text title: player and score
             this.game.add.text(this.game.width / 2 - 30, 64 + i * 32, 'Top 10',
             { font: "28px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
             this.game.add.text(this.game.width / 2 - 250, 64 + i * 32, 'Player',
@@ -30,7 +33,7 @@ TMT.LeaderBoard.prototype = {
             this.game.add.text(this.game.width / 2 + 150, 64 + i * 32, 'Score', 
             { font: "28px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
             
-            // add all array data
+            // add all data
             for (var i = 0; i < arr.length; i++)
             {
                 this.game.add.text(this.game.width / 2 - 250, 64 + i * 32, arr[i][0], 
@@ -41,6 +44,10 @@ TMT.LeaderBoard.prototype = {
             arr = [];
         }
     },
+    /*
+        This ajax method will set a GET request to server and receive back a JSON data.
+        Then it convert JSON data into JavaScript array. 
+    */
     readBoardData: function() {
         $.ajax({
             type: "GET",
@@ -60,9 +67,11 @@ TMT.LeaderBoard.prototype = {
             },
         });
     },
+    // Generate a random color code
     generateHexColor: function () { 
         return '#' + ((0.5 + 0.5 * Math.random()) * 0xFFFFFF << 0).toString(16);
     },
+    // Event for Back Button
     backClickEvent: function(){
         this.game.state.start('MainMenu');
     }

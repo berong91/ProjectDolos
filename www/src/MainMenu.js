@@ -1,6 +1,5 @@
 var TMT = TMT || {};
 
-//title screen
 TMT.MainMenu = function () {};
 
 TMT.MainMenu.prototype = {
@@ -24,7 +23,7 @@ TMT.MainMenu.prototype = {
         this.boardButton = this.game.add.button(this.game.width / 2 - 100, 520, 'board', this.boardClickEvent, this);
         this.boardButton.anchor.setTo(0.5, 0.8);
         
-        // Add leader board button
+        // Add Add-score button button
         this.boardButton1 = this.game.add.button(this.game.width / 2 + 100, 520, 'board1', this.addClickEvent, this);
         this.boardButton1.anchor.setTo(0.5, 0.8);
         
@@ -41,6 +40,10 @@ TMT.MainMenu.prototype = {
     boardClickEvent: function() {
         this.game.state.start('LeaderBoard');
     },
+    /*
+        This method send a POST request to server.
+        Server will add new score base on the request data.
+    */
     addClickEvent: function () {
         $('#Name').val(prompt());
         $('#Score').val(prompt());
@@ -63,25 +66,4 @@ TMT.MainMenu.prototype = {
         $("form").submit();
         return false;
     }
-/*     ,
-    readBoardData: function() {
-        $.ajax({
-            type: "GET",
-            url: "test.php",
-            data: "",
-            dataType:'json',
-            success: function(data) {
-                var arr = [];                
-                for (i = 0; i < data.length; i++){
-                    arr[i] = $.map(data[i], function(el) { return el; });
-                }                
-                
-                console.log(arr);
-            },
-            error: function(xhr, status, error) {
-                // check status && error
-                alert(xhr + "\n" +status + "\n" + error );
-            },
-        });
-    } */
 };
