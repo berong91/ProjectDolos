@@ -20,7 +20,7 @@
             $sql = "USE tyler637_dolos";
             $conn->query($sql);
             
-            $sql = "INSERT INTO Game VALUES ('".$name."', ".$level.", ".$score.",)";
+            $sql = "INSERT INTO Score VALUES ('".$name."', ".$level.", ".$score.",)";
             $result = $conn->query($sql);
             
             if ($result == 1)
