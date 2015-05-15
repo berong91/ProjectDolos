@@ -41,7 +41,10 @@ TMT.WinScreen.prototype = {
 				stroke: '#000000',
 				strokeThickness: 4
 			});
+			this.addClickEvent(name, postScore);
+			level = -99;
 			name = "";
+			postScore = 0;
 
 		}
 	},
@@ -52,6 +55,27 @@ TMT.WinScreen.prototype = {
 		
 		this.game.state.start('MainMenu');
 	},
+	addClickEvent: function (name, postScore) {
+        $('#Name').val(name);
+        $('#Score').val(postScore);
+        $("form").on("submit", function (e) {
+            e.preventDefault();            
+            $.ajax({
+                url: "sql.php",
+                type: "POST",
+                data: $("#actionForm").serialize(),
+                success: function( data ) {
+                    console.log("Success");
+                },
+                error: function(xhr, status, error) {
+                    // check status && error
+                    alert(xhr + "\n" +status + "\n" + error );
+                },
+            });
+        });   
+        $("form").submit();
+        return false;
+    },
 	/*
 	    This method get a random name from https://randomuser.me/ API.
 	    */
