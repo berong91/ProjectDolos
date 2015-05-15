@@ -43,7 +43,7 @@ TMT.Game.prototype = {
 
         //background
         this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'peaks');
-		this.background.autoScroll(-2, 0);
+		//this.background.autoScroll(-2, 0);
 
         // Generate all the blocks
         this.generateBlocks();
@@ -236,7 +236,8 @@ TMT.Game.prototype = {
     update: function() {
         //method that will be later refined to show progress better.
         this.progressBar();
-        
+		//checks if the time is 0
+        this.TimeCheck();
 		//Overlap that allows all members of vehicles to interact with 
         //tiles.
 		this.game.physics.arcade.overlap(this.vehicles, this.blocks, this.playSound, this.checkTile, this);
@@ -305,6 +306,12 @@ TMT.Game.prototype = {
             break;
         }
     },
+	
+	TimeCheck: function() {
+		if(count === 0){
+			this.game.state.start('WinScreen');
+		}
+	},
     
     /*
         This function is called by the game physics overlap.
