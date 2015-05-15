@@ -15,7 +15,7 @@ TMT.LeaderBoard.prototype = {
         // Add logo image
         this.readBoardData();
         
-        // Add leader board button
+        // Add back button
         this.backButton = this.game.add.button(this.game.width / 2, 500, 'backUp', this.backClickEvent, this);
         this.backButton.anchor.setTo(0.5, 0.8);
         this.backButton.scale.set(0.5, 0.5);
