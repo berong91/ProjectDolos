@@ -9,6 +9,8 @@ TMT.Preload.prototype = {
         this.load.image('gamebg', 'asset/images/BG 480x800.png');
         this.load.image('startButton', 'asset/images/buttons/startUp.png');
         this.load.image('startButton', 'asset/images/buttons/startDown.png');
+        this.load.image('board', 'asset/images/buttons/highScoresUp.png');
+        
         this.load.image('logo', 'asset/images/logo.png');
         this.load.image('fire', 'asset/images/fire.png');
         this.load.image('backUp', 'asset/images/buttons/backUp.png');
@@ -23,6 +25,8 @@ TMT.Preload.prototype = {
         this.load.image('level4', 'asset/images/SorryChris/level4.png');
         this.load.image('tutorial', 'asset/images/SorryChris/tutorial.png');
         this.load.image('peaks', 'asset/images/bgSmall.png');
+        
+        
         
         
         this.load.spritesheet('progress', 'asset/images/progress.png', 400, 40);

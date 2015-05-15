@@ -25,21 +25,21 @@ TMT.Boot.prototype = {
         
         //loading screen will have a white background
         this.game.stage.backgroundColor = '#000';
-
+        
         //scaling options
         this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
         this.scale.minWidth = 240;
         this.scale.minHeight = 170;
         this.scale.maxWidth = 2880;
         this.scale.maxHeight = 1920;
-
+        
         //have the game centered horizontally
         this.scale.pageAlignHorizontally = true;
         this.scale.pageAlignVertically = true;
-
+        
         //physics system for movement
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
-
+        
         //show loading screen
         this.background = this.game.add.sprite(this.game.world.centerX, 280, 'background');
         this.background.anchor.setTo(0.5);
@@ -53,8 +53,8 @@ TMT.Boot.prototype = {
         explosionSound = this.game.add.audio('explosion');
         switchSound = this.game.add.audio('switch');
         this.sound.setDecodedCallback([bgSound, explosionSound, switchSound], this.startBgMusic, this);
-        this.finish();
-        //this.game.time.events.add(Phaser.Timer.SECOND * 5, this.finish, this);
+        //this.finish();
+        this.game.time.events.add(Phaser.Timer.SECOND * 5, this.finish, this);
     },
     startBgMusic: function(){
         bgSound.loopFull(0.6);

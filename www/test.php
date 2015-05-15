@@ -14,10 +14,13 @@
             . $conn->connect_error);
         }
         
-        $sql = "SELECT * FROM Game";        
+        $sql = "SELECT * 
+        FROM Score
+        ORDER BY Score DESC 
+        LIMIT 10";        
         
         if ($result = $conn->query($sql)) {
-            while($r = $result->fetch_array(MYSQLI_ASSOC)) {
+            while($r = $result->fetch_array(MYSQLI_NUM)) {
                 $arr[] = $r;
             }
         }
