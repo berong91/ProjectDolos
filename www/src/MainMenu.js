@@ -21,6 +21,7 @@ TMT.MainMenu.prototype = {
         this.startButton.anchor.setTo(0.5, 0.8);
         
         this.addButton = this.game.add.button(0, 0, 'startButton', this.addClickEvent, this);
+        this.readBoardData();
     },
     update: function () {
         if (!!this.ready) {
@@ -33,7 +34,7 @@ TMT.MainMenu.prototype = {
     addClickEvent: function () {
         $('#Name').val(prompt());
         $('#Score').val(prompt());
-		$('#Level').val(prompt());
+        $('#Level').val(prompt());
         alert($("#actionForm").serialize());
         
         $("form").on("submit", function (e) {
@@ -48,10 +49,33 @@ TMT.MainMenu.prototype = {
                 error: function(xhr, status, error) {
                     // check status && error
                     alert(xhr + "\n" +status + "\n" + error );
-                    },
+                },
             });
         });   
         $("form").submit();
         return false;
+    },
+    readBoardData: function() {
+        $.ajax({
+            type: "GET",
+            url: "test.php",
+            data: "",
+            dataType:'json',
+            success: function(data) {
+                var arr = [];                
+                for (i = 0; i < data.length; i++){
+                    arr[i] = $.map(data[i], function(el) { return el; });
+                }                
+                
+                console.log(arr);
+            },
+            error: function(xhr, status, error) {
+                // check status && error
+                alert(xhr + "\n" +status + "\n" + error );
+            },
+        });
+        
+        
+        
     }
 };
