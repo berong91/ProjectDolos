@@ -1,4 +1,4 @@
-varTMT=TMT||{};
+var TMT=TMT||{};
 
 //titlescreen
 TMT.WinScreen=function(){};
@@ -51,4 +51,4 @@ TMT.WinScreen.prototype={
 
 function capitalizeFirstChar(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
-    }                    
+}                    
