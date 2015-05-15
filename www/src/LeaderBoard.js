@@ -18,24 +18,25 @@ TMT.LeaderBoard.prototype = {
         // Add leader board button
         this.backButton = this.game.add.button(this.game.width / 2, 500, 'backUp', this.backClickEvent, this);
         this.backButton.anchor.setTo(0.5, 0.8);
+        this.backButton.scale.set(0.5, 0.5);
     },
     update: function () {        
         if (arr.length > 0){
             // Add text title, player and score
             this.game.add.text(this.game.width / 2 - 30, 64 + i * 32, 'Top 10',
-            { font: "12px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
+            { font: "28px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
             this.game.add.text(this.game.width / 2 - 250, 64 + i * 32, 'Player',
-            { font: "12px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
+            { font: "28px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
             this.game.add.text(this.game.width / 2 + 150, 64 + i * 32, 'Score', 
-            { font: "12px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
+            { font: "28px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
             
             // add all array data
             for (var i = 0; i < arr.length; i++)
             {
                 this.game.add.text(this.game.width / 2 - 250, 64 + i * 32, arr[i][0], 
-                { font: "12px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
+                { font: "28px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
                 this.game.add.text(this.game.width / 2 + 150, 64 + i * 32, arr[i][1], 
-                { font: "12px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
+                { font: "28px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
             }
             arr = [];
         }

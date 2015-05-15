@@ -15,5 +15,8 @@ plugins/org.apache.cordova.device/.fetch.json
 Thumbs.db
 ehthumbs.db
 
+# Git log
+log.txt
+
 # Windows shortcuts
 *.lnk
