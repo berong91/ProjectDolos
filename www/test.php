@@ -1,4 +1,6 @@
 <?php
+    // This php file select top 10 score from the Score table, convert it to JSON data and push it back to our Client
+    
     $servername = "localhost";
     $username = "tyler637_dolos";
     $password = "Dolos123";

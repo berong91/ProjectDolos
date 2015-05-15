@@ -1,4 +1,5 @@
 <?php
+    // This php file receive POST request from client and add new score to the score table.
     if( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) ){
         if (isset($_POST['Name']) AND isset($_POST['Score'])) {
             $name = $_POST["Name"];
