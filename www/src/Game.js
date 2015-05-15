@@ -106,7 +106,9 @@ backClickEvent: function(){
     level = -99;
     this.game.state.start('MainMenu');
 },
-
+/*
+	Spawn vehicle events that is adjusted by the level selected.
+*/
 spawnVehicles: function(level) {
     
     //attempt at making vehicles group
@@ -120,21 +122,21 @@ spawnVehicles: function(level) {
         this.generateVehicle(xloc + (theScale*2) + 100, yloc+(theScale*2), 2, 'train1');
         this.generateVehicle(xloc - 100, yloc+theScale, 0, 'plane1');
     }
-    /*else if (level === 2) {
+    else if (level === 2) {
         this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
         this.generateVehicle(xloc + (theScale*2) + 100, yloc+(theScale*2), 2, 'train1');
         this.generateVehicle(xloc - 100, yloc+theScale, 0, 'plane1');
         for (var i = 0; i < vehicles.length; i++) {
             this.vehicleWait(vehicles[i], 5);   
         }
-    }*/
+    }
 },
 
-/*vehicleWait: function(vehicle, wait) {
+vehicleWait: function(vehicle, wait) {
     var releaseTime = MAXTIME - wait;
     vehicle.kill();
     vehicle.revive();
-},*/
+},
 /*
     This will allow the game to dynamically adjust its grid 
     according to level. Level initially starts off at -1 but will 
@@ -366,7 +368,18 @@ progressBar: function() {
 
 TimeCheck: function() {
     if(count === 0){
-        this.game.state.start('WinScreen');
+		this.vehicles = null;
+		this.background = null;
+		this.blocks = null;
+		this.progbar = null;
+		vehicles = [];
+		v = 0;
+		text = null;
+		count = null;
+		clearInterval(counter);
+		counter = null;
+		level = -99;
+		this.game.state.start('WinScreen');
     }
 },
 
