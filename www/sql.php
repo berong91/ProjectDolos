@@ -1,9 +1,8 @@
 <?php
     if( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) ){
-        if (isset($_POST['Name']) AND isset($_POST['Score']) AND isset($_POST['Level'])) {
+        if (isset($_POST['Name']) AND isset($_POST['Score'])) {
             $name = $_POST["Name"];
             $score = $_POST["Score"];
-            $level = $_POST["Level"];
             
             $servername = "localhost";
             $username = "tyler637_dolos";
@@ -20,14 +19,10 @@
             $sql = "USE tyler637_dolos";
             $conn->query($sql);
             
-            $sql = "INSERT INTO Score VALUES ('".$name."', ".$level.", ".$score.",)";
+            $sql = "INSERT INTO Score VALUES ('".$name."', ".$score.")";
             $result = $conn->query($sql);
             
-            if ($result == 1)
-            return 1;
-            
             $conn->close();
-            return 0;
         }
     } else 
         echo "Website doesn't support get request";
