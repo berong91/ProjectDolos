@@ -1,0 +1,1295 @@
+commit 955dfefc0eaf5546a9f6deddd3b54285fb00d30a
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Fri May 15 13:10:26 2015 -0700
+
+    Add random name generate to WinScreen.js
+
+commit 2d857dbd1c9d243b2a9d9eb4330a49679bdb850c
+Author: Chris Horak <gyromorgian@gmail.com>
+Date:   Fri May 15 10:57:12 2015 -0700
+
+    added tile flip animation folder
+
+commit 436b2be27c168035838f45418a4072201c5def86
+Merge: b592923 8e69015
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Fri May 15 10:08:20 2015 -0700
+
+    Fixing conflict in Game.js
+
+commit b5929235c055f4402231233d9ee1b51604ea3991
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Fri May 15 10:04:43 2015 -0700
+
+    Add back button for LevelSelect and Game frame
+
+commit 8e6901530dbc39180ba555ab53f49b3a3f85d8a3
+Merge: 8eca547 fde482d
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Fri May 15 09:46:29 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit 8eca547f705fb686757b8e8b0455384f6f3c037a
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Fri May 15 09:46:22 2015 -0700
+
+    Stuff and things.
+
+commit fde482df3e179302e59e237346c07211eb5e9686
+Merge: b6ef166 31b17e8
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Fri May 15 09:40:25 2015 -0700
+
+    Merge branch 'master' of https://www.github.com/berong91/ProjectDolos
+
+commit b6ef166acb68b1ee1d0e744b0f5e738b5d689f54
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Fri May 15 09:40:09 2015 -0700
+
+    stopped the scrolling.
+
+commit 31b17e871548787b13479742bf3f7dc996e7222b
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Fri May 15 09:38:27 2015 -0700
+
+    Add testing button
+
+commit a782a3d58bc0641e93d6386b5afe65406b79a8e5
+Merge: c4c9d18 3e6d989
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Fri May 15 09:25:24 2015 -0700
+
+    Merge branch 'master' of github.com:berong91/ProjectDolos
+
+commit c4c9d1832dd2745490c68e433bcc1960311e0681
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Fri May 15 09:25:18 2015 -0700
+
+    Add second button to main menu so that we can add value
+
+commit 3e6d9893118613814164944c5064a7705b6d0dbc
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Fri May 15 09:24:14 2015 -0700
+
+    added some dummy stuff to winscreen
+
+commit 6bfb93a38442a07171dd569bfd20985380a20a12
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Fri May 15 09:12:52 2015 -0700
+
+    added the page for end of game, new image to be changed by Chris in sorrychris folder
+
+commit 2b65c08bb54767062e2bd0a98c064ad7b02b37f2
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Fri May 15 08:33:14 2015 -0700
+
+    Fixed what I broke
+
+commit 149beff9de431e05a88ccf68335d7b184ad7a75e
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Fri May 15 05:03:50 2015 -0700
+
+    Add leaderboard. Fuck ajax
+
+commit e6cb2117fbfc79a70b0274c45f7f7362b6e000c7
+Merge: d743357 6d3a041
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Fri May 15 03:06:06 2015 -0700
+
+    Merge branch 'master' of github.com:berong91/ProjectDolos
+
+commit d743357d46b4700f8d590ec2dbf759374b76740a
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Fri May 15 03:05:55 2015 -0700
+
+    Make changes to Main menu
+
+commit 6d3a04121eecf7f0cd327ed9381000ca0e4c9b09
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 14 20:03:17 2015 -0700
+
+    Fixed Tutorial level
+
+commit 307d1ff47bfe5b73a98819e11e18b593eb825731
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 14 19:26:45 2015 -0700
+
+    Vehicles stopafter being hit and wait 3 seconds before continuing.
+
+commit bd880fc93eebf7e279e4e376127943420db0bd85
+Merge: 72909b6 7aca670
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 14 19:10:04 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit 72909b6a1f52127a6b4e563ca107a17f2dd0228d
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 14 19:09:41 2015 -0700
+
+    Unfinished method, vehicles hit once and stop in place. Gets updated every 3 seconds but they still don't move.
+
+commit 7aca6705d6642dd889222185750313d2e60a1bc4
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Thu May 14 17:45:16 2015 -0700
+
+    Add json get ajax to MainMenu.js
+
+commit ca87cdd1b4cbb8102c641435e2e8c3547b2af798
+Merge: 88e0e0d f0337c9
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Thu May 14 17:29:01 2015 -0700
+
+    Merge branch 'master' of github.com:berong91/ProjectDolos
+
+commit 88e0e0d9bfaba916c367ae9652530a06807478f5
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Thu May 14 17:28:47 2015 -0700
+
+    Make changes to json object
+
+commit f0337c92fb2f506f3da823874cdadf722d9fdbf8
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 14 16:50:19 2015 -0700
+
+    Forgot to uncomment working code.
+
+commit a90c34bd255431ee97194c388eb9d22ab617e425
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 14 15:58:52 2015 -0700
+
+    Scaled Level Select
+
+commit 69965f3c0f3d522171891c82afd820e4a7988a26
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 14 15:46:33 2015 -0700
+
+    Made getScore and postScore, Duy will doublecheck if it works properly.
+
+commit 4827e0877947f8c3b19a3e238f95ef9a0d168b82
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 14 15:01:40 2015 -0700
+
+    Uncommented this.egameEnd();
+
+commit 291345d205d20af69ae893e35953dde71b24ffa1
+Merge: ebbb828 f3dd5ed
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 14 15:00:06 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit ebbb8285c8b6689e203d7d746e103d781ad9e73c
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 14 14:59:57 2015 -0700
+
+    attempt to merge properly
+
+commit f3dd5ed532f1e7a22199f3a51a58f3842e913f64
+Author: Chris Horak <gyromorgian@gmail.com>
+Date:   Thu May 14 14:47:13 2015 -0700
+
+    fixed a spelling mistake in Game.js
+
+commit 663755bc50bdf2b8624b4f802cf186ff0ecaa484
+Author: Chris Horak <gyromorgian@gmail.com>
+Date:   Thu May 14 14:44:10 2015 -0700
+
+    Gave Tyler wood
+
+commit 72ccae3102c75d64b78ffa42e7aaa89de9027cce
+Merge: 360c758 ed3dff2
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 14 14:38:09 2015 -0700
+
+    Attempting to integrate the database with the game.
+
+commit 360c7581c0d922b7894a8219109d8676fc1b0426
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 14 14:33:32 2015 -0700
+
+    I did stuff
+
+commit ed3dff2b8c49043add26a13af2d400f8c7f31b47
+Merge: 308db7d e6ae7ed
+Author: Chris Horak <gyromorgian@gmail.com>
+Date:   Thu May 14 14:24:06 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit 308db7d84745b3f3874e138de5222f5448117b9b
+Author: Chris Horak <gyromorgian@gmail.com>
+Date:   Thu May 14 14:23:07 2015 -0700
+
+    made the level select screen less objcetionable
+
+commit e6ae7ed072a0e4747ce270a75467c0a28c9805d0
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Thu May 14 14:01:00 2015 -0700
+
+    yeah did some work
+
+commit b9a59be1a300e5feba5dac74c7c4cc2f6ec936d8
+Author: Chris Horak <gyromorgian@gmail.com>
+Date:   Thu May 14 13:58:05 2015 -0700
+
+    added new background to code
+
+commit 0526b0c01a23c6432916fb900a0cfd4dca399123
+Merge: d8f8ed4 502c3bd
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Thu May 14 13:42:25 2015 -0700
+
+    Fix indent
+
+commit de0f082cca6d30fcb1977f35187c4d0273fe42df
+Merge: 116ac1c 502c3bd
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 14 13:42:01 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit 116ac1c19f0af8f4800247c0d0d4bae087569b9b
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 14 13:41:46 2015 -0700
+
+    I did stuff
+
+commit d8f8ed4f45df4f55482f64254bdf1aebdb735bc0
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Thu May 14 13:40:40 2015 -0700
+
+    Fix tab and space indentation
+
+commit 502c3bd97f87ec5776b8f0be7af25ef540a7bae7
+Merge: 6a8ddb0 ada58ef
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Thu May 14 13:40:15 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit 6a8ddb08733539e58739e589492e1fdc77b007f0
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Thu May 14 13:39:54 2015 -0700
+
+    added all the listeners to the level select
+
+commit ada58ef84ee4c174e3cfabb21adc5e2845b3b8a8
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Thu May 14 13:39:51 2015 -0700
+
+    Fix this.vehicles.forEach.kill is not a function error in Game.js
+
+commit 2aa58e03cdb96ed798e629adb769e6d78a587287
+Merge: 6d63290 f4427da
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Thu May 14 13:36:42 2015 -0700
+
+    Merge branch 'master' of github.com:berong91/ProjectDolos
+
+commit 6d6329062e2d224671faafcf3b8517d989272932
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Thu May 14 13:36:11 2015 -0700
+
+    Fixing images filename
+
+commit f4427da96103b2aea772763aeae336658a148b8a
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 14 13:35:07 2015 -0700
+
+    uncommented level = -1 in the adjustLevel function
+
+commit e82504e17a31f2edc628d1828b1627272c83b1b0
+Merge: 6f0789e e444369
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 14 13:25:55 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit 6f0789ee73b4dce77ba6b9d1cdbcbb45d72f1e60
+Merge: 778564e efe9288
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 14 13:24:15 2015 -0700
+
+    I did stuff
+
+commit e4443694fe6697598b4b99f0788323be71a68a0c
+Merge: 882cab6 efe9288
+Author: Chris Horak <gyromorgian@gmail.com>
+Date:   Thu May 14 13:23:43 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit 882cab6a388d3ae466b834f00c37ccadabd45a1c
+Author: Chris Horak <gyromorgian@gmail.com>
+Date:   Thu May 14 13:22:59 2015 -0700
+
+    added font
+
+commit 778564e2cb72f160eb35ba56fe68bdf76de72728
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 14 13:21:42 2015 -0700
+
+    I did stuff
+
+commit efe928868103a5c89e8e2290c1c637ccd650d61c
+Merge: 9dc379c 7a13799
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Thu May 14 13:21:31 2015 -0700
+
+    Merge branch 'master' of github.com:berong91/ProjectDolos
+
+commit 9dc379cbbf8949de88423b05827c50d2ff106dec
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Thu May 14 13:21:17 2015 -0700
+
+    Add MVC Model. TEsting folder
+
+commit 7a137998ee99c4fd9bcb2b73d341c00a3ee40eb6
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Thu May 14 13:11:56 2015 -0700
+
+    fixed the text stroke color
+
+commit ae572d0cd710e4c753d8145d11146fa25d9fa98c
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 14 12:09:02 2015 -0700
+
+    UI scales properly according to the number of rows and cols you desire.
+
+commit 6989386e96777287e9f0a94f6005ec786d34a19d
+Merge: 12fd603 fa685d2
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Thu May 14 12:07:10 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit 12fd60348ef948e919ba17c726abcf892ff1b658
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Thu May 14 12:06:52 2015 -0700
+
+    just some minor tweaks such as a new scrilling bg for level select
+
+commit fa685d2f34e2d6def28e2be34fa5f550238d7a43
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 14 12:03:22 2015 -0700
+
+    Level 1 is fully functional. Vehicles move based on their planeSpeed or whatever.
+
+commit 4bff8c4777daf5face3694f449ef73f3017a552b
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 14 11:54:47 2015 -0700
+
+    Making adjustments to level 1 but level select works. Working on dynamic vehicle speeds for each level.
+
+commit 2a8eedc8cf6994a05da3f0c10588dd3b7635c1fc
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Thu May 14 11:52:11 2015 -0700
+
+    added levelselect with tylers help and the level global variable now launching levels based on which is clicked
+
+commit 566c8f8c698735131d4a8c38a131b87fd172230b
+Merge: af0a54d cb01d24
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Thu May 14 11:36:19 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit af0a54deecc1a8c6c0b36329aee72bc95d680335
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Thu May 14 11:35:49 2015 -0700
+
+    added levelselect sorry for design choices Chris
+
+commit cb01d24e79d494014b9e119cdd1e7204edc96e63
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 14 11:33:30 2015 -0700
+
+    Further refined the level select for the tutorial level.
+
+commit c10108fc1b4a5e60890ac3ca2b05d397f7d5ec0b
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 14 11:10:45 2015 -0700
+
+    Added the ability to change levels. var level (initialized in the main.js)
+
+commit c640ededb580ac3ed7f433850ac3eee6c91820f0
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Wed May 13 19:40:01 2015 -0700
+
+    Replace tab with spaces
+
+commit c38958590b7f74f3b0f585fab14fcc20d4c26bf7
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Wed May 13 19:35:06 2015 -0700
+
+    Scaled UI more and started on the gameEnd UI, need a display screen underneath the buttons.
+
+commit bf58dbe2e8156a69955795c215ca20555afc5aac
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Wed May 13 19:08:44 2015 -0700
+
+    Velocity is based on screen width, EVERYTHING scales to phone size.
+
+commit 9078e45141480474885e3490216da3f7cd279a13
+Merge: 6d7f216 e4d84c8
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Wed May 13 17:28:04 2015 -0700
+
+    Merge branch 'master' of github.com:berong91/ProjectDolos
+
+commit 6d7f2166ca5babc6902f36a7770750a8837b9eef
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Wed May 13 17:27:55 2015 -0700
+
+    Add data to db using Ajax push request and PHP server side script.
+
+commit e4d84c879aec6ae0deadd3638265badc46a11bfb
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Wed May 13 13:26:00 2015 -0700
+
+    Merp
+
+commit 4f3e5a43e4ed528f3f3bb216eb9c9a1b2e3e6e76
+Merge: 096552a 9232232
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Wed May 13 13:15:57 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit 096552a9777d22e4830ce6814bfde7612e0a9b1e
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Wed May 13 13:15:48 2015 -0700
+
+    Vehicles have smaller hitboxes
+
+commit 9232232f2ca064995ed192de114c536c841bcba0
+Author: Chris Horak <gyromorgian@gmail.com>
+Date:   Wed May 13 13:13:10 2015 -0700
+
+    same thing as before but better
+
+commit 4acf80d16e4e82f293965feeb33ea6c1e5262803
+Author: Chris Horak <gyromorgian@gmail.com>
+Date:   Wed May 13 12:56:26 2015 -0700
+
+    added buttons and new progress bar
+
+commit 03a27d978388a593494dd030e7005345bbcf3376
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Wed May 13 11:50:57 2015 -0700
+
+    Vehicles now start on tile click (in the onDown function) and they are moving slower to compensate
+
+commit 0cf2a42d2f2da252301e53966392381df4718d2e
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Wed May 13 11:23:20 2015 -0700
+
+    Future use: all vehicles will bump back based on their frame (boat facing left will be moved 50 pixels right)
+
+commit 5ba2049ebd852a4cdc7e3f6305ad359f50e27f22
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Wed May 13 11:08:47 2015 -0700
+
+    Clarified some comments I made with the previous commit, no structure changes.
+
+commit 13270d8ca3932d778eb4810f0a5b4672c66b8baf
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Wed May 13 11:02:23 2015 -0700
+
+    Now all vehicle are capable of dying.
+
+commit fe7a2518ae7d2bd997f4de50707142a07d7e1d0f
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Wed May 13 10:50:34 2015 -0700
+
+    Cleaned up code. progressbar has its own method, playSound makes the vehicles bounce back, not the checkTiles, added lots of comments for clarity but most of all outlined what exactly is happening in the update function.
+
+commit 9386bf4b04b109034e54620affea14ac51badfab
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Tue May 12 18:54:16 2015 -0700
+
+    playSound is useless now, all independant vehicle movements are done in the checkTile function
+
+commit 358ba4f86de6f65babbea8868579272984867ab7
+Merge: 0a71367 f082860
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Tue May 12 17:41:07 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit 0a713670bf6d3f22f19cf55f49b3712e6da9df34
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Tue May 12 17:40:58 2015 -0700
+
+    Multiple vehicles spawn, boat interacts only. Issue with other vehicles interacting with tiles.
+
+commit f0828609998fe56d7f02804b1901e4640867ec7e
+Merge: 8d16c77 3612963
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Tue May 12 17:24:50 2015 -0700
+
+    Merge branch 'master' of github.com:berong91/ProjectDolos
+
+commit 8d16c77bae086f43f383a5540b83dd335e0e318a
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Tue May 12 17:24:21 2015 -0700
+
+    Merge loading screen time
+
+commit 36129639eedbc872fa3fdcd53d98a21cfcf8bffb
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Tue May 12 17:20:21 2015 -0700
+
+    made the progress bar's position proportional
+
+commit dfe4d3c3df990e1f6a53c50b7a66ee2db9e037ae
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Tue May 12 16:57:30 2015 -0700
+
+    Clean-up timer
+
+commit 7da3b109d978c27d3aa2622434c73c7e1e6cf3d6
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Tue May 12 16:54:36 2015 -0700
+
+    Fixed Dimitri's timer bar to work with Chris' timer.
+
+commit 78ca982665e2f8c7c8b6577a563b6878b9416252
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Tue May 12 16:46:14 2015 -0700
+
+    Put in semicolins
+
+commit ea4e22fb0481a3cea84117ad009e0e97bcb1509c
+Author: Chris Horak <gyromorgian@gmail.com>
+Date:   Tue May 12 16:42:56 2015 -0700
+
+    I wish Git was a person so I could punch it in the fucking face
+
+commit fc0c56a733f09bf81d79f1474d216c722b2e43d9
+Merge: aca48e8 57e2ed4
+Author: Phill Hood <oskatilla@gmail.com>
+Date:   Tue May 12 16:35:24 2015 -0700
+
+    Fix conflict
+
+commit aca48e8c96b4a5b1daccc025c467ddb521a1ce6d
+Author: Phill Hood <oskatilla@gmail.com>
+Date:   Tue May 12 16:33:05 2015 -0700
+
+    nothing
+
+commit 57e2ed454f15243a01dd5a5bda1a153f36e25532
+Merge: 19d215e 1a290b9
+Author: Chris Horak <gyromorgian@gmail.com>
+Date:   Tue May 12 16:25:25 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit 1a290b94e32d1c68244b6f0458d6830038c5c675
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Tue May 12 16:24:28 2015 -0700
+
+    Remove cordova from index.html
+
+commit 19d215e458323477983c0a15a662854e2cbe8244
+Author: Chris Horak <gyromorgian@gmail.com>
+Date:   Tue May 12 16:15:35 2015 -0700
+
+    fixed timer, hopefully for the last time
+
+commit be60e77b3b5078411cbb8867f0b3d4444e40c64d
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Tue May 12 16:13:22 2015 -0700
+
+    Fixing Project configuration again. Intel XDK has Chrome + FF debug back
+
+commit 84d93973d283a78a7972723feea959b1620a2fbb
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Tue May 12 15:56:08 2015 -0700
+
+    fixed a bug I made in progress bar
+
+commit 55253f77143cdb7db3dd94830edb55020e981f52
+Merge: 0f264df 5a98490
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Tue May 12 15:43:32 2015 -0700
+
+    Merge branch 'master' of https://www.github.com/berong91/ProjectDolos
+
+commit 0f264df710e5267de5f6799c591ef2be4aa0d4f8
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Tue May 12 15:43:14 2015 -0700
+
+    did some cordovaing
+
+commit 5a984902e37df143e2faff6ca4665c87ed6ec91b
+Merge: 340f3e0 069fe75
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Tue May 12 15:03:43 2015 -0700
+
+    Merge branch 'master' of github.com:berong91/ProjectDolos
+
+commit 340f3e09ad9b468198ecb4d91f930b5bf14b382b
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Tue May 12 15:03:24 2015 -0700
+
+    Modify Boot screen and Preload Screen
+
+commit 069fe75d47660f528e04193a74d524b12c17998d
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Tue May 12 14:50:41 2015 -0700
+
+    added mobile scalability but not resizability
+
+commit 6e88cbba7ad2fff517d31d5c1c409bafa8e6e09e
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Tue May 12 13:53:53 2015 -0700
+
+    Nothing.
+
+commit b5d3a1795d26a6479b57e5d6a5d5854001a4c1a6
+Merge: eb06707 442dd42
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Tue May 12 13:46:27 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit 442dd426ba0c8d5345865163c76d0b0033fb0940
+Merge: 8733000 b2a38e9
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Tue May 12 13:30:40 2015 -0700
+
+    Merge branch 'master' of github.com:berong91/ProjectDolos
+
+commit 8733000c72fcdc29d8dbb1952e3d725b2746978f
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Tue May 12 13:30:31 2015 -0700
+
+    Delete nonsense file
+
+commit eb06707397c081b77e10d682c11a3a7b46ffd2f4
+Merge: 28288a7 b2a38e9
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Tue May 12 13:30:07 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit b2a38e96b020ed0bf6006073d52a717de8034ce9
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Tue May 12 12:33:11 2015 -0700
+
+    fixed timebar
+
+commit 28288a7c8efdc35e65b70bca95039d0fcd1b649b
+Merge: 520a762 e5c3400
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Tue May 12 12:10:32 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit e5c3400c8593adf154638718578883f83d3f0fa2
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Mon May 11 22:17:56 2015 -0700
+
+    added a working timer bar at the bootom it isnt very smooth which will need work but it is essentially a sprite with a switch statement
+
+commit 520a762607a0e43956b0f702b5f77314c07a2da1
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Mon May 11 20:18:45 2015 -0700
+
+    Fixed the checkTile function for future use and clarity.
+
+commit 814513049a49bbc392720c3fd5f8a916287d178e
+Merge: 3ca3154 7d5e8e4
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Mon May 11 20:06:44 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit 3ca3154aa5b6d077247e7667d9fe325e445ea25f
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Mon May 11 20:06:35 2015 -0700
+
+    Fixed starting plane frame
+
+commit 7d5e8e4eb223a38bb5b4551ee17710dd0b60a5fb
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Mon May 11 20:00:24 2015 -0700
+
+    Fixing cordova import in index.html
+
+commit 1e033990a2481728a645335eea9960540e607cb9
+Merge: 2b7624a b8e25df
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Mon May 11 19:55:12 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit 2b7624a86a82c2cf0cdfe910653d67831dfd3708
+Merge: c4a6a7e c652f40
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Mon May 11 19:55:02 2015 -0700
+
+    Merge conflicts in the MainMenu
+
+commit b8e25df9bd6cd828d315dd51fa5722d79aad1424
+Author: Phill Hood <oskatilla@gmail.com>
+Date:   Mon May 11 17:04:10 2015 -0700
+
+    added explosion, changed loading background to black
+
+commit c652f409ced3cb6ed330a9dca7dc393bea83dd17
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Mon May 11 03:40:56 2015 -0700
+
+    Change sounds import to Preload.js - Add waiting time for Preload state. Change bg image.
+
+commit 2de0749238721eacdd9695fd134b38340949a8c8
+Author: Chris Horak <gyromorgian@gmail.com>
+Date:   Sun May 10 10:06:48 2015 -0700
+
+    added glow effect and updated spritesheets
+
+commit ccc1fab9f76d7db44dab579d335de2d905bec024
+Merge: 08b3bb0 6741c2f
+Author: Chris Horak <gyromorgian@gmail.com>
+Date:   Sun May 10 10:05:44 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit 6741c2fef5144fd798c3cc7b1e4a5bb670f7ad2e
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Sat May 9 19:26:10 2015 -0700
+
+    Fix gitignore file
+
+commit 215ddbcc6256b7a3635aed51ed201ebeee4049f3
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Sat May 9 19:23:04 2015 -0700
+
+    Fixing cordova plugin
+
+commit 87ce2af3b400c8c4b6c4b9cb1db7a9f068b98322
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Sat May 9 19:05:37 2015 -0700
+
+    WTF
+
+commit e59d0a901645605770afa83ad882d62ad80b6133
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Sat May 9 17:01:48 2015 -0700
+
+    Re-edit file configuration, delete bug's file
+
+commit c4a6a7e38280656c4ea6e075750af950f5e11f4d
+Merge: 9b4f660 03d65ae
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Sat May 9 16:28:44 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit 9b4f66010fad38504449a71f006e787fb4717cb1
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Sat May 9 16:28:30 2015 -0700
+
+    Nothing changed from friday
+
+commit 03d65ae5bdc408164ffc75b7d14848fabe786559
+Merge: 84d33c0 172b404
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Fri May 8 14:29:05 2015 -0700
+
+    Merge branch 'master' of github.com:berong91/ProjectDolos
+
+commit 84d33c01cb51d66da3c1e72d72eaf69bd8cad378
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Fri May 8 14:26:03 2015 -0700
+
+    Remove non-exist images
+
+commit 172b4049f3f9c528d252a4c22b0a23ca093a6d00
+Author: Phill Hood <oskatilla@gmail.com>
+Date:   Fri May 8 11:56:15 2015 -0700
+
+    removed nonsense
+
+commit 08b3bb00bfc221733a4a1190d01f73696756630f
+Author: Chris Horak <gyromorgian@gmail.com>
+Date:   Fri May 8 11:05:47 2015 -0700
+
+    changed main and preload to play click sound instead of explosion when switching tiles
+
+commit fd2f2b7744d37496444911cca7eb337b96ffc0f8
+Merge: 9a0f14f 319a826
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Fri May 8 11:03:40 2015 -0700
+
+    Merge branch 'master' of github.com:berong91/ProjectDolos
+
+commit 9a0f14fc704fbb5712e1f9f7b7b6a4f0ce5460ce
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Fri May 8 11:03:07 2015 -0700
+
+    Fix icon error, fix ccordova error
+
+commit 319a8261a7a35880e9a035a9c040f5ab86696a3c
+Author: Chris Horak <gyromorgian@gmail.com>
+Date:   Fri May 8 11:00:24 2015 -0700
+
+    changed main and preload to include switch sound instead of explosion
+
+commit 03f3d99f1650e3bdcec6e327d11495ba63cdf40b
+Merge: b0a27c2 76f92ce
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Fri May 8 09:53:08 2015 -0700
+
+    Double checking pull before presentation
+
+commit b0a27c25991369297cb7b25f84e6fd9090352627
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 7 13:12:02 2015 -0700
+
+    Timer appears and works in seconds
+
+commit 76f92ce9e2c00328a2523b5402c785af351cace3
+Author: Phill Hood <oskatilla@gmail.com>
+Date:   Thu May 7 13:10:52 2015 -0700
+
+    fixing conflicts
+
+commit f934adc6457b1f06ce73390d7698f5a1d77c4635
+Merge: 45d5113 95ed0c3
+Author: Phill Hood <oskatilla@gmail.com>
+Date:   Thu May 7 13:07:59 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit 45d5113d9bf2f02f3638b1237a9ec2130d250884
+Author: Phill Hood <oskatilla@gmail.com>
+Date:   Thu May 7 13:07:35 2015 -0700
+
+    changed song files, added spanish flea background music
+
+commit 95ed0c3d569e2f8dab12c6d9a5978b53a77b7ea3
+Merge: f313685 e2c6df7
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Thu May 7 13:05:42 2015 -0700
+
+    Fixing a bunch of conflicts
+
+commit e2c6df7aaf027e1a3962eae43a9af70d83991a1a
+Merge: 8db24d7 d0ef209
+Author: Phill Hood <oskatilla@gmail.com>
+Date:   Thu May 7 12:52:35 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit 8db24d78c3b36996302c12017c85d2d657f98ea2
+Author: Phill Hood <oskatilla@gmail.com>
+Date:   Thu May 7 12:52:14 2015 -0700
+
+    fixed grid centering, board initializes to blank tiles
+
+commit f313685188aa9ca144cd6b768c7c32ebf9077bca
+Merge: b6e7f93 d0ef209
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Thu May 7 12:51:42 2015 -0700
+
+    Fixing some conflicts
+
+commit b6e7f9325635d81c6e54bb22d66045096b47eece
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Thu May 7 12:42:39 2015 -0700
+
+    Change variables name in Game.js. Add array of blocks
+
+commit d0ef2097dad83f3cb452471f902fc11b0f83cf1f
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 7 12:34:57 2015 -0700
+
+    Spelling mistake for lifes
+
+commit 0a8e2753c21acb14b2f1d0d5f04098e88f55dc35
+Author: Chris Horak <gyromorgian@gmail.com>
+Date:   Thu May 7 12:24:25 2015 -0700
+
+    added theme song -Spanish Flea.mp3
+
+commit a7f68dc47483006538989145180c8ba8d530b5c1
+Merge: ecfb354 54b8fb9
+Author: Phill Hood <oskatilla@gmail.com>
+Date:   Thu May 7 11:58:09 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit ecfb35428db6f8ffc2d7e584f5266b44ad292a79
+Author: Phill Hood <oskatilla@gmail.com>
+Date:   Thu May 7 11:56:11 2015 -0700
+
+    tuned grid, adjusted temporary game size
+
+commit 54b8fb9d247eb55ddb7825c44276ec332accfd77
+Merge: 4f1c885 14e1dbb
+Author: Chris Horak <gyromorgian@gmail.com>
+Date:   Thu May 7 11:22:54 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit 4f1c885c0d78dfc6a6129077ece29c61a67c4c10
+Author: Chris Horak <gyromorgian@gmail.com>
+Date:   Thu May 7 11:22:09 2015 -0700
+
+    added soounds
+
+commit 14e1dbb9fb36635f75cab6e68b7f370a371a8823
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 7 10:15:26 2015 -0700
+
+    Added life sysystem.
+
+commit 2e46dd51e4e0263c2287b5a1ba5a562e1ef9cbec
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Thu May 7 10:11:17 2015 -0700
+
+    Change sound size
+
+commit f7e4001b32a149855c3c25a25a10941027357e47
+Merge: 337e880 93f3687
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Thu May 7 09:37:44 2015 -0700
+
+    Fix conflict in Preload.js
+
+commit 93f3687bce855c8ac0a8a2c4590b02216b67bfce
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Thu May 7 09:35:21 2015 -0700
+
+    Succesfull tile interactions, working on preload function
+
+commit 337e880c9ac9f8fb67c53795406b96be0fb0359a
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Thu May 7 09:35:08 2015 -0700
+
+    Add background sound
+
+commit ee84068bf9ad2dd6343911d9cdec7688a05d5421
+Author: Chris Horak <gyromorgian@gmail.com>
+Date:   Thu May 7 09:16:44 2015 -0700
+
+    added spritesheets
+
+commit 4804d99a14a8cfee7cdd52672e984030ae4abe7e
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Wed May 6 18:05:15 2015 -0700
+
+    One tile is now clickable. Search for on-click
+
+commit 4b80839578bbd17c004a091c544b3506b56913d2
+Author: Chris Horak <gyromorgian@gmail.com>
+Date:   Wed May 6 16:53:55 2015 -0700
+
+    added pseudo-code for methods for Main
+
+commit 847db6ef1e88515c736cab63d5fad73aa291483e
+Merge: 066bcda 058af90
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Wed May 6 13:29:31 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit 066bcdafc1faa825be86da1335433897ac3d9821
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Wed May 6 13:29:24 2015 -0700
+
+    Screen will now scale to screen resolution
+
+commit 058af908e4a2e3a3ed1cd4be4b1c67e052abb6c5
+Author: Phill Hood <oskatilla@gmail.com>
+Date:   Wed May 6 13:13:19 2015 -0700
+
+    changed game name, cleaned up index
+
+commit 2c1e9df370c3519d6fc95c3837869c7c17b1f767
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Tue May 5 16:23:55 2015 -0700
+
+    Uncomment for all plane movements and interactions
+
+commit 04fb2310b9d4a23ec272eb609aa2a161102972be
+Merge: c10325e ef12ba9
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Tue May 5 16:22:50 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit ef12ba9ed736b9da2fed90dc58770274173c0e74
+Author: Phill Hood <oskatilla@gmail.com>
+Date:   Tue May 5 16:16:10 2015 -0700
+
+    Removed phaser default resources
+
+commit c10325ea1a0521e29735142da9d12e084574aac8
+Merge: 206420e 2d1a70b
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Tue May 5 15:49:01 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit 2d1a70b444475f4dc08193da54b280ffd595db82
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Tue May 5 15:48:39 2015 -0700
+
+    Fix logo size
+
+commit 206420ee207b8014a9e43df176756e556cff74e8
+Merge: 7458a4d 9f3159e
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Tue May 5 15:38:11 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit 9f3159e1a099cc5038259c715fe5373d1b4866fe
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Tue May 5 15:37:10 2015 -0700
+
+    Fixing something that i dont know
+
+commit 7458a4d7581e5731b592268a0ff8e36adce37821
+Merge: 4d4f911 26585a2
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Tue May 5 15:15:06 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit 26585a2b08540ca51793fd1d0e8acb7bc2500c5a
+Author: Phill Hood <oskatilla@gmail.com>
+Date:   Tue May 5 14:55:54 2015 -0700
+
+    align test
+
+commit d873a4f523e2caf0893f8130ee154b12d4024631
+Merge: b32a29d 0ad891c
+Author: Phill Hood <oskatilla@gmail.com>
+Date:   Tue May 5 14:54:43 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit 4d4f91189a70d69f5c1a406ef821085cfc88f29d
+Merge: 4136a13 0ad891c
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Tue May 5 14:54:21 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit b32a29dc032fa73c292ded7a375d0b070dd9ce52
+Author: Phill Hood <oskatilla@gmail.com>
+Date:   Tue May 5 14:54:04 2015 -0700
+
+    align test
+
+commit 0ad891cb0873b32acd2840a8dfab50ba723978a3
+Merge: 83bff04 6840899
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Tue May 5 14:50:28 2015 -0700
+
+    Merge branch 'master' of github.com:berong91/ProjectDolos
+
+commit 83bff04febe02421e0b7b9ef7634d71707000eef
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Tue May 5 14:50:16 2015 -0700
+
+    Add menu button and logo
+
+commit 4136a13d51bd9c3ca05f3f0923c0e7d3fccc764d
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Tue May 5 14:49:13 2015 -0700
+
+    Small tutorial on sounds in create and update function
+
+commit 6840899e84ccf40f4a48a22da6d4fca06b907d74
+Merge: eb9a146 8f352b1
+Author: Chris Horak <gyromorgian@gmail.com>
+Date:   Tue May 5 14:46:22 2015 -0700
+
+    Merge branch 'master' of https://github.com/berong91/ProjectDolos
+
+commit eb9a146713ef92d8699d62f417522dc4f8731a4d
+Author: Chris Horak <gyromorgian@gmail.com>
+Date:   Tue May 5 14:44:40 2015 -0700
+
+    important resources added
+
+commit 8f352b1280b711775a892cbbe6bee681527bffb6
+Author: Phill Hood <oskatilla@gmail.com>
+Date:   Tue May 5 14:40:44 2015 -0700
+
+    vertical align + git push test
+
+commit 38c3cce83459497c731a53965143e94410664564
+Author: Chris Horak <gyromorgian@gmail.com>
+Date:   Tue May 5 14:28:27 2015 -0700
+
+    I found an enemy for our game
+
+commit 201764fd5249f0a2352f46dad893b57aff1e9ca0
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Tue May 5 13:42:50 2015 -0700
+
+    Made tiles work like a mofo dawg
+
+commit c53de02383122cff6c9a39dc1ae2c81d8cd2180d
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Mon May 4 20:39:43 2015 -0700
+
+    kek
+
+commit 86c82080ee9497b8736cde1fe20c94324af83a93
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Mon May 4 19:51:33 2015 -0700
+
+    fixed bugs
+
+commit cb8cb209d303fa2b74f382839d4c88fceb5ee52b
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Mon May 4 19:38:06 2015 -0700
+
+    made some nice pepe tiles
+
+commit 0f74588c52006211aeb5352138d111b3a17881ea
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Mon May 4 18:13:12 2015 -0700
+
+    Fixing complicts
+
+commit 4c0259be4f6b25e98f3f91cd60ad8ec88998cab3
+Merge: 42f9f53 4ae50be
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Mon May 4 18:07:47 2015 -0700
+
+    swag
+
+commit 42f9f53d4aeafa01769639987b2ef83e06f18f4c
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Mon May 4 18:05:11 2015 -0700
+
+    dat pepe doe
+
+commit 312f92dcc9f15c2cc381dc5f5e52fb024605ea6b
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Mon May 4 18:02:59 2015 -0700
+
+    Cleaned up this crap
+
+commit 4ae50be4a04fcf6df0b74776ecd010fa0b49dddf
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Mon May 4 17:46:05 2015 -0700
+
+    Sry i cant stop myself. Format every files
+
+commit f87f63fe797e873d338de74483aa89c27dd4e508
+Merge: bd2f398 a28abd2
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Mon May 4 17:34:41 2015 -0700
+
+    Fixing .fetch.json
+
+commit bd2f398ebf8d33e185ba7f21680f2a9ba4d49ee3
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Mon May 4 17:33:29 2015 -0700
+
+    Fixing gitignore for .fetch.jason
+
+commit a28abd27665750a54ee21b7d6be9d1a1d7148941
+Merge: 32836eb 178a80e
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Mon May 4 17:26:08 2015 -0700
+
+    Put score at the bottom right of the screen.
+
+commit 32836eb1e6f598c6b42c6cf9309b2b86236bdc70
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Mon May 4 17:24:05 2015 -0700
+
+    Made the word Score appear at the bottom right of the screen.
+
+commit 178a80e3b431c6a98b34af3b0b9ba2cea3314939
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Mon May 4 17:15:26 2015 -0700
+
+    swag 420
+
+commit a338f34a228963c518d4ffda48fb76b97ecb8163
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Mon May 4 17:14:45 2015 -0700
+
+    swag
+
+commit 7b9434be52be9a3e2531a061cf7a0c9522da1225
+Merge: 6137345 058db40
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Mon May 4 17:06:40 2015 -0700
+
+    Fix conflict in index.html
+
+commit 61373454e1c4ed5754719d2b8319148a2da98cae
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Mon May 4 17:05:20 2015 -0700
+
+    Fix sript inport prob
+
+commit 058db40bfbfbb411444491a5da0f1b5a65083bc8
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Mon May 4 17:01:38 2015 -0700
+
+    Fixed the order of .js files in index.html
+
+commit 5a5de738bc8acbb1e42b7c66ac8425b1db8fba23
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Mon May 4 16:18:53 2015 -0700
+
+    Organize the whole project. Made it looks beautiful
+
+commit e12693f2ce8dfa01f2c74f0c98b05acb1fab79ee
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Mon May 4 15:07:03 2015 -0700
+
+    Edit member name
+
+commit 2ce7bb5125173a06322b6b1f61273a8d977a81a1
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Mon May 4 14:38:07 2015 -0700
+
+    This is a test
+
+commit b0d44eb29ebc2e45303f81da1815161f04473c9b
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Mon May 4 14:07:04 2015 -0700
+
+    Add ingored-files
+
+commit a7f015bc9203f77252e450fe57ee93779667446c
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Tue Apr 28 09:54:55 2015 -0700
+
+    wtf is going on?
+
+commit d38eb87b4631283e7c003b984a78bde778347d52
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Tue Apr 28 08:02:25 2015 -0700
+
+    Add plugin file
+
+commit 9dec1a9f2e88d1ada3d9809d43917ab98f9aa977
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Mon Apr 27 18:07:51 2015 -0700
+
+    First Initialize
+
+commit 919c28aefd5a8dc67862336bff5e1b87813d9a59
+Author: Duy Pham <berong91@users.noreply.github.com>
+Date:   Thu Apr 23 09:59:29 2015 -0700
+
+    Initial commit
