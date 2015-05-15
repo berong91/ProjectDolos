@@ -1,6 +1,5 @@
 var TMT = TMT || {};
 
-var lol;
 //Grid variables 
 var xloc;
 var yloc;
@@ -53,13 +52,6 @@ TMT.Game.prototype = {
         this.progbar = this.game.add.sprite(xloc, this.game.height * 0.85, 'progress');
         this.progbar.scale.setTo((theScale*3)/400);
         
-        //attempt at making vehicles group
-        this.vehicles = this.game.add.group();
-        this.vehicles.enableBody = true;
-        this.generateVehicle(xloc - 100, yloc+theScale, 0, 'plane1');
-        this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
-        this.generateVehicle(xloc + (theScale*2) + 100, yloc+(theScale*2), 2, 'train1');
-        
         //This will create text in the top left of the game screen.
         text = this.game.add.text(xloc/2, yloc/4, 'Time: ' + MAXTIME + '' , { fontSize: this.game.world.width/15+ 'px', fill: '#ffffff' });
         text.stroke = '#000000';
@@ -75,7 +67,7 @@ TMT.Game.prototype = {
 		*/
 		function timer(){
         	count--;
-        	text.text = vehicles[0].moving + 'Time: ' + count + lol;
+        	text.text = 'Time: ' + count;
         	if(count<=0){
             	text.text = 'Time\'s up!';
         	}
@@ -101,6 +93,10 @@ TMT.Game.prototype = {
 		//"canvas" which is your entire game window.
 		this.game.world.setBounds(0, 0, this.game.width, this.game.height);
 		
+		//attempt at making vehicles group
+        this.vehicles = this.game.add.group();
+        this.vehicles.enableBody = true;
+		
 		//level = -1;
 		if (level === -1) {
 			MAXTIME = 20;
@@ -115,6 +111,10 @@ TMT.Game.prototype = {
 			xloc = this.game.world.width/2 - (theScale * 1.5);
 			yloc = this.game.world.height / 3;
 			rows = cols = 3;
+			
+			this.generateVehicle(xloc - 100, yloc+theScale, 0, 'plane1');
+        this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
+        this.generateVehicle(xloc + (theScale*2) + 100, yloc+(theScale*2), 2, 'train1');
 		}
 		if (level === 0) {
 			
@@ -132,6 +132,8 @@ TMT.Game.prototype = {
 			//set grid init position
 			xloc = this.game.world.width/2 - (theScale * (cols/2));
 			yloc = this.game.world.height/2 - (theScale * (rows/2));
+			
+        	this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
 		}
 		if (level === 1) {
 			MAXTIME = 20;
@@ -146,6 +148,10 @@ TMT.Game.prototype = {
 			xloc = this.game.world.width/2 - (theScale * 1.5);
 			yloc = this.game.world.height / 3;
 			rows = cols = 3;
+			
+			this.generateVehicle(xloc - 100, yloc+theScale, 0, 'plane1');
+        this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
+        this.generateVehicle(xloc + (theScale*2) + 100, yloc+(theScale*2), 2, 'train1');
 		}
 	
 	},
@@ -234,21 +240,23 @@ TMT.Game.prototype = {
 		//Overlap that allows all members of vehicles to interact with 
         //tiles.
 		this.game.physics.arcade.overlap(this.vehicles, this.blocks, this.playSound, this.checkTile, this);
-        
+		
         //Checks whether or not the vehicle has been "allowed to move."
-        for(var i = 0; i < vehicles.length; i++)
+        for(var i = 0; i < vehicles.length; i++){
 			if(vehicles[i].moving){
-            	if (vehicles[i].key === 'plane1')
+            	if (vehicles[i].key === 'plane1'){
 					vehicles[i].body.velocity.x = planeSpeed;
-				else if (vehicles[i].key === 'boat1')
+				}
+				else if (vehicles[i].key === 'boat1'){
 					vehicles[i].body.velocity.x = boatSpeed;
-				else if (vehicles[i].key === 'train1')
+				}
+				else if (vehicles[i].key === 'train1'){
 					vehicles[i].body.velocity.x = -1 * trainSpeed;
+				}
 			}
-        
-        
-        
-        
+			else 
+				this.Hit(vehicles[i]);	
+		}
     },
     /*
         Checks the life of all the vehicles to see whether or not they
@@ -353,22 +361,22 @@ TMT.Game.prototype = {
 			vehicle.body.velocity.x = 0;
 			vehicle.isHit = true;
 		}
-		else{
-		}
-		if (count === (vehicle.thecountDown - 3)){
-			lol = 'reach here';
-			vehicle.isHit = false;
-			vehicle.body.velocity.x = boatSpeed;
-			vehicle.body.velocity.y = boatSpeed;
-			vehicle.holdx = vehicle.holdy = 0;
-			this.enableMoving(vehicle);
-		}
-		
-   
         //Check to see if any vehicles have died recently.
         this.lifeCheck(vehicle);
 		
     },
+	/*
+		Fixed hit.
+	*/
+	Hit: function (vehicle) {
+		if (count === (vehicle.thecountDown - 3)){
+			vehicle.isHit = false;
+			vehicle.body.velocity.x = vehicle.holdx;
+			vehicle.body.velocity.y = vehicle.holdy;
+			vehicle.holdx = vehicle.holdy = 0;
+			this.enableMoving(vehicle);
+		}	
+	},
     /*
         Explosion graphic that will happen to whichever vehicle that
         reaches 0 life. Takes a vehicle as its parameter.
