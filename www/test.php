@@ -28,26 +28,5 @@
         echo 'Caught exception: ',  $e->getMessage(), "\n";    
     }
     
-    echo json_encode($arr)."<br/>";
+    echo json_encode($arr);
 ?>
-
-
-<html>
-    <head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-        <script type="text/javascript">
-            // pass PHP variable declared above to JavaScript variable
-            var obj = <?php echo json_encode($arr) ?>;
-            var ar = $.map(obj, function(el) { return el; });
-            var arr = [];
-            
-            console.log(ar);
-            
-            for (i = 0; i < ar.length; i++){
-                arr[i] = $.map(ar[i], function(el) { return el; });
-            }
-            
-            console.log(arr);
-        </script>
-    </head>
-</html>
