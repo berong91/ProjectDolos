@@ -48,12 +48,7 @@ TMT.Game.prototype = {
         // Generate all the blocks
         this.generateBlocks();
         
-        //adding the loading bar sprite
-        this.progbar = this.game.add.sprite(xloc, this.game.height * 0.85, 'progress');
-        this.progbar.scale.setTo((theScale*3)/400);
-        
-        
-        //attempt at making vehicles group
+		//attempt at making vehicles group
         this.vehicles = this.game.add.group();
         this.vehicles.enableBody = true;
 		
@@ -62,6 +57,13 @@ TMT.Game.prototype = {
 			this.generateVehicle(xloc + (theScale*2) + 100, yloc+(theScale*2), 2, 'train1');
 			this.generateVehicle(xloc - 100, yloc+theScale, 0, 'plane1');
 		}
+		
+        //adding the loading bar sprite
+        this.progbar = this.game.add.sprite(xloc, this.game.height * 0.85, 'progress');
+        this.progbar.scale.setTo((theScale*3)/400);
+        
+        
+
 			
         //This will create text in the top left of the game screen.
         text = this.game.add.text(xloc/2, yloc/4, 'Time: ' + MAXTIME + '' , { fontSize: this.game.world.width/15+ 'px', fill: '#ffffff' });
