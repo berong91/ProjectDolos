@@ -20,8 +20,8 @@ TMT.MainMenu.prototype = {
         this.startButton = this.game.add.button(this.game.width / 2, 400, 'startButton', this.startClickEvent, this);
         this.startButton.anchor.setTo(0.5, 0.8);
         
-        this.addButton = this.game.add.button(0, 0, 'startButton', this.addClickEvent, this);
-        this.readBoardData();
+        //this.addButton = this.game.add.button(0, 0, 'startButton', this.addClickEvent, this);
+        //this.readBoardData();
     },
     update: function () {
         if (!!this.ready) {
