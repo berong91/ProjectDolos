@@ -58,23 +58,28 @@ TMT.Game.prototype = {
         this.spawnVehicles(level);
         
         //adding the loading bar sprite
-        this.progbar = this.game.add.sprite(xloc, this.game.height * 0.85, 'progress');
+        this.progbar = this.game.add.sprite(this.game.world.width/2, this.game.height * 0.85, 'progress');
+		this.progbar.anchor.setTo(0.5, 0.5);
         this.progbar.scale.setTo((theScale*3)/400);
         
         //This will create text in the top left of the game screen.
-        text = this.game.add.text(xloc/2, yloc/4, 'Time: ' + MAXTIME + '' , { fontSize: this.game.world.width/15+ 'px', fill: '#ffffff' });
+        text = this.game.add.text(this.game.world.height * 0.05, this.game.world.height * 0.05, 'Time: ' + MAXTIME + '' , { fontSize: this.game.world.width/15+ 'px', fill: '#ffffff' });
         text.stroke = '#000000';
         text.strokeThickness = 6;
         
 		count = MAXTIME;
+		
+		this.pauseButton = this.game.add.button(this.game.world.width * 0.90, this.game.world.height * 0.05, 'pauseUp', this.pauseClickEvent, this);
+		this.pauseButton.anchor.setTo(0.5, 0.5);
+		this.pauseButton.scale.set(0.5,0.5);
         
         // Add leader board button
-        this.backButton = this.game.add.button(xloc/2 + 500, yloc/4 + 50, 'backUp', this.backClickEvent, this);
+        this.backButton = this.game.add.button(this.game.world.width * 0.9, this.game.world.height * 0.13, 'backUp', this.backClickEvent, this);
         this.backButton.anchor.setTo(0.5, 0.8);
-        this.backButton.scale.set(0.5, 0.5);
+        this.backButton.scale.set(0.3, 0.3);
 		
 		this.overlayrules();
-        
+		
 		if (stoptime === false) {
 			this.timing();
 		}
@@ -103,6 +108,11 @@ timing: function() {
 					text.text = 'Time\'s up!';
 				}
 			}
+},
+
+pauseClickEvent: function() {
+	this.overlayrules();
+	this.rules.kill();
 },
 
 /*
@@ -319,7 +329,8 @@ overlayclickevent: function() {
 overlayrules: function() {
 	if(level === 0) {
 		stoptime = true;
-		this.rules = this.game.add.sprite(xloc-200, yloc-200, 'rules');
+		this.rules = this.game.add.sprite(this.game.world.width/2, this.game.world.height/2, 'rules');
+		this.rules.anchor.setTo(0.5,0.5);
 		this.rules.inputEnabled = true;
 		this.rules.events.onInputDown.add(this.overlayclickevent, this);
 		this.game.paused = false;
