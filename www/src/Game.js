@@ -143,15 +143,23 @@ spawnVehicles: function(level) {
         this.generateVehicle(xloc + (theScale*2) + 100, yloc+(theScale*2), 2, 'train1');
         this.generateVehicle(xloc - 100, yloc+theScale, 0, 'plane1');
         for (var i = 0; i < vehicles.length; i++) {
-            this.vehicleWait(vehicles[i], 5);   
+            this.vehicleWait(vehicles[i], i*5);   
         }
     }
 },
-
+/*
+	"Kills" the vehicle and gives it a time when to appear.
+*/
 vehicleWait: function(vehicle, wait) {
-    var releaseTime = MAXTIME - wait;
+    vehicle.releaseTime = MAXTIME - wait;
     vehicle.kill();
-    vehicle.revive();
+},
+/*
+	Checks the timer on when a vehicle should revive.
+*/
+vehicleRelease: function(vehicle) {
+	if (count <= vehicle.releaseTime)
+		vehicle.revive();
 },
 /*
     This will allow the game to dynamically adjust its grid 
@@ -317,6 +325,8 @@ overlayclickevent: function() {
 	},
 
 overlayrules: function() {
+	if (level !== 0)
+		stoptime = false;
 	if(level === 0) {
 		stoptime = true;
 		this.rules = this.game.add.sprite(xloc-200, yloc-200, 'rules');
@@ -361,7 +371,8 @@ update: function() {
     
     //Checks whether or not the vehicle has been "allowed to move."
     for(var i = 0; i < vehicles.length; i++){
-        if(vehicles[i].moving){
+        this.vehicleRelease(vehicles[i]);
+		if(vehicles[i].moving){
             if (vehicles[i].key === 'plane1'){
                 vehicles[i].body.velocity.x = planeSpeed;
             }
@@ -430,13 +441,16 @@ TimeCheck: function() {
 		this.background = null;
 		this.blocks = null;
 		this.progbar = null;
-		vehicles = [];
-		v = 0;
 		text = null;
 		count = null;
 		clearInterval(counter);
 		counter = null;
-		level = -99;
+		var sum = 0;
+		for (var i = 0; i < vehicles.length; i++)
+			sum += (vehicles[i].life * 100);
+		postScore = sum;
+		vehicles = [];
+		v = 0;
 		this.game.state.start('WinScreen');
     }
 },
