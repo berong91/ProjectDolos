@@ -1,3 +1,79 @@
+commit 69bb01034eb816fc3d502a0179df2a6bf5e6fcab
+Merge: d1c0379 a191d45
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Fri May 15 14:59:29 2015 -0700
+
+    More conflicts. Now its dimitri's fault
+
+commit d1c03796ef8a44c4ccf09550c65c9ca6b6ce499d
+Merge: 94a3cfa 2a9e1bc
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Fri May 15 14:56:58 2015 -0700
+
+    Fix commit in Game.js. TYler made it
+
+commit a191d45f5db9a8cdcc827205292ef0fcdb1fec65
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Fri May 15 14:51:18 2015 -0700
+
+    Add a bunch of comments to every single files that I have touched
+
+commit 94a3cfa2be7e42376d464bd7023e022964076cf0
+Author: Dimitry Rakhlei <dimitryrakhlei@gmail.com>
+Date:   Fri May 15 14:50:08 2015 -0700
+
+    added a way to stop the game when the tutorial starts
+
+commit 2a9e1bcaa07a22fd00c78af0e0d7593c3429655a
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Fri May 15 14:36:53 2015 -0700
+
+    Replace Capitalize method in WinScreen.js
+
+commit 404a0a7080e8a820d7e52190b7b33104e390dfaa
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Fri May 15 14:23:48 2015 -0700
+
+    Try to center name text in WinScreen.js. Surrender. Add back button to Winscreen.js
+
+commit d3bef0ba90e3a82cf791a0595a1ff15e4b8c930b
+Merge: 1fe34f7 a791c7d
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Fri May 15 14:12:59 2015 -0700
+
+    Fix y variable conflict in WinScreen.js
+
+commit 1fe34f76427ba926cc570d29e8f2d6bcb0e0394b
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Fri May 15 14:12:05 2015 -0700
+
+    Add random name generator with working API to WinScreen.js
+
+commit a791c7db06b943290df7ca72954f544a7ead6272
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Fri May 15 14:05:11 2015 -0700
+
+    Fixed the win screen bug.
+
+commit cb388a8c87d24c814b76c811ecb26e039397aa2f
+Merge: 4785789 253e7e8
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Fri May 15 13:58:55 2015 -0700
+
+    working on level 2(new functions: spawnVehicle, vehicleWait) and backclickevent will reset the level completely.
+
+commit 47857895431f815e165c34ecea2ed0aba002c15f
+Author: Tyler Trepanier <tmanthegamer@gmail.com>
+Date:   Fri May 15 13:44:37 2015 -0700
+
+    Working on level 2 (spawnVehicles, vehicleWait), adjustLevel(level 2), finished: backclickevent now allows level resetting.
+
+commit 253e7e8e1f575f989304ba22b76e448759bee9b8
+Author: Duy Pham <noob4ever8888@gmail.com>
+Date:   Fri May 15 13:15:21 2015 -0700
+
+    Remove back button in Game.js
+
 commit 955dfefc0eaf5546a9f6deddd3b54285fb00d30a
 Author: Duy Pham <noob4ever8888@gmail.com>
 Date:   Fri May 15 13:10:26 2015 -0700
