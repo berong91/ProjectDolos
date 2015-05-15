@@ -445,7 +445,6 @@ TimeCheck: function() {
 		count = null;
 		clearInterval(counter);
 		counter = null;
-		level = -99;
 		var sum = 0;
 		for (var i = 0; i < vehicles.length; i++)
 			sum += (vehicles[i].life * 100);
