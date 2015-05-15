@@ -21,8 +21,12 @@ TMT.MainMenu.prototype = {
         this.startButton.anchor.setTo(0.5, 0.8);
         
         // Add leader board button
-        this.boardButton = this.game.add.button(this.game.width / 2, 520, 'board', this.boardClickEvent, this);
+        this.boardButton = this.game.add.button(this.game.width / 2 - 100, 520, 'board', this.boardClickEvent, this);
         this.boardButton.anchor.setTo(0.5, 0.8);
+        
+        // Add leader board button
+        this.boardButton1 = this.game.add.button(this.game.width / 2 + 100, 520, 'board1', this.addClickEvent, this);
+        this.boardButton1.anchor.setTo(0.5, 0.8);
         
         //this.addButton = this.game.add.button(0, 0, 'startButton', this.addClickEvent, this);
     },
