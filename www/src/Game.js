@@ -52,6 +52,17 @@ TMT.Game.prototype = {
         this.progbar = this.game.add.sprite(xloc, this.game.height * 0.85, 'progress');
         this.progbar.scale.setTo((theScale*3)/400);
         
+        
+        //attempt at making vehicles group
+        this.vehicles = this.game.add.group();
+        this.vehicles.enableBody = true;
+		
+        this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
+        if (level !== 0) {
+			this.generateVehicle(xloc + (theScale*2) + 100, yloc+(theScale*2), 2, 'train1');
+			this.generateVehicle(xloc - 100, yloc+theScale, 0, 'plane1');
+		}
+			
         //This will create text in the top left of the game screen.
         text = this.game.add.text(xloc/2, yloc/4, 'Time: ' + MAXTIME + '' , { fontSize: this.game.world.width/15+ 'px', fill: '#ffffff' });
         text.stroke = '#000000';
@@ -93,9 +104,6 @@ TMT.Game.prototype = {
 		//"canvas" which is your entire game window.
 		this.game.world.setBounds(0, 0, this.game.width, this.game.height);
 		
-		//attempt at making vehicles group
-        this.vehicles = this.game.add.group();
-        this.vehicles.enableBody = true;
 		
 		//level = -1;
 		if (level === -1) {
@@ -111,10 +119,6 @@ TMT.Game.prototype = {
 			xloc = this.game.world.width/2 - (theScale * 1.5);
 			yloc = this.game.world.height / 3;
 			rows = cols = 3;
-			
-			this.generateVehicle(xloc - 100, yloc+theScale, 0, 'plane1');
-        this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
-        this.generateVehicle(xloc + (theScale*2) + 100, yloc+(theScale*2), 2, 'train1');
 		}
 		if (level === 0) {
 			
@@ -132,8 +136,6 @@ TMT.Game.prototype = {
 			//set grid init position
 			xloc = this.game.world.width/2 - (theScale * (cols/2));
 			yloc = this.game.world.height/2 - (theScale * (rows/2));
-			
-        	this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
 		}
 		if (level === 1) {
 			MAXTIME = 20;
@@ -148,10 +150,6 @@ TMT.Game.prototype = {
 			xloc = this.game.world.width/2 - (theScale * 1.5);
 			yloc = this.game.world.height / 3;
 			rows = cols = 3;
-			
-			this.generateVehicle(xloc - 100, yloc+theScale, 0, 'plane1');
-        this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
-        this.generateVehicle(xloc + (theScale*2) + 100, yloc+(theScale*2), 2, 'train1');
 		}
 	
 	},
@@ -236,7 +234,8 @@ TMT.Game.prototype = {
     update: function() {
         //method that will be later refined to show progress better.
         this.progressBar();
-        
+		//checks if the time is 0
+        this.TimeCheck();
 		//Overlap that allows all members of vehicles to interact with 
         //tiles.
 		this.game.physics.arcade.overlap(this.vehicles, this.blocks, this.playSound, this.checkTile, this);
@@ -305,6 +304,12 @@ TMT.Game.prototype = {
             break;
         }
     },
+	
+	TimeCheck: function() {
+		if(count === 0){
+			this.game.state.start('WinScreen');
+		}
+	},
     
     /*
         This function is called by the game physics overlap.

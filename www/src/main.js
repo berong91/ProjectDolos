@@ -9,6 +9,7 @@ TMT.game.state.add('MainMenu', TMT.MainMenu);
 TMT.game.state.add('LevelSelect', TMT.LevelSelect);
 TMT.game.state.add('LeaderBoard', TMT.LeaderBoard);
 TMT.game.state.add('Game', TMT.Game);
+TMT.game.state.add('WinScreen', TMT.WinScreen);
 
 //TMT.game.state.add('Generator', TMT.Generator);
 
