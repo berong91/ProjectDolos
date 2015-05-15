@@ -1,6 +1,5 @@
 var TMT = TMT || {};
 
-var lol;
 //Grid variables 
 var xloc;
 var yloc;
@@ -75,7 +74,7 @@ TMT.Game.prototype = {
 		*/
 		function timer(){
         	count--;
-        	text.text = vehicles[0].moving + 'Time: ' + count + lol;
+        	text.text = 'Time: ' + count;
         	if(count<=0){
             	text.text = 'Time\'s up!';
         	}
@@ -234,21 +233,23 @@ TMT.Game.prototype = {
 		//Overlap that allows all members of vehicles to interact with 
         //tiles.
 		this.game.physics.arcade.overlap(this.vehicles, this.blocks, this.playSound, this.checkTile, this);
-        
+		
         //Checks whether or not the vehicle has been "allowed to move."
-        for(var i = 0; i < vehicles.length; i++)
+        for(var i = 0; i < vehicles.length; i++){
 			if(vehicles[i].moving){
-            	if (vehicles[i].key === 'plane1')
+            	if (vehicles[i].key === 'plane1'){
 					vehicles[i].body.velocity.x = planeSpeed;
-				else if (vehicles[i].key === 'boat1')
+				}
+				else if (vehicles[i].key === 'boat1'){
 					vehicles[i].body.velocity.x = boatSpeed;
-				else if (vehicles[i].key === 'train1')
+				}
+				else if (vehicles[i].key === 'train1'){
 					vehicles[i].body.velocity.x = -1 * trainSpeed;
+				}
 			}
-        
-        
-        
-        
+			else 
+				this.Hit(vehicles[i]);	
+		}
     },
     /*
         Checks the life of all the vehicles to see whether or not they
@@ -353,22 +354,23 @@ TMT.Game.prototype = {
 			vehicle.body.velocity.x = 0;
 			vehicle.isHit = true;
 		}
-		else{
-		}
-		if (count === (vehicle.thecountDown - 3)){
-			lol = 'reach here';
-			vehicle.isHit = false;
-			vehicle.body.velocity.x = boatSpeed;
-			vehicle.body.velocity.y = boatSpeed;
-			vehicle.holdx = vehicle.holdy = 0;
-			this.enableMoving(vehicle);
-		}
-		
-   
         //Check to see if any vehicles have died recently.
         this.lifeCheck(vehicle);
 		
     },
+	/*
+		Fixed hit.
+	*/
+	Hit: function (vehicle) {
+		if (count === (vehicle.thecountDown - 3)){
+			lol = 'reach here';
+			vehicle.isHit = false;
+			vehicle.body.velocity.x = vehicle.holdx;
+			vehicle.body.velocity.y = vehicle.holdy;
+			vehicle.holdx = vehicle.holdy = 0;
+			this.enableMoving(vehicle);
+		}	
+	},
     /*
         Explosion graphic that will happen to whichever vehicle that
         reaches 0 life. Takes a vehicle as its parameter.
