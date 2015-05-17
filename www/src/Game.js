@@ -73,11 +73,10 @@ TMT.Game.prototype = {
         text.strokeThickness = 6;
 
         count = MAXTIME;
-
-        this.pauseButton = this.game.add.sprite(this.game.world.width * 0.9, this.game.world.height * 0.05, 'pauseUp');
+	  /*this.pauseButton = this.game.add.sprite(this.game.world.width * 0.9, this.game.world.height * 0.05, 'pauseUp');
         this.pauseButton.anchor.setTo(0.5, 0.5);
         this.pauseButton.inputEnabled = true;
-        this.pauseButton.events.onInputDown.add(this.overlayrules, this);
+        this.pauseButton.events.onInputDown.add(this.overlayrules, this); */
 
 
         // Add leader board button
@@ -337,8 +336,10 @@ TMT.Game.prototype = {
     overlayclickevent: function() {
         console.log("overlayclickevent");
 		rules.kill();
-        this.pause();
-        this.startTimer();
+		if(this.game.paused === true){
+			this.pause();
+			this.startTimer();
+		}
     },
 
     overlayrules: function() {
@@ -348,8 +349,7 @@ TMT.Game.prototype = {
             rules = this.game.add.sprite(this.game.world.width / 2, this.game.world.height / 2, 'rules');
             rules.anchor.setTo(0.5, 0.5);
             rules.inputEnabled = true;
-            rules.events.onInputDown.add(this.overlayclickevent, this);
-
+			this.game.input.onDown.add(this.overlayclickevent, this);
         }
     },
 
