@@ -16,7 +16,7 @@ TMT.Preload.prototype = {
 		this.load.image('pauseDown', 'asset/images/buttons/pauseDown.png');
 		this.load.image('pauseUp', 'asset/images/buttons/pauseUp.png');
         
-        this.load.image('logo', 'asset/images/logo.png');
+        this.load.image('logo', 'asset/images/fancy.png');
         this.load.image('fire', 'asset/images/fire.png');
         this.load.image('backUp', 'asset/images/buttons/backUp.png');
         this.load.image('backDown', 'asset/images/buttons/backDown.png');
@@ -28,7 +28,8 @@ TMT.Preload.prototype = {
         this.load.image('level2', 'asset/images/SorryChris/level2.png');
         this.load.image('level3', 'asset/images/SorryChris/level3.png');
         this.load.image('level4', 'asset/images/SorryChris/level4.png');
-        this.load.image('gameend', 'asset/images/SorryChris/gameend.png');
+        this.load.image('lose', 'asset/images/SorryChris/lose.png');
+		this.load.image('win', 'asset/images/SorryChris/win.png');
         this.load.image('tutorial', 'asset/images/SorryChris/tutorial.png');
         this.load.image('peaks', 'asset/images/bgSmall.png');
 		this.load.image('rules', 'asset/images/rules.png');

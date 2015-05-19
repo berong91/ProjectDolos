@@ -10,7 +10,6 @@ TMT.LeaderBoard.prototype = {
     create: function () {
         // Set background and give background speed in x
         this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'peaks');
-        this.background.autoScroll(-5, 0);
         
         // Read leadere board data and put it in array arr
         this.readBoardData();
