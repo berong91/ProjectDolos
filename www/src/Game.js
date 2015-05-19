@@ -402,21 +402,34 @@ TMT.Game.prototype = {
         //Overlap that allows all members of vehicles to interact with 
         //tiles.
         this.game.physics.arcade.overlap(this.vehicles, this.blocks, this.playSound, this.checkTile, this);
-
-        //Checks whether or not the vehicle has been "allowed to move."
-        for (var i = 0; i < vehicles.length; i++) {
-            this.vehicleRelease(vehicles[i]);
-            if (vehicles[i].moving) {
-                if (vehicles[i].key === 'plane1') {
-                    vehicles[i].body.velocity.x = planeSpeed;
-                } else if (vehicles[i].key === 'boat1') {
-                    vehicles[i].body.velocity.x = boatSpeed;
-                } else if (vehicles[i].key === 'train1') {
-                    vehicles[i].body.velocity.x = -1 * trainSpeed;
+		
+        
+		if(level === 0){
+            if(vehicles.length > 0) {
+                if(blocks[0].frame === 0) {
+                    vehicles[0].body.velocity.x = boatSpeed;
+                } else if(blocks[0].frame !== 0) {
+                    vehicles[0].body.velocity.x = 0;
                 }
-            } else
-                this.Hit(vehicles[i]);
-        }
+            }
+		}
+		
+        //Checks whether or not the vehicle has been "allowed to move."
+        if(level !== 0) {
+			for (var i = 0; i < vehicles.length; i++) {
+				this.vehicleRelease(vehicles[i]);
+				if (vehicles[i].moving) {
+					if (vehicles[i].key === 'plane1') {
+						vehicles[i].body.velocity.x = planeSpeed;
+					} else if (vehicles[i].key === 'boat1') {
+						vehicles[i].body.velocity.x = boatSpeed;
+					} else if (vehicles[i].key === 'train1') {
+						vehicles[i].body.velocity.x = -1 * trainSpeed;
+					}
+				} else
+					this.Hit(vehicles[i]);
+			}
+		}
     },
     /*
         Checks the life of all the vehicles to see whether or not they
