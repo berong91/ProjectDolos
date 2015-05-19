@@ -16,6 +16,7 @@ var boatSpeed;
 
 var blocks = [];
 var vehicles = [];
+var glows = [];
 var v = 0;
 
 //Time Elapsed variables
@@ -41,6 +42,9 @@ var theScale;
 
 var counter;
 
+//number of times vehicles have been kill
+var death = 0;
+
 //title screen
 TMT.Game = function() {};
 
@@ -51,7 +55,7 @@ TMT.Game.prototype = {
         this.adjustLevel(level);
 
         //background
-        this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'peaks');
+        this.background = this.game.add.tileSprite(0, 0, 480, 800, 'peaks');
         //this.background.autoScroll(-2, 0);
 
         // Generate all the blocks
@@ -102,6 +106,7 @@ TMT.Game.prototype = {
         //code snippet to test the gameEnd UI
         //this.gameEnd();
     },
+	//pulled out the timing function out of create and put it here
     timing: function() {
         counter = setInterval(timer, 1000);
         /*
@@ -139,7 +144,11 @@ TMT.Game.prototype = {
         level = -99;
         this.game.state.start('MainMenu');
     },
-    /*
+    spawnGlows: function() {
+		
+	},
+	
+	/*
     	Spawn vehicle events that is adjusted by the level selected.
     */
     spawnVehicles: function(level) {
@@ -148,7 +157,9 @@ TMT.Game.prototype = {
         this.vehicles = this.game.add.group();
         this.vehicles.enableBody = true;
         if (level === 0) {
-            this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
+            console.log(vehicles.length);
+			this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
+			console.log(vehicles.length);
         } else if (level === 1) {
             this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
             this.generateVehicle(xloc + (theScale * 2) + 100, yloc + (theScale * 2), 2, 'train1');
@@ -321,18 +332,17 @@ TMT.Game.prototype = {
             //Initializes blank map
             blocks[i].frame = 3;
         }
-        current = blocks[0];
     },
-
+	//function to stop timer clearly ... Jesus
     stopTimer: function() {
         clearInterval(counter);
     },
-
+	//do I need to explain myself?
     startTimer: function() {
         stoptime = false;
         this.timing();
     },
-
+	//used as an event function for when the user wants to dispose of the rules overlay image
     overlayclickevent: function() {
         console.log("overlayclickevent");
 		rules.kill();
@@ -341,7 +351,8 @@ TMT.Game.prototype = {
 			this.startTimer();
 		}
     },
-
+	//main function for overlaying rules on screen before the game starts
+	//simply shows rules to user if level is 0 or in other words tutorial
     overlayrules: function() {
         if (level === 0) {
             stoptime = true;
@@ -352,12 +363,12 @@ TMT.Game.prototype = {
 			this.game.input.onDown.add(this.overlayclickevent, this);
         }
     },
-
+	//you are a big boy you know whats up
     gamepause: function() {
         this.pause();
         this.stopTimer();
     },
-
+	//the name
     pause: function() {
         lol = 'in pause';
 		console.log(lol);
@@ -391,21 +402,34 @@ TMT.Game.prototype = {
         //Overlap that allows all members of vehicles to interact with 
         //tiles.
         this.game.physics.arcade.overlap(this.vehicles, this.blocks, this.playSound, this.checkTile, this);
-
-        //Checks whether or not the vehicle has been "allowed to move."
-        for (var i = 0; i < vehicles.length; i++) {
-            this.vehicleRelease(vehicles[i]);
-            if (vehicles[i].moving) {
-                if (vehicles[i].key === 'plane1') {
-                    vehicles[i].body.velocity.x = planeSpeed;
-                } else if (vehicles[i].key === 'boat1') {
-                    vehicles[i].body.velocity.x = boatSpeed;
-                } else if (vehicles[i].key === 'train1') {
-                    vehicles[i].body.velocity.x = -1 * trainSpeed;
+		
+        
+		if(level === 0){
+            if(vehicles.length > 0) {
+                if(blocks[0].frame === 0) {
+                    vehicles[0].body.velocity.x = boatSpeed;
+                } else if(blocks[0].frame !== 0) {
+                    vehicles[0].body.velocity.x = 0;
                 }
-            } else
-                this.Hit(vehicles[i]);
-        }
+            }
+		}
+		
+        //Checks whether or not the vehicle has been "allowed to move."
+        if(level !== 0) {
+			for (var i = 0; i < vehicles.length; i++) {
+				this.vehicleRelease(vehicles[i]);
+				if (vehicles[i].moving) {
+					if (vehicles[i].key === 'plane1') {
+						vehicles[i].body.velocity.x = planeSpeed;
+					} else if (vehicles[i].key === 'boat1') {
+						vehicles[i].body.velocity.x = boatSpeed;
+					} else if (vehicles[i].key === 'train1') {
+						vehicles[i].body.velocity.x = -1 * trainSpeed;
+					}
+				} else
+					this.Hit(vehicles[i]);
+			}
+		}
     },
     /*
         Checks the life of all the vehicles to see whether or not they
@@ -418,6 +442,7 @@ TMT.Game.prototype = {
                 this.explosion(vehicle);
             vehicle.dead = true;
             vehicle.kill();
+			death++;
             return false;
         }
         return true;
@@ -482,7 +507,11 @@ TMT.Game.prototype = {
             postScore = sum;
             vehicles = [];
             v = 0;
+			if (death === 0){
             this.game.state.start('WinScreen');
+			}else{
+				this.game.state.start('LoseScreen');
+			}
         }
     },
 
