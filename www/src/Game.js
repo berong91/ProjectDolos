@@ -51,7 +51,7 @@ TMT.Game.prototype = {
         this.adjustLevel(level);
 
         //background
-        this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'peaks');
+        this.background = this.game.add.tileSprite(0, 0, 480, 800, 'peaks');
         //this.background.autoScroll(-2, 0);
 
         // Generate all the blocks

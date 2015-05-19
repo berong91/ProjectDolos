@@ -2,7 +2,16 @@ var TMT = TMT || {};
 var level = -99;
 var postScore;
 
-TMT.game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, '');
+var gameHeight = 800;
+var gameWidth = 480;
+
+TMT.game = new Phaser.Game(gameWidth, gameHeight, Phaser.AUTO, '');
+/*TMT.game.world = new World(TMT.game);
+TMT.game.world._width = 480;
+TMT.game.world._height = 800;*/
+
+/*TMT.world.width = 480;
+TMT.world.height = 800;*/
 
 /* 
     Load all game state into TMT variable.

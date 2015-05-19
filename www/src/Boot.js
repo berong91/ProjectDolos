@@ -26,15 +26,11 @@ TMT.Boot.prototype = {
         this.game.stage.backgroundColor = '#000';
         
         //scaling options
-        this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
+        //this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
         this.scale.minWidth = 240;
         this.scale.minHeight = 170;
-        this.scale.maxWidth = 2880;
-        this.scale.maxHeight = 1920;
-        
-        //have the game centered horizontally
-        this.scale.pageAlignHorizontally = true;
-        this.scale.pageAlignVertically = true;
+        this.scale.maxWidth = 960;
+        this.scale.maxHeight = 1600;
         
         //physics system for movement
         this.game.physics.startSystem(Phaser.Physics.ARCADE);

@@ -8,7 +8,7 @@ TMT.MainMenu.prototype = {
     },
     create: function () {
         // Set background and give background speed in x
-        this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'gamebg');
+        this.background = this.game.add.tileSprite(0, 0, 480, 800, 'peaks');
         //this.background.autoScroll(-20, 0);
         
         // Add logo image
