@@ -16,6 +16,7 @@ var boatSpeed;
 
 var blocks = [];
 var vehicles = [];
+var glows = [];
 var v = 0;
 
 //Time Elapsed variables
@@ -140,7 +141,11 @@ TMT.Game.prototype = {
         level = -99;
         this.game.state.start('MainMenu');
     },
-    /*
+    spawnGlows: function() {
+		
+	},
+	
+	/*
     	Spawn vehicle events that is adjusted by the level selected.
     */
     spawnVehicles: function(level) {
@@ -322,7 +327,6 @@ TMT.Game.prototype = {
             //Initializes blank map
             blocks[i].frame = 3;
         }
-        current = blocks[0];
     },
 	//function to stop timer clearly ... Jesus
     stopTimer: function() {
