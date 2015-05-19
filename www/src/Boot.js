@@ -5,6 +5,7 @@ var bgSound;
 var level;
 var explosionSound;
 var switchSound;
+var initialized = false;
 
 TMT.Boot = function () {};
 
@@ -25,8 +26,17 @@ TMT.Boot.prototype = {
         //loading screen will have a white background
         this.game.stage.backgroundColor = '#000';
         
-        //scaling options
-        //this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
+        //device options
+        if (!initialized) {
+            if (!this.game.device.desktop) {
+                mobile = true;
+                this.game.stage.fullScreenScaleMode = Phaser.StageScaleMode.EXACT_FIT;
+                this.game.stage.scale.startFullScreen();
+            }
+        initialized = true;
+        }
+
+        //scaling options        
         this.scale.minWidth = 240;
         this.scale.minHeight = 170;
         this.scale.maxWidth = 960;
