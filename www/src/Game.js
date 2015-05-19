@@ -102,6 +102,7 @@ TMT.Game.prototype = {
         //code snippet to test the gameEnd UI
         //this.gameEnd();
     },
+	//pulled out the timing function out of create and put it here
     timing: function() {
         counter = setInterval(timer, 1000);
         /*
@@ -323,16 +324,16 @@ TMT.Game.prototype = {
         }
         current = blocks[0];
     },
-
+	//function to stop timer clearly ... Jesus
     stopTimer: function() {
         clearInterval(counter);
     },
-
+	//do I need to explain myself?
     startTimer: function() {
         stoptime = false;
         this.timing();
     },
-
+	//used as an event function for when the user wants to dispose of the rules overlay image
     overlayclickevent: function() {
         console.log("overlayclickevent");
 		rules.kill();
@@ -341,7 +342,8 @@ TMT.Game.prototype = {
 			this.startTimer();
 		}
     },
-
+	//main function for overlaying rules on screen before the game starts
+	//simply shows rules to user if level is 0 or in other words tutorial
     overlayrules: function() {
         if (level === 0) {
             stoptime = true;
@@ -352,12 +354,12 @@ TMT.Game.prototype = {
 			this.game.input.onDown.add(this.overlayclickevent, this);
         }
     },
-
+	//you are a big boy you know whats up
     gamepause: function() {
         this.pause();
         this.stopTimer();
     },
-
+	//the name
     pause: function() {
         lol = 'in pause';
 		console.log(lol);
