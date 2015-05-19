@@ -45,6 +45,7 @@ TMT.Preload.prototype = {
         this.load.spritesheet('train1', 'asset/images/spritesheets/train100.png', 100, 100);
         this.load.spritesheet('train2', 'asset/images/spritesheets/train200.png', 100, 100);
         this.load.spritesheet('train3', 'asset/images/spritesheets/train300.png', 100, 100);
+		this.load.spritesheet('glow1', 'asset/images/spritesheets/glow100.png', 100, 100);
     },
     create: function () {
     },
