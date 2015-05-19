@@ -1,12 +1,12 @@
 var TMT = TMT || {};
 
 //titlescreen
-TMT.WinScreen = function () {};
+TMT.LoseScreen = function () {};
 
 var name;
 var y;
 
-TMT.WinScreen.prototype = {
+TMT.LoseScreen.prototype = {
 	preload: function () {
 		this.generateRandomName();
 	},
@@ -18,7 +18,7 @@ TMT.WinScreen.prototype = {
 		//this.background.autoScroll(-5,0);
 
 		//Addlogoimage
-		this.logo = this.game.add.sprite(this.game.width / 2, y * 1.5, 'win');
+		this.logo = this.game.add.sprite(this.game.width / 2, y * 1.5, 'lose');
 		this.logo.scale.setTo(0.7);
 		this.logo.anchor.setTo(0.5, 0.5);
 
