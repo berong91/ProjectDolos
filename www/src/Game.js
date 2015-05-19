@@ -60,7 +60,7 @@ TMT.Game.prototype = {
 
         // Generate all the blocks
         this.generateBlocks();
-
+		this.generateGlows();
         this.spawnVehicles(level);
 
         //adding the loading bar sprite
@@ -103,8 +103,6 @@ TMT.Game.prototype = {
         emitter.makeParticles('fire');
         emitter.gravity = 200;
 
-        //code snippet to test the gameEnd UI
-        //this.gameEnd();
     },
 	//pulled out the timing function out of create and put it here
     timing: function() {
@@ -144,8 +142,79 @@ TMT.Game.prototype = {
         level = -99;
         this.game.state.start('MainMenu');
     },
-    spawnGlows: function() {
+	
+	/*
 		
+	*/
+	
+	/*
+		Sets up all the glow sprites on the grid and then "kills" them.
+	*/
+    generateGlows: function() {
+        //phaser's random number generator
+        var numGlows = cols * rows;
+        var current;
+
+        var col = 1;
+        var x = xloc;
+        var y = yloc;
+        for (var i = 0; i < numGlows; i++) {
+            //add sprite
+            current = this.game.add.sprite(x, y, 'glow1');
+			current.animations.add('pulse', [0, 1, 2, 3], 10, true);
+
+            //x location of next tile is the next scaled tile.
+            x += theScale;
+
+            //If the number of current columns match the desired amount 
+            //of columns, switch the x back and move the y position. 
+            if (col++ === cols) {
+                x = xloc;
+                y += theScale;
+                col = 1;
+            }
+
+            //Change the scale of the tile from 100px.
+            current.scale.setTo(theScale / 100);
+
+            //physics properties
+            glows[i] = current;
+
+            //Initializes blank map
+            glows[i].frame = 0;
+			glows[i].kill();
+        }
+	},
+	
+	/*
+		Gives the glow a starting and end time.
+	*/
+	prepareGlow: function(glow, start, end) {
+		glow.startTime = MAXTIME - start;
+		glow.endTime = MAXTIME - end;
+		glow.activated = false;
+	},
+	
+	/*
+		Checks to see if the count has reached a certain time. If the
+		glow.startTime is reached, it starts glowing. Otherwise it
+		stops glowing.
+	*/
+	checkGlow: function(glow) {
+		if (glow.activated) {
+			if (count <= glow.endTime) {
+				glow.activated = false;
+				glow.animations.stop();
+				glow.kill();
+			}
+		}
+		else {
+			if (count === glow.startTime){
+				glow.revive();
+				glow.animations.play('pulse');
+				glow.activated = true;
+			}
+		}
 	},
 	
 	/*
@@ -156,20 +225,27 @@ TMT.Game.prototype = {
         //attempt at making vehicles group
         this.vehicles = this.game.add.group();
         this.vehicles.enableBody = true;
-        if (level === 0) {
-            console.log(vehicles.length);
+        
+		if (level === 0) {
 			this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
-			console.log(vehicles.length);
-        } else if (level === 1) {
+        
+		} else if (level === 1) {
             this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
             this.generateVehicle(xloc + (theScale * 2) + 100, yloc + (theScale * 2), 2, 'train1');
             this.generateVehicle(xloc - 100, yloc + theScale, 0, 'plane1');
-        } else if (level === 2) {
+        
+		} else if (level === 2) {
             this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
             this.generateVehicle(xloc + (theScale * 2) + 100, yloc + (theScale * 2), 2, 'train1');
             this.generateVehicle(xloc - 100, yloc + theScale, 0, 'plane1');
-            for (var i = 0; i < vehicles.length; i++) {
-                this.vehicleWait(vehicles[i], i * 5);
+			
+			console.log(glows.length);
+			this.prepareGlow(glows[0], 1, 5);
+			this.prepareGlow(glows[8], 6, 10);
+			this.prepareGlow(glows[3], 11, 15);
+			
+			for (var i = 0; i < vehicles.length; i++) {
+                this.vehicleWait(vehicles[i], (1 + i) * 5);
             }
         }
     },
@@ -184,8 +260,11 @@ TMT.Game.prototype = {
     	Checks the timer on when a vehicle should revive.
     */
     vehicleRelease: function(vehicle) {
-        if (count <= vehicle.releaseTime)
-            vehicle.revive();
+        if (!vehicle.dead) {
+			if (count <= vehicle.releaseTime){
+				vehicle.revive();
+			}
+		}
     },
     /*
         This will allow the game to dynamically adjust its grid 
@@ -403,10 +482,14 @@ TMT.Game.prototype = {
         //tiles.
         this.game.physics.arcade.overlap(this.vehicles, this.blocks, this.playSound, this.checkTile, this);
 
+		for (var i = 0; i < glows.length; i++) {
+			this.checkGlow(glows[i]);	
+		}
+		
         //Checks whether or not the vehicle has been "allowed to move."
-        for (var i = 0; i < vehicles.length; i++) {
-            this.vehicleRelease(vehicles[i]);
-            if (vehicles[i].moving) {
+		for (var i = 0; i < vehicles.length; i++) {
+            this.vehicleRelease(vehicles[i]);			
+			if (vehicles[i].moving) {
                 if (vehicles[i].key === 'plane1') {
                     vehicles[i].body.velocity.x = planeSpeed;
                 } else if (vehicles[i].key === 'boat1') {
@@ -425,12 +508,13 @@ TMT.Game.prototype = {
     lifeCheck: function(vehicle) {
         //Life logic function
         if (vehicle.life <= 0) {
-            if (!vehicle.dead)
+            if (!vehicle.dead){
                 this.explosion(vehicle);
-            vehicle.dead = true;
-            vehicle.kill();
-			death++;
-            return false;
+            	vehicle.dead = true;
+            	vehicle.kill();
+				death++;
+            	return false;
+			}
         }
         return true;
     },
@@ -495,7 +579,7 @@ TMT.Game.prototype = {
             vehicles = [];
             v = 0;
 			if (death === 0){
-            this.game.state.start('WinScreen');
+            	this.game.state.start('WinScreen');
 			}else{
 				this.game.state.start('LoseScreen');
 			}
