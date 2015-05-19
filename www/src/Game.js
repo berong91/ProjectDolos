@@ -157,7 +157,9 @@ TMT.Game.prototype = {
         this.vehicles = this.game.add.group();
         this.vehicles.enableBody = true;
         if (level === 0) {
-            this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
+            console.log(vehicles.length);
+			this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
+			console.log(vehicles.length);
         } else if (level === 1) {
             this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
             this.generateVehicle(xloc + (theScale * 2) + 100, yloc + (theScale * 2), 2, 'train1');
@@ -492,7 +494,7 @@ TMT.Game.prototype = {
             postScore = sum;
             vehicles = [];
             v = 0;
-			if (death == 0){
+			if (death === 0){
             this.game.state.start('WinScreen');
 			}else{
 				this.game.state.start('LoseScreen');
