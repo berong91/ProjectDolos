@@ -42,6 +42,9 @@ var theScale;
 
 var counter;
 
+//number of times vehicles have been kill
+var death = 0;
+
 //title screen
 TMT.Game = function() {};
 
@@ -424,6 +427,7 @@ TMT.Game.prototype = {
                 this.explosion(vehicle);
             vehicle.dead = true;
             vehicle.kill();
+			death++;
             return false;
         }
         return true;
@@ -488,7 +492,11 @@ TMT.Game.prototype = {
             postScore = sum;
             vehicles = [];
             v = 0;
+			if (death == 0){
             this.game.state.start('WinScreen');
+			}else{
+				this.game.state.start('LoseScreen');
+			}
         }
     },
 
