@@ -250,7 +250,7 @@ TMT.Game.prototype = {
 
 		var north = [
 			[xloc, yloc + (2 * theScale) + 150],
-			[xloc + theScale, yloc+ (2 * theScale) + 150],
+			[xloc + theScale, yloc + (2 * theScale) + 150],
 			[xloc + (2 * theScale), yloc + (2 * theScale) + 150]
 		];
 
@@ -353,80 +353,64 @@ TMT.Game.prototype = {
 		Takes a vehicles information and transmits that information
 		and inserts it into the prepareGlow function.
 	*/
-	takeVehicleInfo: function(vehicle, glowTime) {
+	takeVehicleInfo: function (vehicle, glowTime) {
 		var start = MAXTIME - (vehicle.releaseTime + glowTime);
 		var end = MAXTIME - vehicle.releaseTime;
-		console.log("Vehicle: " + vehicle.releaseTime);
-		console.log("Start: " + start + " End: " + end);
+		//console.log("Vehicle: " + vehicle.releaseTime);
+		//console.log("Start: " + start + " End: " + end);
 		var y = vehicle.y;
 		var x = vehicle.x;
-		
+
 		if (x === (xloc - 150)) { //Left side of the grid.
 			if (y === yloc) {
-				console.log("calling glows[0]");
-				this.prepareGlow(glows[0], start, end);//glows[0]
-			}
-			else if (y === (yloc + theScale)) {
-				console.log("calling glows[3]");
-				this.prepareGlow(glows[3], start, end);//glows[3]
-			}
-			else if (y === (yloc + 2 * theScale)) {
-				console.log("calling glows[6]");
-				this.prepareGlow(glows[6], start, end);//glows[6]
-			}
-			else
+				//console.log("calling glows[0]");
+				this.prepareGlow(glows[0], start, end); //glows[0]
+			} else if (y === (yloc + theScale)) {
+				//console.log("calling glows[3]");
+				this.prepareGlow(glows[3], start, end); //glows[3]
+			} else if (y === (yloc + 2 * theScale)) {
+				//console.log("calling glows[6]");
+				this.prepareGlow(glows[6], start, end); //glows[6]
+			} else
 				console.log("Glow error in placement.");
-		}
-		else if (x < (xloc + 2 * theScale + 150)) { //Middle of the grid
+		} else if (x < (xloc + 2 * theScale + 150)) { //Middle of the grid
 			if (x === xloc) {
 				if (y === (yloc - 150)) {
-					console.log("calling glows[0]");
-					this.prepareGlow(glows[0], start, end);//glows[0]	
+					//console.log("calling glows[0]");
+					this.prepareGlow(glows[0], start, end); //glows[0]	
+				} else {
+					//console.log("calling glows[6]");
+					this.prepareGlow(glows[6], start, end); //glows[6]	
 				}
-				else {
-					console.log("calling glows[6]");
-					this.prepareGlow(glows[6], start, end);//glows[6]	
-				}
-			}
-			
-			else if (x === (xloc + theScale)) {
+			} else if (x === (xloc + theScale)) {
 				if (y === (yloc - 150)) {
-					console.log("calling glows[1]");
-					this.prepareGlow(glows[1], start, end);//glows[1]	
+					//console.log("calling glows[1]");
+					this.prepareGlow(glows[1], start, end); //glows[1]	
+				} else {
+					//console.log("calling glows[7]");
+					this.prepareGlow(glows[7], start, end); //glows[7]	
 				}
-				else {
-					console.log("calling glows[7]");
-					this.prepareGlow(glows[7], start, end);//glows[7]	
-				}
-			}
-			
-			else if (x === (xloc + theScale * 2)) {
+			} else if (x === (xloc + theScale * 2)) {
 				if (y === (yloc - 150)) {
-					console.log("calling glows[2]");
-					this.prepareGlow(glows[2], start, end);//glows[2]	
+					//console.log("calling glows[2]");
+					this.prepareGlow(glows[2], start, end); //glows[2]	
+				} else {
+					//console.log("calling glows[8]");
+					this.prepareGlow(glows[8], start, end); //glows[8]	
 				}
-				else {
-					console.log("calling glows[8]");
-					this.prepareGlow(glows[8], start, end);//glows[8]	
-				}	 
-		 	}
-			else
+			} else
 				console.log("Glow error in placement.");
-		}
-		else { // Right side of the grid.
+		} else { // Right side of the grid.
 			if (y === yloc) {
-				console.log("calling glows[2]");
-				this.prepareGlow(glows[2], start, end);//glows[2]
-			}
-			else if (y === (yloc + theScale)) {
-				console.log("calling glows[5]");
-				this.prepareGlow(glows[5], start, end);//glows[5]
-			}
-			else if (y === (yloc + 2 * theScale)) {
-				console.log("calling glows[8]");
-				this.prepareGlow(glows[8], start, end);//glows[8]
-			}
-			else
+				//console.log("calling glows[2]");
+				this.prepareGlow(glows[2], start, end); //glows[2]
+			} else if (y === (yloc + theScale)) {
+				//console.log("calling glows[5]");
+				this.prepareGlow(glows[5], start, end); //glows[5]
+			} else if (y === (yloc + 2 * theScale)) {
+				//console.log("calling glows[8]");
+				this.prepareGlow(glows[8], start, end); //glows[8]
+			} else
 				console.log("Glow error in placement.");
 		}
 	},
