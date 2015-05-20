@@ -7,6 +7,7 @@ TMT.MainMenu.prototype = {
         
     },
     create: function () {
+		this.game.input.addPointer();
         // Set background and give background speed in x
         this.background = this.game.add.tileSprite(0, 0, 480, 800, 'peaks');
         //this.background.autoScroll(-20, 0);
@@ -27,10 +28,27 @@ TMT.MainMenu.prototype = {
         //this.addButton = this.game.add.button(0, 0, 'startButton', this.addClickEvent, this);
     },
     update: function () {
+		this.game.debug.pointer(game.input.mousePointer);
+		this.game.debug.pointer(game.input.pointer1);
+		this.game.debug.pointer(game.input.pointer2);
+		this.game.debug.pointer(game.input.pointer3);
+		this.game.debug.pointer(game.input.pointer4);
+		this.game.debug.pointer(game.input.pointer5);
+		this.game.debug.pointer(game.input.pointer6);
+		//this.game.input.onDown.add(this.startPressHold, this);
         if (!!this.ready) {
             this.game.state.start('MainMenu');
         }
     },
+	touchDown: function() {
+		this.startButton.loadTexture('startDown');
+	},
+	startUp: function() {
+		this.startButton.loadTexture('startButton');
+	},
+	startPressHold: function() {
+		this.startButton.loadTexture('startDown');
+	},
     startClickEvent: function () {
         this.game.state.start('LevelSelect');
     },
