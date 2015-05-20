@@ -22,7 +22,6 @@ TMT.Preload.prototype = {
         this.load.image('backDown', 'asset/images/buttons/backDown.png');
         this.load.image('continueDown', 'asset/images/buttons/continueDown.png');
         this.load.image('continueUp', 'asset/images/buttons/continueUp.png');
-        this.load.image('levelselect', 'asset/images/levelselect.png');
         this.load.image('SelectLogo', 'asset/images/SorryChris/SelectLogo.png');
         this.load.image('level1', 'asset/images/SorryChris/level1.png');
         this.load.image('level2', 'asset/images/SorryChris/level2.png');
