@@ -17,6 +17,8 @@ var boatSpeed;
 var blocks = [];
 var vehicles = [];
 var glows = [];
+var glowEvents = [];
+var g = 0;
 var v = 0;
 
 //Time Elapsed variables
@@ -46,678 +48,764 @@ var counter;
 var death = 0;
 
 //title screen
-TMT.Game = function() {};
+TMT.Game = function () {};
 
 TMT.Game.prototype = {
-    create: function() {
+	create: function () {
 
-        //Game level modifier.
-        this.adjustLevel(level);
+		//Game level modifier.
+		this.adjustLevel(level);
 
-        //background
-        this.background = this.game.add.tileSprite(0, 0, 480, 800, 'peaks');
-        //this.background.autoScroll(-2, 0);
+		//background
+		this.background = this.game.add.tileSprite(0, 0, 480, 800, 'peaks');
+		//this.background.autoScroll(-2, 0);
 
-        // Generate all the blocks
-        this.generateBlocks();
+		// Generate all the blocks
+		this.generateBlocks();
+
 		this.generateGlows();
-        this.spawnVehicles(level);
 
-        //adding the loading bar sprite
-        this.progbar = this.game.add.sprite(this.game.world.width / 2, this.game.height * 0.85, 'progress');
-        this.progbar.anchor.setTo(0.5, 0.5);
-        this.progbar.scale.setTo((theScale * 3) / 400);
+		this.spawnVehicles(level);
 
-        //This will create text in the top left of the game screen.
-        text = this.game.add.text(this.game.world.height * 0.05, this.game.world.height * 0.05, 'Time: ' + MAXTIME + '', {
-            fontSize: this.game.world.width / 15 + 'px',
-            fill: '#ffffff'
-        });
-        text.stroke = '#000000';
-        text.strokeThickness = 6;
+		//adding the loading bar sprite
+		this.progbar = this.game.add.sprite(this.game.world.width / 2, this.game.height * 0.85, 'progress');
+		this.progbar.anchor.setTo(0.5, 0.5);
+		this.progbar.scale.setTo((theScale * 3) / 400);
 
-        count = MAXTIME;
-	  /*this.pauseButton = this.game.add.sprite(this.game.world.width * 0.9, this.game.world.height * 0.05, 'pauseUp');
-        this.pauseButton.anchor.setTo(0.5, 0.5);
-        this.pauseButton.inputEnabled = true;
-        this.pauseButton.events.onInputDown.add(this.overlayrules, this); */
+		//This will create text in the top left of the game screen.
+		text = this.game.add.text(this.game.world.height * 0.05, this.game.world.height * 0.05, 'Time: ' + MAXTIME + '', {
+			fontSize: this.game.world.width / 15 + 'px',
+			fill: '#ffffff'
+		});
+		text.stroke = '#000000';
+		text.strokeThickness = 6;
+
+		count = MAXTIME;
+		/*this.pauseButton = this.game.add.sprite(this.game.world.width * 0.9, this.game.world.height * 0.05, 'pauseUp');
+		    this.pauseButton.anchor.setTo(0.5, 0.5);
+		    this.pauseButton.inputEnabled = true;
+		this.pauseButton.events.onInputDown.add(this.overlayrules, this); */
 
 
-        // Add leader board button
-        this.backButton = this.game.add.button(this.game.world.width * 0.9, this.game.world.height * 0.13, 'backUp', this.backClickEvent, this);
-        this.backButton.anchor.setTo(0.5, 0.8);
-        this.backButton.scale.set(0.3, 0.3);
+		// Add leader board button
+		this.backButton = this.game.add.button(this.game.world.width * 0.9, this.game.world.height * 0.13, 'backUp', this.backClickEvent, this);
+		this.backButton.anchor.setTo(0.5, 0.8);
+		this.backButton.scale.set(0.3, 0.3);
 
-        this.overlayrules();
+		this.overlayrules();
 
-        if (stoptime === false) {
-            this.timing();
-        }
+		if (stoptime === false) {
+			this.timing();
+		}
 
-        if (pauseclickevent === true) {
-            console.log('in pause');
-            this.game.input.onDown.add(this.pauseClickEvent, this);
-        }
-        //Allows the game to access the explosion animation.
-        emitter = this.game.add.emitter(0, 0, 10);
-        emitter.makeParticles('fire');
-        emitter.gravity = 200;
+		if (pauseclickevent === true) {
+			console.log('in pause');
+			this.game.input.onDown.add(this.pauseClickEvent, this);
+		}
+		//Allows the game to access the explosion animation.
+		emitter = this.game.add.emitter(0, 0, 10);
+		emitter.makeParticles('fire');
+		emitter.gravity = 200;
 
-    },
+	},
 	//pulled out the timing function out of create and put it here
-    timing: function() {
-        counter = setInterval(timer, 1000);
-        /*
+	timing: function () {
+		counter = setInterval(timer, 1000);
+		/*
 			This will run a timer that will update the text in the top 
 			left of the game screen to reflect the time left in the 
 			timer. (Inside of create function)
         */
 
-        function timer() {
-            lol = 'timer ran';
-            console.log(lol);
-            count--;
-            text.text = 'Time: ' + count;
-            if (count <= 0) {
-                text.text = 'Time\'s up!';
-            }
-        }
-    },
+		function timer() {
+			lol = 'timer ran';
+			console.log(lol);
+			count--;
+			text.text = 'Time: ' + count;
+			if (count <= 0) {
+				text.text = 'Time\'s up!';
+			}
+		}
+	},
 
 
-    /*
-        Clears all variables so levels can be restarted without a problem.
-    */
-    backClickEvent: function() {
-        this.vehicles = null;
-        this.background = null;
-        this.blocks = null;
-        this.progbar = null;
-        vehicles = [];
-        v = 0;
-        text = null;
-        count = null;
-        clearInterval(counter);
-        counter = null;
-        level = -99;
-        this.game.state.start('MainMenu');
-    },
-	
 	/*
-		
+	    Clears all variables so levels can be restarted without a problem.
 	*/
+	backClickEvent: function () {
+		this.vehicles = null;
+		this.background = null;
+		this.blocks = null;
+		this.progbar = null;
+		vehicles = [];
+		v = 0;
+		text = null;
+		count = null;
+		clearInterval(counter);
+		counter = null;
+		level = -99;
+		glows = [];
+		g = 0;
+		glowEvents = [];
+		this.game.state.start('MainMenu');
+	},
+
+	/*
+		Sets up all the incoming vehicles in the top-right of the screen.
+	*/
+	generateIncomingVehicles: function() {
+		
+	},
+	
 	
 	/*
 		Sets up all the glow sprites on the grid and then "kills" them.
 	*/
-    generateGlows: function() {
-        //phaser's random number generator
-        var numGlows = cols * rows;
-        var current;
+	generateGlows: function () {
+		//phaser's random number generator
+		var numGlows = cols * rows;
+		var current;
 
-        var col = 1;
-        var x = xloc;
-        var y = yloc;
-        for (var i = 0; i < numGlows; i++) {
-            //add sprite
-            current = this.game.add.sprite(x, y, 'glow1');
+		var col = 1;
+		var x = xloc;
+		var y = yloc;
+		for (var i = 0; i < numGlows; i++) {
+			//add sprite
+			current = this.game.add.sprite(x, y, 'glow1');
 			current.animations.add('pulse', [0, 1, 2, 3], 10, true);
 
-            //x location of next tile is the next scaled tile.
-            x += theScale;
+			//x location of next tile is the next scaled tile.
+			x += theScale;
 
-            //If the number of current columns match the desired amount 
-            //of columns, switch the x back and move the y position. 
-            if (col++ === cols) {
-                x = xloc;
-                y += theScale;
-                col = 1;
-            }
+			//If the number of current columns match the desired amount 
+			//of columns, switch the x back and move the y position. 
+			if (col++ === cols) {
+				x = xloc;
+				y += theScale;
+				col = 1;
+			}
 
-            //Change the scale of the tile from 100px.
-            current.scale.setTo(theScale / 100);
+			//Change the scale of the tile from 100px.
+			current.scale.setTo(theScale / 100);
 
-            //physics properties
-            glows[i] = current;
+			//physics properties
+			glows[i] = current;
 
-            //Initializes blank map
-            glows[i].frame = 0;
+			//Initializes blank map
+			glows[i].frame = 0;
 			glows[i].kill();
-        }
+		}
 	},
-	
+
 	/*
 		Gives the glow a starting and end time.
 	*/
-	prepareGlow: function(glow, start, end) {
-		glow.startTime = MAXTIME - start;
-		glow.endTime = MAXTIME - end;
-		glow.activated = false;
+	prepareGlow: function (glow, start, end) {
+		glowEvents[g] = {
+			sprite: glow,
+			startTime: MAXTIME - start,
+			endTime: MAXTIME - end,
+			activated: false,
+		};
+		console.log("Glow >>> Start:" + glowEvents[g].startTime + " End:" + glowEvents[g].endTime);
+		g++;
+		
 	},
-	
+
 	/*
 		Checks to see if the count has reached a certain time. If the
 		glow.startTime is reached, it starts glowing. Otherwise it
 		stops glowing.
 	*/
-	checkGlow: function(glow) {
-		if (glow.activated) {
-			if (count <= glow.endTime) {
-				glow.activated = false;
-				glow.animations.stop();
-				glow.kill();
+	checkGlowEvent: function (glowEvent) {
+		console.log(glowEvent.activated + " Start" + glowEvent.startTime);
+		if (glowEvent.activated) {
+			if (count <= glowEvent.endTime) {
+				console.log("Glow deactivated.");
+				glowEvent.activated = false;
+				glowEvent.sprite.animations.stop();
+				glowEvent.sprite.kill();
 			}
-		}
-		else {
-			if (count === glow.startTime){
-				glow.revive();
-				glow.animations.play('pulse');
-				glow.activated = true;
+		} else {
+			if (count === glowEvent.startTime) {
+				console.log("Glow activated.");
+				glowEvent.sprite.revive();
+				glowEvent.sprite.animations.play('pulse');
+				glowEvent.activated = true;
 			}
 		}
 	},
-	
+
 	/*
     	Spawn vehicle events that is adjusted by the level selected.
     */
-    spawnVehicles: function(level) {
+	spawnVehicles: function (level) {
 
-        //attempt at making vehicles group
-        this.vehicles = this.game.add.group();
-        this.vehicles.enableBody = true;
-        
+		//attempt at making vehicles group
+		this.vehicles = this.game.add.group();
+		this.vehicles.enableBody = true;
+
 		if (level === 0) {
 			this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
-        
+
 		} else if (level === 1) {
-            this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
-            this.generateVehicle(xloc + (theScale * 2) + 100, yloc + (theScale * 2), 2, 'train1');
-            this.generateVehicle(xloc - 100, yloc + theScale, 0, 'plane1');
-        
+			this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
+			this.generateVehicle(xloc + (theScale * 2) + 100, yloc + (theScale * 2), 2, 'train1');
+			this.generateVehicle(xloc - 100, yloc + theScale, 0, 'plane1');
+
 		} else if (level === 2) {
-            this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
-            this.generateVehicle(xloc + (theScale * 2) + 100, yloc + (theScale * 2), 2, 'train1');
-            this.generateVehicle(xloc - 100, yloc + theScale, 0, 'plane1');
-			
-			console.log(glows.length);
+			this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
+			this.generateVehicle(xloc + (theScale * 2) + 100, yloc + (theScale * 2), 2, 'train1');
+			this.generateVehicle(xloc - 100, yloc + theScale, 0, 'plane1');
+
 			this.prepareGlow(glows[0], 1, 5);
 			this.prepareGlow(glows[8], 6, 10);
 			this.prepareGlow(glows[3], 11, 15);
-			
+
 			for (var i = 0; i < vehicles.length; i++) {
-                this.vehicleWait(vehicles[i], (1 + i) * 5);
-            }
-        }
-    },
-    /*
-    	"Kills" the vehicle and gives it a time when to appear.
-    */
-    vehicleWait: function(vehicle, wait) {
-        vehicle.releaseTime = MAXTIME - wait;
-        vehicle.kill();
-    },
-    /*
-    	Checks the timer on when a vehicle should revive.
-    */
-    vehicleRelease: function(vehicle) {
-        if (!vehicle.dead) {
-			if (count <= vehicle.releaseTime){
+				this.vehicleWait(vehicles[i], (1 + i) * 5);
+			}
+		} else if (level === 3) {
+			this.generateVehicle(xloc - 100, yloc, 0, 'boat1');					//top left
+			this.generateVehicle(xloc + theScale, yloc - 100, 1, 'train1');		//top center
+			this.generateVehicle(xloc + (theScale * 2) + 100, yloc + theScale, 2, 'plane1');		//middle right
+			this.generateVehicle(xloc + (theScale * 2), yloc + (theScale * 2) + 100, 3, 'boat1');					//bottom right
+			this.generateVehicle(xloc - 100, yloc + (theScale * 2), 0, 'train1'); //bottom right
+			this.generateVehicle(xloc + (theScale * 2) + 100, yloc + theScale, 2, 'plane1'); //middle left
+			
+			for (var j = 0; j < vehicles.length; j++) {
+				this.vehicleWait(vehicles[j], (1 + j) * 2);
+			}
+			
+			this.prepareGlow(glows[0], 0, 2); //top left
+			this.prepareGlow(glows[1], 2, 4); //top center
+			this.prepareGlow(glows[5], 4, 6); //middle right
+			this.prepareGlow(glows[8], 6, 8); //bottom right
+			this.prepareGlow(glows[6], 8, 10); //bottom right
+			this.prepareGlow(glows[5], 10, 12); //middle left
+		}
+	},
+	/*
+		"Kills" the vehicle and gives it a time when to appear.
+	*/
+	vehicleWait: function (vehicle, wait) {
+		vehicle.releaseTime = MAXTIME - wait;
+		vehicle.kill();
+	},
+	/*
+		Checks the timer on when a vehicle should revive.
+	*/
+	vehicleRelease: function (vehicle) {
+		if (!vehicle.dead) {
+			if (count <= vehicle.releaseTime) {
 				vehicle.revive();
 			}
 		}
-    },
-    /*
-        This will allow the game to dynamically adjust its grid 
-        according to level. Level initially starts off at -1 but will 
-        be changed according to the level select. All level adjustments 
-        will be made here!
-    */
-    adjustLevel: function(level) {
+	},
+	/*
+	    This will allow the game to dynamically adjust its grid 
+	    according to level. Level initially starts off at -1 but will 
+	    be changed according to the level select. All level adjustments 
+	    will be made here!
+	*/
+	adjustLevel: function (level) {
 
-        //Sets the dimensions of the game to the dimensions of the 
-        //"canvas" which is your entire game window.
-        this.game.world.setBounds(0, 0, this.game.width, this.game.height);
+		//Sets the dimensions of the game to the dimensions of the 
+		//"canvas" which is your entire game window.
+		this.game.world.setBounds(0, 0, this.game.width, this.game.height);
 
 
-        //level = -1;
-        if (level === -1) {
-            MAXTIME = 20;
-            theScale = 75;
+		//level = -1;
+		if (level === -1) {
+			MAXTIME = 20;
+			theScale = 75;
 
-            //vehicle speed
-            planeSpeed = this.game.width / 10;
-            boatSpeed = this.game.width / 15;
-            trainSpeed = this.game.width / 12;
+			//vehicle speed
+			planeSpeed = this.game.width / 10;
+			boatSpeed = this.game.width / 15;
+			trainSpeed = this.game.width / 12;
 
-            //set grid init position and grid elements
-            xloc = this.game.world.width / 2 - (theScale * 1.5);
-            yloc = this.game.world.height / 3;
-            rows = cols = 3;
-        }
-        if (level === 0) {
+			//set grid init position and grid elements
+			xloc = this.game.world.width / 2 - (theScale * 1.5);
+			yloc = this.game.world.height / 3;
+			rows = cols = 3;
+		}
+		if (level === 0) {
 
-            //adjust variables here
-            MAXTIME = 10;
-            theScale = 70;
-            rows = 1;
-            cols = 1;
+			//adjust variables here
+			MAXTIME = 10;
+			theScale = 70;
+			rows = 1;
+			cols = 1;
 
-            //vehicle speed
-            planeSpeed = theScale * 1.1;
-            boatSpeed = theScale * 0.75;
-            trainSpeed = theScale * 0.9;
+			//vehicle speed
+			planeSpeed = theScale * 1.1;
+			boatSpeed = theScale * 0.75;
+			trainSpeed = theScale * 0.9;
 
-            //set grid init position
-            xloc = this.game.world.width / 2 - (theScale * (cols / 2));
-            yloc = this.game.world.height / 2 - (theScale * (rows / 2));
-        }
-        if (level === 1) {
-            MAXTIME = 20;
-            theScale = 75;
+			//set grid init position
+			xloc = this.game.world.width / 2 - (theScale * (cols / 2));
+			yloc = this.game.world.height / 2 - (theScale * (rows / 2));
+		}
+		if (level === 1) {
+			MAXTIME = 20;
+			theScale = 75;
 
-            //vehicle speed
-            planeSpeed = this.game.width / 10;
-            boatSpeed = this.game.width / 15;
-            trainSpeed = this.game.width / 12;
+			//vehicle speed
+			planeSpeed = this.game.width / 10;
+			boatSpeed = this.game.width / 15;
+			trainSpeed = this.game.width / 12;
 
-            //set grid init position and grid elements
-            xloc = this.game.world.width / 2 - (theScale * 1.5);
-            yloc = this.game.world.height / 3;
-            rows = cols = 3;
-        }
+			//set grid init position and grid elements
+			xloc = this.game.world.width / 2 - (theScale * 1.5);
+			yloc = this.game.world.height / 3;
+			rows = cols = 3;
+		}
 
-        if (level === 2) {
-            MAXTIME = 30;
-            theScale = 75;
+		if (level === 2) {
+			MAXTIME = 30;
+			theScale = 75;
 
-            //vehicle speed
-            planeSpeed = this.game.width / 10;
-            boatSpeed = this.game.width / 15;
-            trainSpeed = this.game.width / 12;
+			//vehicle speed
+			planeSpeed = this.game.width / 10;
+			boatSpeed = this.game.width / 15;
+			trainSpeed = this.game.width / 12;
 
-            //set grid init position and grid elements
-            xloc = this.game.world.width / 2 - (theScale * 1.5);
-            yloc = this.game.world.height / 3;
-            rows = cols = 3;
+			//set grid init position and grid elements
+			xloc = this.game.world.width / 2 - (theScale * 1.5);
+			yloc = this.game.world.height / 3;
+			rows = cols = 3;
 
-        }
+		}
+		
+		if (level === 3) {
+			MAXTIME = 50;
+			theScale = 75;
 
-    },
-    generateVehicle: function(x, y, frame, type) {
-        //Display setting for the plane.
-        vehicles[v] = this.vehicles.create(x, y, type, frame);
-        vehicles[v].scale.setTo(theScale / 100);
+			//vehicle speed
+			planeSpeed = theScale * 1.1;
+			boatSpeed = theScale * 0.75;
+			trainSpeed = theScale * 0.9;
 
-        vehicles[v].life = 3;
-        vehicles[v].dead = false;
-        vehicles[v].moving = true;
-        vehicles[v].isHit = false;
+			//set grid init position and grid elements
+			xloc = this.game.world.width / 2 - (theScale * 1.5);
+			yloc = this.game.world.height / 3;
+			rows = cols = 3;
 
-        //add physics to the new plane.
-        this.game.physics.arcade.enable(vehicles[v]);
-        vehicles[v].body.overlapWorldBounds = true;
-        vehicles[v].body.width = vehicles[v].body.width / 2;
-        vehicles[v].body.height = vehicles[v].body.height / 2;
-        v++;
-    },
+		}
 
-    enableMoving: function(vehicle) {
-        vehicle.moving = true;
-    },
+	},
+	generateVehicle: function (x, y, frame, type) {
+		//Display setting for the plane.
+		vehicles[v] = this.vehicles.create(x, y, type, frame);
+		vehicles[v].scale.setTo(theScale / 100);
 
-    // Generate all blocks
-    generateBlocks: function() {
-        this.blocks = this.game.add.group();
+		vehicles[v].life = 3;
+		vehicles[v].dead = false;
+		vehicles[v].moving = true;
+		vehicles[v].isHit = false;
 
-        //enable physics in them
-        this.blocks.enableBody = true;
+		//add physics to the new plane.
+		this.game.physics.arcade.enable(vehicles[v]);
+		vehicles[v].body.overlapWorldBounds = true;
+		vehicles[v].body.width = vehicles[v].body.width / 2;
+		vehicles[v].body.height = vehicles[v].body.height / 2;
+		v++;
+	},
 
-        //phaser's random number generator
-        var numBlocks = cols * rows;
-        var current;
+	enableMoving: function (vehicle) {
+		vehicle.moving = true;
+	},
 
-        var col = 1;
-        var x = xloc;
-        var y = yloc;
-        for (var i = 0; i < numBlocks; i++) {
-            //add sprite
-            current = this.blocks.create(x, y, 'terrain');
+	// Generate all blocks
+	generateBlocks: function () {
+		this.blocks = this.game.add.group();
 
-            //x location of next tile is the next scaled tile.
-            x += theScale;
+		//enable physics in them
+		this.blocks.enableBody = true;
 
-            //If the number of current columns match the desired amount 
-            //of columns, switch the x back and move the y position. 
-            if (col++ === cols) {
-                x = xloc;
-                y += theScale;
-                col = 1;
-            }
+		//phaser's random number generator
+		var numBlocks = cols * rows;
+		var current;
 
-            //Change the scale of the tile from 100px.
-            current.scale.setTo(theScale / 100);
+		var col = 1;
+		var x = xloc;
+		var y = yloc;
+		for (var i = 0; i < numBlocks; i++) {
+			//add sprite
+			current = this.blocks.create(x, y, 'terrain');
 
-            //physics properties
-            current.body.velocity.x = 0;
-            current.body.velocity.y = 0;
-            current.body.immovable = true;
-            current.body.collideWorldBounds = true;
+			//x location of next tile is the next scaled tile.
+			x += theScale;
 
-            //THIS IS WHERE YOU ENABLE MOUSE CLICKS!!!!
-            current.inputEnabled = true;
-            current.events.onInputDown.add(this.onDown, this);
-            blocks[i] = current;
+			//If the number of current columns match the desired amount 
+			//of columns, switch the x back and move the y position. 
+			if (col++ === cols) {
+				x = xloc;
+				y += theScale;
+				col = 1;
+			}
 
-            //Initializes blank map
-            blocks[i].frame = 3;
-        }
-    },
+			//Change the scale of the tile from 100px.
+			current.scale.setTo(theScale / 100);
+
+			//physics properties
+			current.body.velocity.x = 0;
+			current.body.velocity.y = 0;
+			current.body.immovable = true;
+			current.body.collideWorldBounds = true;
+
+			//THIS IS WHERE YOU ENABLE MOUSE CLICKS!!!!
+			current.inputEnabled = true;
+			current.events.onInputDown.add(this.onDown, this);
+			blocks[i] = current;
+
+			//Initializes blank map
+			blocks[i].frame = 3;
+		}
+	},
 	//function to stop timer clearly ... Jesus
-    stopTimer: function() {
-        clearInterval(counter);
-    },
+	stopTimer: function () {
+		clearInterval(counter);
+	},
 	//do I need to explain myself?
-    startTimer: function() {
-        stoptime = false;
-        this.timing();
-    },
+	startTimer: function () {
+		stoptime = false;
+		this.timing();
+	},
 	//used as an event function for when the user wants to dispose of the rules overlay image
-    overlayclickevent: function() {
-        console.log("overlayclickevent");
+	overlayclickevent: function () {
+		console.log("overlayclickevent");
 		rules.kill();
-		if(this.game.paused === true){
+		if (this.game.paused === true) {
 			this.pause();
 			this.startTimer();
 		}
-    },
+	},
 	//main function for overlaying rules on screen before the game starts
 	//simply shows rules to user if level is 0 or in other words tutorial
-    overlayrules: function() {
-        if (level === 0) {
-            stoptime = true;
-            this.gamepause();
-            rules = this.game.add.sprite(this.game.world.width / 2, this.game.world.height / 2, 'rules');
-            rules.anchor.setTo(0.5, 0.5);
-            rules.inputEnabled = true;
+	overlayrules: function () {
+		if (level === 0) {
+			stoptime = true;
+			this.gamepause();
+			rules = this.game.add.sprite(this.game.world.width / 2, this.game.world.height / 2, 'rules');
+			rules.anchor.setTo(0.5, 0.5);
+			rules.inputEnabled = true;
 			this.game.input.onDown.add(this.overlayclickevent, this);
-        }
-    },
-	//you are a big boy you know whats up
-    gamepause: function() {
-        this.pause();
-        this.stopTimer();
-    },
-	//the name
-    pause: function() {
-        lol = 'in pause';
-		console.log(lol);
-        if (this.game.paused === false) {
-            lol = 'game paused';
-            this.game.paused = true;
-			console.log(lol);
-            return true;
-        }
-        if (this.game.paused === true) {
-            lol = 'game unpaused';
-            this.game.paused = false;
-			console.log(lol);
-            return false;
-        }
-        return null;
-    },
-
-    /*
-        Update function that will handle:
-        1)time progress bar 
-        2)vehicle unmodified speed
-        3)vehicle life points will be check within the overlap function
-        4)vehicle overlap with tiles
-    */
-    update: function() {
-        //method that will be later refined to show progress better.
-        this.progressBar();
-        //checks if the time is 0
-        this.TimeCheck();
-        //Overlap that allows all members of vehicles to interact with 
-        //tiles.
-        this.game.physics.arcade.overlap(this.vehicles, this.blocks, this.playSound, this.checkTile, this);
-
-		for (var i = 0; i < glows.length; i++) {
-			this.checkGlow(glows[i]);	
 		}
-		
-        //Checks whether or not the vehicle has been "allowed to move."
-		for (var i = 0; i < vehicles.length; i++) {
-            this.vehicleRelease(vehicles[i]);			
-			if (vehicles[i].moving) {
-                if (vehicles[i].key === 'plane1') {
-                    vehicles[i].body.velocity.x = planeSpeed;
-                } else if (vehicles[i].key === 'boat1') {
-                    vehicles[i].body.velocity.x = boatSpeed;
-                } else if (vehicles[i].key === 'train1') {
-                    vehicles[i].body.velocity.x = -1 * trainSpeed;
-                }
-            } else
-                this.Hit(vehicles[i]);
-        }
-    },
-    /*
-        Checks the life of all the vehicles to see whether or not they
-        have recently died. Called by the update method.
-    */
-    lifeCheck: function(vehicle) {
-        //Life logic function
-        if (vehicle.life <= 0) {
-            if (!vehicle.dead){
-                this.explosion(vehicle);
-            	vehicle.dead = true;
-            	vehicle.kill();
-				death++;
-            	return false;
+	},
+	//you are a big boy you know whats up
+	gamepause: function () {
+		this.pause();
+		this.stopTimer();
+	},
+	//the name
+	pause: function () {
+		lol = 'in pause';
+		console.log(lol);
+		if (this.game.paused === false) {
+			lol = 'game paused';
+			this.game.paused = true;
+			console.log(lol);
+			return true;
+		}
+		if (this.game.paused === true) {
+			lol = 'game unpaused';
+			this.game.paused = false;
+			console.log(lol);
+			return false;
+		}
+		return null;
+	},
+
+	/*
+	    Update function that will handle:
+	    1)time progress bar 
+	    2)vehicle unmodified speed
+	    3)vehicle life points will be check within the overlap function
+	    4)vehicle overlap with tiles
+	*/
+	update: function () {
+		//method that will be later refined to show progress better.
+		this.progressBar();
+		//checks if the time is 0
+		this.TimeCheck();
+		//Overlap that allows all members of vehicles to interact with 
+		//tiles.
+		this.game.physics.arcade.overlap(this.vehicles, this.blocks, this.playSound, this.checkTile, this);
+
+		for (var j = 0; j < glowEvents.length; j++) {
+			this.checkGlowEvent(glowEvents[j]);
+		}
+
+		// Check if there are alive vehicles
+		if (vehicles.length > 0) {
+			// Special condition for lv 0
+			if (level === 0) {
+				if (blocks[0].frame === 0) {
+					vehicles[0].body.velocity.x = boatSpeed;
+				} else if (blocks[0].frame !== 0) {
+					vehicles[0].body.velocity.x = 0;
+				}
+			} else {
+				//Checks whether or not the vehicle has been "allowed to move."
+				for (var i = 0; i < vehicles.length; i++) {
+					this.vehicleRelease(vehicles[i]);
+					if (vehicles[i].moving) {
+						if (vehicles[i].key === 'plane1') {
+							if (vehicles[i].frame === 0)							
+								vehicles[i].body.velocity.x = planeSpeed;
+							else if (vehicles[i].frame === 1)							
+								vehicles[i].body.velocity.y = planeSpeed;
+							else if (vehicles[i].frame === 2)							
+								vehicles[i].body.velocity.x = -1 * planeSpeed;
+							else if (vehicles[i].frame === 3)							
+								vehicles[i].body.velocity.y = -1 * planeSpeed;
+						} else if (vehicles[i].key === 'boat1') {
+							if (vehicles[i].frame === 0)							
+								vehicles[i].body.velocity.x = boatSpeed;
+							else if (vehicles[i].frame === 1)							
+								vehicles[i].body.velocity.y = boatSpeed;
+							else if (vehicles[i].frame === 2)							
+								vehicles[i].body.velocity.x = -1 * boatSpeed;
+							else if (vehicles[i].frame === 3)							
+								vehicles[i].body.velocity.y = -1 * boatSpeed;
+						} else if (vehicles[i].key === 'train1') {
+							if (vehicles[i].frame === 0)							
+								vehicles[i].body.velocity.x = trainSpeed;
+							else if (vehicles[i].frame === 1)							
+								vehicles[i].body.velocity.y = trainSpeed;
+							else if (vehicles[i].frame === 2)							
+								vehicles[i].body.velocity.x = -1 * trainSpeed;
+							else if (vehicles[i].frame === 3)							
+								vehicles[i].body.velocity.y = -1 * trainSpeed;
+						}
+					} else
+						this.Hit(vehicles[i]);
+				}
 			}
-        }
-        return true;
-    },
+		}
+	},
+	/*
+	    Checks the life of all the vehicles to see whether or not they
+	    have recently died. Called by the update method.
+	*/
+	lifeCheck: function (vehicle) {
+		//Life logic function
+		if (vehicle.life <= 0) {
+			if (!vehicle.dead) {
+				this.explosion(vehicle);
+				vehicle.dead = true;
+				vehicle.kill();
+				death++;
+				return false;
+			}
+		}
+		return true;
+	},
 
-    /*
-        Updates the progress bar that will represent the time remaining
-        until the player wins the level.
-    */
-    progressBar: function() {
-        var percent = Math.floor(count / MAXTIME * 100);
-        switch (percent) {
-            case 100:
-                this.progbar.frame = 10;
-                break;
-            case 90:
-                this.progbar.frame = 9;
-                break;
-            case 80:
-                this.progbar.frame = 8;
-                break;
-            case 70:
-                this.progbar.frame = 7;
-                break;
-            case 60:
-                this.progbar.frame = 6;
-                break;
-            case 50:
-                this.progbar.frame = 5;
-                break;
-            case 40:
-                this.progbar.frame = 4;
-                break;
-            case 30:
-                this.progbar.frame = 3;
-                break;
-            case 20:
-                this.progbar.frame = 2;
-                break;
-            case 10:
-                this.progbar.frame = 1;
-                break;
-            case 0:
-                this.progbar.frame = 0;
-                break;
-        }
-    },
+	/*
+	    Updates the progress bar that will represent the time remaining
+	    until the player wins the level.
+	*/
+	progressBar: function () {
+		var percent = Math.floor(count / MAXTIME * 100);
+		switch (percent) {
+		case 100:
+			this.progbar.frame = 10;
+			break;
+		case 90:
+			this.progbar.frame = 9;
+			break;
+		case 80:
+			this.progbar.frame = 8;
+			break;
+		case 70:
+			this.progbar.frame = 7;
+			break;
+		case 60:
+			this.progbar.frame = 6;
+			break;
+		case 50:
+			this.progbar.frame = 5;
+			break;
+		case 40:
+			this.progbar.frame = 4;
+			break;
+		case 30:
+			this.progbar.frame = 3;
+			break;
+		case 20:
+			this.progbar.frame = 2;
+			break;
+		case 10:
+			this.progbar.frame = 1;
+			break;
+		case 0:
+			this.progbar.frame = 0;
+			break;
+		}
+	},
 
-    TimeCheck: function() {
-        if (count === 0) {
-            this.vehicles = null;
-            this.background = null;
-            this.blocks = null;
-            this.progbar = null;
-            text = null;
-            count = null;
-            clearInterval(counter);
-            counter = null;
-            var sum = 0;
-            for (var i = 0; i < vehicles.length; i++)
-                sum += (vehicles[i].life * 100);
-            postScore = sum;
-            vehicles = [];
-            v = 0;
-			if (death === 0){
-            	this.game.state.start('WinScreen');
-			}else{
+	TimeCheck: function () {
+		if (count === 0) {
+			this.vehicles = null;
+			this.background = null;
+			this.blocks = null;
+			this.progbar = null;
+			text = null;
+			count = null;
+			clearInterval(counter);
+			counter = null;
+			var sum = 0;
+			for (var i = 0; i < vehicles.length; i++)
+				sum += (vehicles[i].life * 100);
+			postScore = sum;
+			vehicles = [];
+			v = 0;
+			glows = [];
+			g = 0;
+			glowEvents = [];
+			if (death === 0) {
+				this.game.state.start('WinScreen');
+			} else {
 				this.game.state.start('LoseScreen');
 			}
-        }
-    },
+		}
+	},
 
-    /*
-        This function is called by the game physics overlap.
-        Takes a vehicle and a tile. Check to see if the vehicle matches 
-        the correct tile.
-    */
-    checkTile: function(vehicle, tile) {
-        if (vehicle.key === 'boat1') {
-            if (tile.frame === 0) //boat travels over water
-                return false;
-            else
-                return true;
-        } else if (vehicle.key === 'plane1') {
-            if (tile.frame === 1) //plane travels over air
-                return false;
-            else
-                return true;
-        } else if (vehicle.key === 'train1') {
-            if (tile.frame === 2) //train travels over train tracks
-                return false;
-            else
-                return true;
-        }
-    },
-    /*
-        This function allows the tiles to cycle between our 
-        spritesheet.
-    */
-    onDown: function(tile, pointer) {
+	/*
+	    This function is called by the game physics overlap.
+	    Takes a vehicle and a tile. Check to see if the vehicle matches 
+	    the correct tile.
+	*/
+	checkTile: function (vehicle, tile) {
+		if (vehicle.key === 'boat1') {
+			if (tile.frame === 0) //boat travels over water
+				return false;
+			else
+				return true;
+		} else if (vehicle.key === 'plane1') {
+			if (tile.frame === 1) //plane travels over air
+				return false;
+			else
+				return true;
+		} else if (vehicle.key === 'train1') {
+			if (tile.frame === 2) //train travels over train tracks
+				return false;
+			else
+				return true;
+		}
+	},
+	/*
+	    This function allows the tiles to cycle between our 
+	    spritesheet.
+	*/
+	onDown: function (tile, pointer) {
 
-        switchSound.play();
-        if (tile.frame < 2)
-            tile.frame++;
-        else
-            tile.frame = 0;
-    },
+		switchSound.play();
+		if (tile.frame < 2)
+			tile.frame++;
+		else
+			tile.frame = 0;
+	},
 
-    /*
-        This function will always be called whenever ANY vehicle hits
-        the wrong tile. Will check to see if the vehicle has died.
-    */
-    playSound: function(vehicle, tile) {
-        //right, down, left, up
-        if (!vehicle.isHit) {
-            explosionSound.play();
-            vehicle.life--;
-            vehicle.thecountDown = count;
-            vehicle.moving = false;
-            vehicle.holdx = vehicle.body.velocity.x;
-            vehicle.holdy = vehicle.body.velocity.y;
-            vehicle.body.velocity.y = 0;
-            vehicle.body.velocity.x = 0;
-            vehicle.isHit = true;
-        }
-        //Check to see if any vehicles have died recently.
-        this.lifeCheck(vehicle);
+	/*
+	    This function will always be called whenever ANY vehicle hits
+	    the wrong tile. Will check to see if the vehicle has died.
+	*/
+	playSound: function (vehicle, tile) {
+		//right, down, left, up
+		if (!vehicle.isHit) {
+			explosionSound.play();
+			vehicle.life--;
+			vehicle.thecountDown = count;
+			vehicle.moving = false;
+			vehicle.holdx = vehicle.body.velocity.x;
+			vehicle.holdy = vehicle.body.velocity.y;
+			vehicle.body.velocity.y = 0;
+			vehicle.body.velocity.x = 0;
+			vehicle.isHit = true;
+		}
+		//Check to see if any vehicles have died recently.
+		this.lifeCheck(vehicle);
 
-    },
-    /*
-        Fixed hit.
-    */
-    Hit: function(vehicle) {
-        if (count === (vehicle.thecountDown - 3)) {
-            vehicle.isHit = false;
-            vehicle.body.velocity.x = vehicle.holdx;
-            vehicle.body.velocity.y = vehicle.holdy;
-            vehicle.holdx = vehicle.holdy = 0;
-            this.enableMoving(vehicle);
-        }
-    },
-    /*
-        Explosion graphic that will happen to whichever vehicle that
-        reaches 0 life. Takes a vehicle as its parameter.
-    */
-    explosion: function(vehicle) {
-        emitter.x = vehicle.body.x;
-        emitter.y = vehicle.body.y;
+	},
+	/*
+	    Fixed hit.
+	*/
+	Hit: function (vehicle) {
+		if (count === (vehicle.thecountDown - 3)) {
+			vehicle.isHit = false;
+			vehicle.body.velocity.x = vehicle.holdx;
+			vehicle.body.velocity.y = vehicle.holdy;
+			vehicle.holdx = vehicle.holdy = 0;
+			this.enableMoving(vehicle);
+		}
+	},
+	/*
+	    Explosion graphic that will happen to whichever vehicle that
+	    reaches 0 life. Takes a vehicle as its parameter.
+	*/
+	explosion: function (vehicle) {
+		emitter.x = vehicle.body.x;
+		emitter.y = vehicle.body.y;
 
-        //1) boolean for 'explode' (particles generate all at once)
-        //2) particle lifespan (ms)
-        //3) ignore
-        //4) number of particles
-        emitter.start(true, 1500, null, 8);
-    },
-    /* Post the score to the website. */
-    /*postScore: function () {
-        $('#Name').val("Guest");
-        $('#Score').val(count);
-        $('#Level').val(level);
-        $("#actionForm").serialize();
-        
-        $("form").on("submit", function (e) {
-        e.preventDefault();            
-        $.ajax({
-        url: "sql.php",
-        type: "POST",
-        data: $("#actionForm").serialize(),
-        success: function( data ) {
-        console.log("Success");
-        },
-        });
-        });   
-        $("form").submit();
-        return false;
-    },*/
-    /* Get the score from the website. */
-    /*getScore: function () {           
-        $.ajax({
-        url: "test.php",
-        type: "GET",
-        dataType: "json"
-        success: function( data ) {
-        console.log("Success");
-        },
-        });
-    },*/
+		//1) boolean for 'explode' (particles generate all at once)
+		//2) particle lifespan (ms)
+		//3) ignore
+		//4) number of particles
+		emitter.start(true, 1500, null, 8);
+	},
+	/* Post the score to the website. */
+	/*postScore: function () {
+	    $('#Name').val("Guest");
+	    $('#Score').val(count);
+	    $('#Level').val(level);
+	    $("#actionForm").serialize();
+	    
+	    $("form").on("submit", function (e) {
+	    e.preventDefault();            
+	    $.ajax({
+	    url: "sql.php",
+	    type: "POST",
+	    data: $("#actionForm").serialize(),
+	    success: function( data ) {
+	    console.log("Success");
+	    },
+	    });
+	    });   
+	    $("form").submit();
+	    return false;
+	},*/
+	/* Get the score from the website. */
+	/*getScore: function () {           
+	    $.ajax({
+	    url: "test.php",
+	    type: "GET",
+	    dataType: "json"
+	    success: function( data ) {
+	    console.log("Success");
+	    },
+	    });
+	},*/
 
-    gameEnd: function() {
-        /* Examples for tomorrow to use.
-            
-            startClickEvent: function () {
-            this.game.state.start('Game');
-            },
-            this.startButton = this.game.add.button(this.game.width / 2, 400, 'startButton', this.startClickEvent, this);
-            
-        */
+	gameEnd: function () {
+		/* Examples for tomorrow to use.
+		    
+		    startClickEvent: function () {
+		    this.game.state.start('Game');
+		    },
+		    this.startButton = this.game.add.button(this.game.width / 2, 400, 'startButton', this.startClickEvent, this);
+		    
+		*/
 
-        var menu = this.game.add.sprite(this.game.world.width / 2 - 150, this.game.height * 0.4, 'continueUp');
-        var retry = this.game.add.sprite(this.game.world.width / 2 - 150, this.game.height * 0.4 + 105, 'backUp');
-        var result = this.game.add.text(this.game.world.width / 2 - 150, yloc * 0.50, 'Result is PANTS', {
-            fontSize: this.game.world.width / 10 + 'px',
-            fill: '#F00'
-        });
-    }
+		var menu = this.game.add.sprite(this.game.world.width / 2 - 150, this.game.height * 0.4, 'continueUp');
+		var retry = this.game.add.sprite(this.game.world.width / 2 - 150, this.game.height * 0.4 + 105, 'backUp');
+		var result = this.game.add.text(this.game.world.width / 2 - 150, yloc * 0.50, 'Result is PANTS', {
+			fontSize: this.game.world.width / 10 + 'px',
+			fill: '#F00'
+		});
+	}
 
 };
