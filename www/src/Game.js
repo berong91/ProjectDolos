@@ -153,11 +153,11 @@ TMT.Game.prototype = {
 	/*
 		Sets up all the incoming vehicles in the top-right of the screen.
 	*/
-	generateIncomingVehicles: function() {
-		
+	generateIncomingVehicles: function () {
+
 	},
-	
-	
+
+
 	/*
 		Sets up all the glow sprites on the grid and then "kills" them.
 	*/
@@ -209,7 +209,7 @@ TMT.Game.prototype = {
 		};
 		console.log("Glow >>> Start:" + glowEvents[g].startTime + " End:" + glowEvents[g].endTime);
 		g++;
-		
+
 	},
 
 	/*
@@ -240,53 +240,53 @@ TMT.Game.prototype = {
 	/*
 		Randomly spawns a vehicle on a predetermined tile. No conflict-checking yet.
 	*/
-	randomSpawn: function() {
+	randomSpawn: function () {
 
 		var rnd;
 		var vtype = ['plane1', 'train1', 'boat1'];
 
 		var south = [
-			[xloc, yloc-150],				//south[0][0] and south[0][1]
-			[xloc+theScale, yloc-150],		//south[1][0] and south[1][1]
-			[xloc+(2*theScale), yloc-150]	//south[2][0] and south[2][1]
+			[xloc, yloc - 150], //south[0][0] and south[0][1]
+			[xloc + theScale, yloc - 150], //south[1][0] and south[1][1]
+			[xloc + (2 * theScale), yloc - 150] //south[2][0] and south[2][1]
 		];
 
 		var east = [
-			[xloc-150, yloc],					// etc...
-			[xloc-150, yloc+theScale],
-			[xloc-150, yloc+(2*theScale)]
+			[xloc - 150, yloc], // etc...
+			[xloc - 150, yloc + theScale],
+			[xloc - 150, yloc + (2 * theScale)]
 		];
-		
+
 
 		var north = [
-			[xloc, yloc+300],
-			[xloc+theScale, yloc+theScale+300],
-			[xloc+(2*theScale), yloc+(2*theScale)+300]
+			[xloc, yloc + 300],
+			[xloc + theScale, yloc + theScale + 300],
+			[xloc + (2 * theScale), yloc + (2 * theScale) + 300]
 		];
 
 		var west = [
-			[xloc + 300, yloc+(2*theScale)],
-			[xloc+theScale + 300, yloc+(2*theScale)],
-			[xloc+(2*theScale) + 300, yloc+(2*theScale)]
+			[xloc + 300, yloc + (2 * theScale)],
+			[xloc + theScale + 300, yloc + (2 * theScale)],
+			[xloc + (2 * theScale) + 300, yloc + (2 * theScale)]
 		];
 
-		switch(this.game.rnd.integerInRange(1, 4)) {
-			case 1:
-					rnd = this.game.rnd.integerInRange(0, 2);
-					this.generateVehicle(south[rnd][0], south[rnd][1], 1, vtype[this.game.rnd.integerInRange(0, 2)]);
-					break;
-			case 2:
-					rnd = this.game.rnd.integerInRange(0, 2);
-					this.generateVehicle(east[rnd][0], east[rnd][1], 0, vtype[this.game.rnd.integerInRange(0, 2)]);
-					break;
-			case 3:
-					rnd = this.game.rnd.integerInRange(0, 2);
-					this.generateVehicle(north[rnd][0], north[rnd][1], 3, vtype[this.game.rnd.integerInRange(0, 2)]);
-					break;
-			case 4:
-					rnd = this.game.rnd.integerInRange(0, 2);
-					this.generateVehicle(west[rnd][0], west[rnd][1], 2, vtype[this.game.rnd.integerInRange(0, 2)]);
-					break;
+		switch (this.game.rnd.integerInRange(1, 4)) {
+		case 1:
+			rnd = this.game.rnd.integerInRange(0, 2);
+			this.generateVehicle(south[rnd][0], south[rnd][1], 1, vtype[this.game.rnd.integerInRange(0, 2)]);
+			break;
+		case 2:
+			rnd = this.game.rnd.integerInRange(0, 2);
+			this.generateVehicle(east[rnd][0], east[rnd][1], 0, vtype[this.game.rnd.integerInRange(0, 2)]);
+			break;
+		case 3:
+			rnd = this.game.rnd.integerInRange(0, 2);
+			this.generateVehicle(north[rnd][0], north[rnd][1], 3, vtype[this.game.rnd.integerInRange(0, 2)]);
+			break;
+		case 4:
+			rnd = this.game.rnd.integerInRange(0, 2);
+			this.generateVehicle(west[rnd][0], west[rnd][1], 2, vtype[this.game.rnd.integerInRange(0, 2)]);
+			break;
 		};
 
 	},
@@ -301,17 +301,17 @@ TMT.Game.prototype = {
 		this.vehicles.enableBody = true;
 
 		if (level === 0) {
-			this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
+			this.generateVehicle(xloc - 150, yloc, 0, 'boat1');
 
 		} else if (level === 1) {
-			this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
-			this.generateVehicle(xloc + (theScale * 2) + 100, yloc + (theScale * 2), 2, 'train1');
-			this.generateVehicle(xloc - 100, yloc + theScale, 0, 'plane1');
+			this.generateVehicle(xloc - 150, yloc, 0, 'boat1');
+			this.generateVehicle(xloc + (theScale * 2) + 150, yloc + (theScale * 2), 2, 'train1');
+			this.generateVehicle(xloc - 150, yloc + theScale, 0, 'plane1');
 
 		} else if (level === 2) {
-			this.generateVehicle(xloc - 100, yloc, 0, 'boat1');
-			this.generateVehicle(xloc + (theScale * 2) + 100, yloc + (theScale * 2), 2, 'train1');
-			this.generateVehicle(xloc - 100, yloc + theScale, 0, 'plane1');
+			this.generateVehicle(xloc - 150, yloc, 0, 'boat1');
+			this.generateVehicle(xloc + (theScale * 2) + 150, yloc + (theScale * 2), 2, 'train1');
+			this.generateVehicle(xloc - 150, yloc + theScale, 0, 'plane1');
 
 			this.prepareGlow(glows[0], 1, 5);
 			this.prepareGlow(glows[8], 6, 10);
@@ -321,17 +321,17 @@ TMT.Game.prototype = {
 				this.vehicleWait(vehicles[i], (1 + i) * 5);
 			}
 		} else if (level === 3) {
-			this.generateVehicle(xloc - 100, yloc, 0, 'boat1');					//top left
-			this.generateVehicle(xloc + theScale, yloc - 100, 1, 'train1');		//top center
-			this.generateVehicle(xloc + (theScale * 2) + 100, yloc + theScale, 2, 'plane1');		//middle right
-			this.generateVehicle(xloc + (theScale * 2), yloc + (theScale * 2) + 100, 3, 'boat1');					//bottom right
-			this.generateVehicle(xloc - 100, yloc + (theScale * 2), 0, 'train1'); //bottom right
-			this.generateVehicle(xloc + (theScale * 2) + 100, yloc + theScale, 2, 'plane1'); //middle left
-			
+			this.generateVehicle(xloc - 150, yloc, 0, 'boat1'); //top left
+			this.generateVehicle(xloc + theScale, yloc - 150, 1, 'train1'); //top center
+			this.generateVehicle(xloc + (theScale * 2) + 150, yloc + theScale, 2, 'plane1'); //middle right
+			this.generateVehicle(xloc + (theScale * 2), yloc + (theScale * 2) + 150, 3, 'boat1'); //bottom right
+			this.generateVehicle(xloc - 150, yloc + (theScale * 2), 0, 'train1'); //bottom right
+			this.generateVehicle(xloc + (theScale * 2) + 150, yloc + theScale, 2, 'plane1'); //middle left
+
 			for (var j = 0; j < vehicles.length; j++) {
 				this.vehicleWait(vehicles[j], (1 + j) * 2);
 			}
-			
+
 			this.prepareGlow(glows[0], 0, 2); //top left
 			this.prepareGlow(glows[1], 2, 4); //top center
 			this.prepareGlow(glows[5], 4, 6); //middle right
@@ -446,7 +446,7 @@ TMT.Game.prototype = {
 			rows = cols = 3;
 
 		}
-		
+
 		if (level === 3) {
 			MAXTIME = 50;
 			theScale = 75;
@@ -638,31 +638,31 @@ TMT.Game.prototype = {
 					this.vehicleRelease(vehicles[i]);
 					if (vehicles[i].moving) {
 						if (vehicles[i].key === 'plane1') {
-							if (vehicles[i].frame === 0)							
+							if (vehicles[i].frame === 0)
 								vehicles[i].body.velocity.x = planeSpeed;
-							else if (vehicles[i].frame === 1)							
+							else if (vehicles[i].frame === 1)
 								vehicles[i].body.velocity.y = planeSpeed;
-							else if (vehicles[i].frame === 2)							
+							else if (vehicles[i].frame === 2)
 								vehicles[i].body.velocity.x = -1 * planeSpeed;
-							else if (vehicles[i].frame === 3)							
+							else if (vehicles[i].frame === 3)
 								vehicles[i].body.velocity.y = -1 * planeSpeed;
 						} else if (vehicles[i].key === 'boat1') {
-							if (vehicles[i].frame === 0)							
+							if (vehicles[i].frame === 0)
 								vehicles[i].body.velocity.x = boatSpeed;
-							else if (vehicles[i].frame === 1)							
+							else if (vehicles[i].frame === 1)
 								vehicles[i].body.velocity.y = boatSpeed;
-							else if (vehicles[i].frame === 2)							
+							else if (vehicles[i].frame === 2)
 								vehicles[i].body.velocity.x = -1 * boatSpeed;
-							else if (vehicles[i].frame === 3)							
+							else if (vehicles[i].frame === 3)
 								vehicles[i].body.velocity.y = -1 * boatSpeed;
 						} else if (vehicles[i].key === 'train1') {
-							if (vehicles[i].frame === 0)							
+							if (vehicles[i].frame === 0)
 								vehicles[i].body.velocity.x = trainSpeed;
-							else if (vehicles[i].frame === 1)							
+							else if (vehicles[i].frame === 1)
 								vehicles[i].body.velocity.y = trainSpeed;
-							else if (vehicles[i].frame === 2)							
+							else if (vehicles[i].frame === 2)
 								vehicles[i].body.velocity.x = -1 * trainSpeed;
-							else if (vehicles[i].frame === 3)							
+							else if (vehicles[i].frame === 3)
 								vehicles[i].body.velocity.y = -1 * trainSpeed;
 						}
 					} else
