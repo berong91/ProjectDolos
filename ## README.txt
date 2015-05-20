@@ -26,3 +26,7 @@ Code Structure
 
 index.html imports JQuerry library from Google Hosted Library and Phaser Framework library from lib folder.
 It also imports all game's engine files from src folder.
+
+sql.php and test.php need mysql on our server in order to work properly.
+
+The online version of the site can be access at http://tylertrepanier.ca/dolos
