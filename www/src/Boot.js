@@ -19,14 +19,11 @@ TMT.Boot.prototype = {
         this.load.audio('bgsound', 'asset/audio/flea.mp3');
     },
     create: function () {
-        //set scale of the game
-        this.scale.pageAlignHorizontally = true;
-        this.scale.pageAlignVertically = true;
         
         //loading screen will have a white background
         this.game.stage.backgroundColor = '#000';
         
-        //device options
+/*        //device options
         if (!initialized) {
             if (!this.game.device.desktop) {
                 mobile = true;
@@ -34,7 +31,7 @@ TMT.Boot.prototype = {
                 this.game.stage.scale.startFullScreen();
             }
         initialized = true;
-        }
+        }*/
 
         //scaling options   
         this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;     
@@ -42,6 +39,10 @@ TMT.Boot.prototype = {
         this.scale.minHeight = 170;
         this.scale.maxWidth = 960;
         this.scale.maxHeight = 1600;
+
+        //set scale of the game
+        this.scale.pageAlignHorizontally = true;
+        this.scale.pageAlignVertically = true;
         
         //physics system for movement
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
