@@ -29,7 +29,6 @@ TMT.MainMenu.prototype = {
         //this.addButton = this.game.add.button(0, 0, 'startButton', this.addClickEvent, this);
     },
     update: function () {
-		this.game.input.onDown.add(this.touchDown, this);
 		//this.game.input.onDown.add(this.startPressHold, this);
         if (!!this.ready) {
             this.game.state.start('MainMenu');
@@ -39,12 +38,6 @@ TMT.MainMenu.prototype = {
 		if(this.game.input.pointer1.isDown) {
 			this.startButton.loadTexture('startDown');
 		}
-		this.startButton.loadTexture('startDown');
-	},
-	startUp: function() {
-		this.startButton.loadTexture('startButton');
-	},
-	startPressHold: function() {
 		this.startButton.loadTexture('startDown');
 	},
     startClickEvent: function () {
