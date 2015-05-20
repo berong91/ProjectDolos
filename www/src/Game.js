@@ -236,6 +236,61 @@ TMT.Game.prototype = {
 		}
 	},
 
+
+	/*
+		Randomly spawns a vehicle on a predetermined tile. No conflict-checking yet.
+	*/
+	randomSpawn: function() {
+
+		var rnd;
+		var vtype = ['plane1', 'train1', 'boat1'];
+
+		var south = [
+			[xloc, yloc-150],				//south[0][0] and south[0][1]
+			[xloc+theScale, yloc-150],		//south[1][0] and south[1][1]
+			[xloc+(2*theScale), yloc-150]	//south[2][0] and south[2][1]
+		];
+
+		var east = [
+			[xloc-150, yloc],					// etc...
+			[xloc-150, yloc+theScale],
+			[xloc-150, yloc+(2*theScale)]
+		];
+		
+
+		var north = [
+			[xloc, yloc+300],
+			[xloc+theScale, yloc+theScale+300],
+			[xloc+(2*theScale), yloc+(2*theScale)+300]
+		];
+
+		var west = [
+			[xloc + 300, yloc+(2*theScale)],
+			[xloc+theScale + 300, yloc+(2*theScale)],
+			[xloc+(2*theScale) + 300, yloc+(2*theScale)]
+		];
+
+		switch(this.game.rnd.integerInRange(1, 4)) {
+			case 1:
+					rnd = this.game.rnd.integerInRange(0, 2);
+					this.generateVehicle(south[rnd][0], south[rnd][1], 1, vtype[this.game.rnd.integerInRange(0, 2)]);
+					break;
+			case 2:
+					rnd = this.game.rnd.integerInRange(0, 2);
+					this.generateVehicle(east[rnd][0], east[rnd][1], 0, vtype[this.game.rnd.integerInRange(0, 2)]);
+					break;
+			case 3:
+					rnd = this.game.rnd.integerInRange(0, 2);
+					this.generateVehicle(north[rnd][0], north[rnd][1], 3, vtype[this.game.rnd.integerInRange(0, 2)]);
+					break;
+			case 4:
+					rnd = this.game.rnd.integerInRange(0, 2);
+					this.generateVehicle(west[rnd][0], west[rnd][1], 2, vtype[this.game.rnd.integerInRange(0, 2)]);
+					break;
+		};
+
+	},
+
 	/*
     	Spawn vehicle events that is adjusted by the level selected.
     */
@@ -283,6 +338,20 @@ TMT.Game.prototype = {
 			this.prepareGlow(glows[8], 6, 8); //bottom right
 			this.prepareGlow(glows[6], 8, 10); //bottom right
 			this.prepareGlow(glows[5], 10, 12); //middle left
+		} else if (level === 4) {
+			this.randomSpawn();
+			this.randomSpawn();
+			this.randomSpawn();
+			this.randomSpawn();
+			this.randomSpawn();
+			this.randomSpawn();
+			this.randomSpawn();
+			this.randomSpawn();
+			this.randomSpawn();
+			this.randomSpawn();
+			for (var j = 0; j < vehicles.length; j++) {
+				this.vehicleWait(vehicles[j], (1 + j) * 2);
+			}
 		}
 	},
 	/*
@@ -379,6 +448,22 @@ TMT.Game.prototype = {
 		}
 		
 		if (level === 3) {
+			MAXTIME = 50;
+			theScale = 75;
+
+			//vehicle speed
+			planeSpeed = theScale * 1.1;
+			boatSpeed = theScale * 0.75;
+			trainSpeed = theScale * 0.9;
+
+			//set grid init position and grid elements
+			xloc = this.game.world.width / 2 - (theScale * 1.5);
+			yloc = this.game.world.height / 3;
+			rows = cols = 3;
+
+		}
+
+		if (level === 4) {
 			MAXTIME = 50;
 			theScale = 75;
 
