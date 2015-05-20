@@ -99,7 +99,6 @@ TMT.Game.prototype = {
 		}
 
 		if (pauseclickevent === true) {
-			console.log('in pause');
 			this.game.input.onDown.add(this.pauseClickEvent, this);
 		}
 		//Allows the game to access the explosion animation.
@@ -118,8 +117,6 @@ TMT.Game.prototype = {
         */
 
 		function timer() {
-			lol = 'timer ran';
-			console.log(lol);
 			count--;
 			text.text = 'Time: ' + count;
 			if (count <= 0) {
@@ -127,8 +124,6 @@ TMT.Game.prototype = {
 			}
 		}
 	},
-
-
 	/*
 	    Clears all variables so levels can be restarted without a problem.
 	*/
@@ -207,7 +202,6 @@ TMT.Game.prototype = {
 			endTime: MAXTIME - end,
 			activated: false,
 		};
-		console.log("Glow >>> Start:" + glowEvents[g].startTime + " End:" + glowEvents[g].endTime);
 		g++;
 
 	},
@@ -218,24 +212,20 @@ TMT.Game.prototype = {
 		stops glowing.
 	*/
 	checkGlowEvent: function (glowEvent) {
-		console.log(glowEvent.activated + " Start" + glowEvent.startTime);
 		if (glowEvent.activated) {
 			if (count <= glowEvent.endTime) {
-				console.log("Glow deactivated.");
 				glowEvent.activated = false;
 				glowEvent.sprite.animations.stop();
 				glowEvent.sprite.kill();
 			}
 		} else {
 			if (count === glowEvent.startTime) {
-				console.log("Glow activated.");
 				glowEvent.sprite.revive();
 				glowEvent.sprite.animations.play('pulse');
 				glowEvent.activated = true;
 			}
 		}
 	},
-
 
 	/*
 		Randomly spawns a vehicle on a predetermined tile. No conflict-checking yet.
@@ -246,9 +236,9 @@ TMT.Game.prototype = {
 		var vtype = ['plane1', 'train1', 'boat1'];
 
 		var south = [
-			[xloc, yloc - 150], //south[0][0] and south[0][1]
-			[xloc + theScale, yloc - 150], //south[1][0] and south[1][1]
-			[xloc + (2 * theScale), yloc - 150] //south[2][0] and south[2][1]
+			[xloc, (yloc - 150)], //south[0][0] and south[0][1]
+			[xloc + theScale, (yloc - 150)], //south[1][0] and south[1][1]
+			[xloc + (2 * theScale), (yloc - 150)] //south[2][0] and south[2][1]
 		];
 
 		var east = [
@@ -259,35 +249,39 @@ TMT.Game.prototype = {
 
 
 		var north = [
-			[xloc, yloc + 300],
-			[xloc + theScale, yloc + theScale + 300],
-			[xloc + (2 * theScale), yloc + (2 * theScale) + 300]
+			[xloc, yloc + (2 * theScale) + 150],
+			[xloc + theScale, yloc+ (2 * theScale) + 150],
+			[xloc + (2 * theScale), yloc + (2 * theScale) + 150]
 		];
 
 		var west = [
-			[xloc + 300, yloc + (2 * theScale)],
-			[xloc + theScale + 300, yloc + (2 * theScale)],
-			[xloc + (2 * theScale) + 300, yloc + (2 * theScale)]
+			[xloc + (2 * theScale) + 150, yloc],
+			[xloc + (2 * theScale) + 150, yloc + theScale],
+			[xloc + (2 * theScale) + 150, yloc + (2 * theScale)]
 		];
 
 		switch (this.game.rnd.integerInRange(1, 4)) {
 		case 1:
 			rnd = this.game.rnd.integerInRange(0, 2);
 			this.generateVehicle(south[rnd][0], south[rnd][1], 1, vtype[this.game.rnd.integerInRange(0, 2)]);
+			console.log("Going south");
 			break;
 		case 2:
 			rnd = this.game.rnd.integerInRange(0, 2);
 			this.generateVehicle(east[rnd][0], east[rnd][1], 0, vtype[this.game.rnd.integerInRange(0, 2)]);
+			console.log("Going east");
 			break;
 		case 3:
 			rnd = this.game.rnd.integerInRange(0, 2);
 			this.generateVehicle(north[rnd][0], north[rnd][1], 3, vtype[this.game.rnd.integerInRange(0, 2)]);
+			console.log("Going north");
 			break;
 		case 4:
 			rnd = this.game.rnd.integerInRange(0, 2);
 			this.generateVehicle(west[rnd][0], west[rnd][1], 2, vtype[this.game.rnd.integerInRange(0, 2)]);
+			console.log("Going west");
 			break;
-		};
+		}
 
 	},
 
@@ -329,29 +323,111 @@ TMT.Game.prototype = {
 			this.generateVehicle(xloc + (theScale * 2) + 150, yloc + theScale, 2, 'plane1'); //middle left
 
 			for (var j = 0; j < vehicles.length; j++) {
-				this.vehicleWait(vehicles[j], (1 + j) * 2);
+				this.vehicleWait(vehicles[j], (1 + j) * 3);
 			}
 
-			this.prepareGlow(glows[0], 0, 2); //top left
-			this.prepareGlow(glows[1], 2, 4); //top center
-			this.prepareGlow(glows[5], 4, 6); //middle right
-			this.prepareGlow(glows[8], 6, 8); //bottom right
-			this.prepareGlow(glows[6], 8, 10); //bottom right
-			this.prepareGlow(glows[5], 10, 12); //middle left
+			this.prepareGlow(glows[0], 0, 3); //top left
+			this.prepareGlow(glows[1], 3, 6); //top center
+			this.prepareGlow(glows[5], 6, 9); //middle right
+			this.prepareGlow(glows[8], 9, 12); //bottom right
+			this.prepareGlow(glows[6], 12, 15); //bottom right
+			this.prepareGlow(glows[5], 15, 18); //middle left
 		} else if (level === 4) {
 			this.randomSpawn();
 			this.randomSpawn();
 			this.randomSpawn();
 			this.randomSpawn();
+			/*this.randomSpawn();
 			this.randomSpawn();
 			this.randomSpawn();
 			this.randomSpawn();
 			this.randomSpawn();
-			this.randomSpawn();
-			this.randomSpawn();
-			for (var j = 0; j < vehicles.length; j++) {
-				this.vehicleWait(vehicles[j], (1 + j) * 2);
+			this.randomSpawn();*/
+			for (var k = 0; k < vehicles.length; k++) {
+				this.vehicleWait(vehicles[k], (1 + k) * 5);
+				this.takeVehicleInfo(vehicles[k], 5);
 			}
+		}
+	},
+	/*
+		Takes a vehicles information and transmits that information
+		and inserts it into the prepareGlow function.
+	*/
+	takeVehicleInfo: function(vehicle, glowTime) {
+		var start = MAXTIME - (vehicle.releaseTime + glowTime);
+		var end = MAXTIME - vehicle.releaseTime;
+		console.log("Vehicle: " + vehicle.releaseTime);
+		console.log("Start: " + start + " End: " + end);
+		var y = vehicle.y;
+		var x = vehicle.x;
+		
+		if (x === (xloc - 150)) { //Left side of the grid.
+			if (y === yloc) {
+				console.log("calling glows[0]");
+				this.prepareGlow(glows[0], start, end);//glows[0]
+			}
+			else if (y === (yloc + theScale)) {
+				console.log("calling glows[3]");
+				this.prepareGlow(glows[3], start, end);//glows[3]
+			}
+			else if (y === (yloc + 2 * theScale)) {
+				console.log("calling glows[6]");
+				this.prepareGlow(glows[6], start, end);//glows[6]
+			}
+			else
+				console.log("Glow error in placement.");
+		}
+		else if (x < (xloc + 2 * theScale + 150)) { //Middle of the grid
+			if (x === xloc) {
+				if (y === (yloc - 150)) {
+					console.log("calling glows[0]");
+					this.prepareGlow(glows[0], start, end);//glows[0]	
+				}
+				else {
+					console.log("calling glows[6]");
+					this.prepareGlow(glows[6], start, end);//glows[6]	
+				}
+			}
+			
+			else if (x === (xloc + theScale)) {
+				if (y === (yloc - 150)) {
+					console.log("calling glows[1]");
+					this.prepareGlow(glows[1], start, end);//glows[1]	
+				}
+				else {
+					console.log("calling glows[7]");
+					this.prepareGlow(glows[7], start, end);//glows[7]	
+				}
+			}
+			
+			else if (x === (xloc + theScale * 2)) {
+				if (y === (yloc - 150)) {
+					console.log("calling glows[2]");
+					this.prepareGlow(glows[2], start, end);//glows[2]	
+				}
+				else {
+					console.log("calling glows[8]");
+					this.prepareGlow(glows[8], start, end);//glows[8]	
+				}	 
+		 	}
+			else
+				console.log("Glow error in placement.");
+		}
+		else { // Right side of the grid.
+			if (y === yloc) {
+				console.log("calling glows[2]");
+				this.prepareGlow(glows[2], start, end);//glows[2]
+			}
+			else if (y === (yloc + theScale)) {
+				console.log("calling glows[5]");
+				this.prepareGlow(glows[5], start, end);//glows[5]
+			}
+			else if (y === (yloc + 2 * theScale)) {
+				console.log("calling glows[8]");
+				this.prepareGlow(glows[8], start, end);//glows[8]
+			}
+			else
+				console.log("Glow error in placement.");
 		}
 	},
 	/*
@@ -560,7 +636,6 @@ TMT.Game.prototype = {
 	},
 	//used as an event function for when the user wants to dispose of the rules overlay image
 	overlayclickevent: function () {
-		console.log("overlayclickevent");
 		rules.kill();
 		if (this.game.paused === true) {
 			this.pause();
@@ -586,18 +661,14 @@ TMT.Game.prototype = {
 	},
 	//the name
 	pause: function () {
-		lol = 'in pause';
-		console.log(lol);
 		if (this.game.paused === false) {
 			lol = 'game paused';
 			this.game.paused = true;
-			console.log(lol);
 			return true;
 		}
 		if (this.game.paused === true) {
 			lol = 'game unpaused';
 			this.game.paused = false;
-			console.log(lol);
 			return false;
 		}
 		return null;
@@ -842,48 +913,8 @@ TMT.Game.prototype = {
 		//4) number of particles
 		emitter.start(true, 1500, null, 8);
 	},
-	/* Post the score to the website. */
-	/*postScore: function () {
-	    $('#Name').val("Guest");
-	    $('#Score').val(count);
-	    $('#Level').val(level);
-	    $("#actionForm").serialize();
-	    
-	    $("form").on("submit", function (e) {
-	    e.preventDefault();            
-	    $.ajax({
-	    url: "sql.php",
-	    type: "POST",
-	    data: $("#actionForm").serialize(),
-	    success: function( data ) {
-	    console.log("Success");
-	    },
-	    });
-	    });   
-	    $("form").submit();
-	    return false;
-	},*/
-	/* Get the score from the website. */
-	/*getScore: function () {           
-	    $.ajax({
-	    url: "test.php",
-	    type: "GET",
-	    dataType: "json"
-	    success: function( data ) {
-	    console.log("Success");
-	    },
-	    });
-	},*/
 
 	gameEnd: function () {
-		/* Examples for tomorrow to use.
-		    
-		    startClickEvent: function () {
-		    this.game.state.start('Game');
-		    },
-		    this.startButton = this.game.add.button(this.game.width / 2, 400, 'startButton', this.startClickEvent, this);
-		    
-		*/
 
 		var menu = this.game.add.sprite(this.game.world.width / 2 - 150, this.game.height * 0.4, 'continueUp');
 		var retry = this.game.add.sprite(this.game.world.width / 2 - 150, this.game.height * 0.4 + 105, 'backUp');
