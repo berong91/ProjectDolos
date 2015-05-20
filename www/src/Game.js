@@ -59,6 +59,8 @@ TMT.Game.prototype = {
 		//background
 		this.background = this.game.add.tileSprite(0, 0, 480, 800, 'peaks');
 		//this.background.autoScroll(-2, 0);
+		
+		this.foreground = this.game.add.tileSprite(0, 0, 480, 800, 'foreground');
 
 		// Generate all the blocks
 		this.generateBlocks();
@@ -68,7 +70,7 @@ TMT.Game.prototype = {
 		this.spawnVehicles(level);
 
 		//adding the loading bar sprite
-		this.progbar = this.game.add.sprite(this.game.world.width / 2, this.game.height * 0.85, 'progress');
+		this.progbar = this.game.add.sprite(this.game.world.width / 2, this.game.height * 0.9, 'progress');
 		this.progbar.anchor.setTo(0.5, 0.5);
 		this.progbar.scale.setTo((theScale * 3) / 400);
 
