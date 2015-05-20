@@ -23,6 +23,7 @@ TMT.MainMenu.prototype = {
         
         // Add leader board button
         this.boardButton = this.game.add.button(this.game.world.width * 0.5, this.game.world.height * 0.82, 'board', this.boardClickEvent, this);
+		this.boardButton.events.onInputDown.add(this.scoresDown, this);
         this.boardButton.anchor.setTo(0.5, 0.8);
         
        
@@ -34,6 +35,12 @@ TMT.MainMenu.prototype = {
             this.game.state.start('MainMenu');
         }
     },
+	scoresDown: function() {
+		if(this.game.input.pointer1.isDown) {
+			this.boardButton.loadTexture('board1');
+		}
+		this.boardButton.loadTexture('board1');
+	},
 	touchDown: function() {
 		if(this.game.input.pointer1.isDown) {
 			this.startButton.loadTexture('startDown');
