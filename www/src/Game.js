@@ -493,8 +493,8 @@ TMT.Game.prototype = {
 		//add physics to the new plane.
 		this.game.physics.arcade.enable(vehicles[v]);
 		vehicles[v].body.overlapWorldBounds = true;
-		vehicles[v].body.width = vehicles[v].body.width / 2;
-		vehicles[v].body.height = vehicles[v].body.height / 2;
+		vehicles[v].body.width = 40;
+		vehicles[v].body.height = 40;
 		v++;
 	},
 
