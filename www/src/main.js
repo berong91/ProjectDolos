@@ -1,7 +1,6 @@
 var TMT = TMT || {};
 var level = -99;
 var postScore;
-
 var gameHeight = 800;
 var gameWidth = 480;
 
@@ -18,6 +17,7 @@ TMT.game.state.add('LeaderBoard', TMT.LeaderBoard);
 TMT.game.state.add('Game', TMT.Game);
 TMT.game.state.add('WinScreen', TMT.WinScreen);
 TMT.game.state.add('LoseScreen', TMT.LoseScreen);
+
 
 //TMT.game.state.add('Generator', TMT.Generator);
 

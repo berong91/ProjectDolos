@@ -18,24 +18,24 @@ TMT.LoseScreen.prototype = {
 		//this.background.autoScroll(-5,0);
 
 		//Addlogoimage
-		this.logo = this.game.add.sprite(this.game.width / 2, y * 1.5, 'lose');
+		this.logo = this.game.add.sprite(this.game.width / 2, this.game.height * 0.2, 'lose');
 		this.logo.scale.setTo(0.7);
 		this.logo.anchor.setTo(0.5, 0.5);
 
 		// Add back button
-		this.backButton = this.game.add.button(this.game.width / 2, y * 5, 'backUp', this.backClickEvent, this);
+		this.backButton = this.game.add.button(this.game.width / 2, this.game.height * 0.7, 'backUp', this.backClickEvent, this);
 		this.backButton.anchor.setTo(0.5, 0.8);
 		this.backButton.scale.set(0.5, 0.5);
 	},
 	update: function () {
 		if (name || name.length !== 0) {
-			this.game.add.text(this.game.width / 2 - 170, y * 3, 'Hello ' + name, {
+			this.game.add.text(this.game.width * 0.15 , this.game.height * 0.35, 'Hello ' + name, {
 				font: "32px Arial",
 				fill: this.generateHexColor(),
 				stroke: '#000000',
 				strokeThickness: 4
 			});
-			this.game.add.text(this.game.width / 2 - 170, y * 5, 'Your Score is: ' + postScore, {
+			this.game.add.text(this.game.width * 0.15, this.game.height * 0.4, 'Your Score is: ' + postScore, {
 				font: "32px Arial",
 				fill: this.generateHexColor(),
 				stroke: '#000000',
