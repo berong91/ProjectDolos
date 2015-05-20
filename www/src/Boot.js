@@ -23,23 +23,23 @@ TMT.Boot.prototype = {
         //loading screen will have a white background
         this.game.stage.backgroundColor = '#000';
         
-/*        //device options
-        if (!initialized) {
+        /*        //device options
+            if (!initialized) {
             if (!this.game.device.desktop) {
-                mobile = true;
-                this.game.stage.fullScreenScaleMode = Phaser.StageScaleMode.EXACT_FIT;
-                this.game.stage.scale.startFullScreen();
+            mobile = true;
+            this.game.stage.fullScreenScaleMode = Phaser.StageScaleMode.EXACT_FIT;
+            this.game.stage.scale.startFullScreen();
             }
-        initialized = true;
+            initialized = true;
         }*/
-
+        
         //scaling options   
         this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;     
         this.scale.minWidth = 240;
         this.scale.minHeight = 170;
         this.scale.maxWidth = 960;
         this.scale.maxHeight = 1600;
-
+        
         //set scale of the game
         this.scale.pageAlignHorizontally = true;
         this.scale.pageAlignVertically = true;
@@ -61,8 +61,8 @@ TMT.Boot.prototype = {
         explosionSound = this.game.add.audio('explosion');
         switchSound = this.game.add.audio('switch');
         this.sound.setDecodedCallback([bgSound, explosionSound, switchSound], this.startBgMusic, this);
-        this.finish();
-        //this.game.time.events.add(Phaser.Timer.SECOND * 5, this.finish, this);
+        // this.finish();
+        // this.game.time.events.add(Phaser.Timer.SECOND * 5, this.finish, this);
     },
     // This method will be load when all music are loaded
     startBgMusic: function(){
