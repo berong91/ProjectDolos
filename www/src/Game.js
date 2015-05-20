@@ -61,6 +61,8 @@ TMT.Game.prototype = {
 		//background
 		this.background = this.game.add.tileSprite(0, 0, 480, 800, 'peaks');
 		//this.background.autoScroll(-2, 0);
+		
+		this.foreground = this.game.add.tileSprite(0, 0, 480, 800, 'foreground');
 
 		// Generate all the blocks
 		this.generateBlocks();
@@ -72,12 +74,12 @@ TMT.Game.prototype = {
 		this.spawnVehicles(level);
 		
 		//adding the loading bar sprite
-		this.progbar = this.game.add.sprite(this.game.world.width / 2, this.game.height * 0.85, 'progress');
+		this.progbar = this.game.add.sprite(this.game.world.width / 2, this.game.height * 0.9, 'progress');
 		this.progbar.anchor.setTo(0.5, 0.5);
 		this.progbar.scale.setTo((theScale * 3) / 400);
 
 		//This will create text in the top left of the game screen.
-		text = this.game.add.text(this.game.world.height * 0.05, this.game.world.height * 0.05, 'Time: ' + MAXTIME + '', {
+		text = this.game.add.text(this.game.world.width * 0.05, this.game.world.height * 0.05, 'Time: ' + MAXTIME + '', {
 			fontSize: this.game.world.width / 15 + 'px',
 			fill: '#ffffff'
 		});
@@ -92,8 +94,9 @@ TMT.Game.prototype = {
 
 
 		// Add leader board button
-		this.backButton = this.game.add.button(this.game.world.width * 0.9, this.game.world.height * 0.13, 'backUp', this.backClickEvent, this);
-		this.backButton.anchor.setTo(0.5, 0.8);
+		this.backButton = this.game.add.button(this.game.world.width * 0.9, this.game.world.height * 0.05, 'backUp', this.backClickEvent, this);
+		this.backButton.events.onInputDown.add(this.touchDown, this);
+		this.backButton.anchor.setTo(0.5, 0.5);
 		this.backButton.scale.set(0.3, 0.3);
 
 		this.overlayrules();
@@ -441,6 +444,13 @@ TMT.Game.prototype = {
 	vehicleWait: function (vehicle, wait) {
 		vehicle.releaseTime = MAXTIME - wait;
 		vehicle.kill();
+	},
+	
+	touchDown: function() {
+		if(this.game.input.pointer1.isDown) {
+			this.backButton.loadTexture('backDown');
+		}
+		this.backButton.loadTexture('backDown');
 	},
 	/*
 		Checks the timer on when a vehicle should revive.

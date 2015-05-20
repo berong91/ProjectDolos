@@ -23,28 +23,28 @@ TMT.MainMenu.prototype = {
         
         // Add leader board button
         this.boardButton = this.game.add.button(this.game.world.width * 0.5, this.game.world.height * 0.82, 'board', this.boardClickEvent, this);
+		this.boardButton.events.onInputDown.add(this.scoresDown, this);
         this.boardButton.anchor.setTo(0.5, 0.8);
         
        
         //this.addButton = this.game.add.button(0, 0, 'startButton', this.addClickEvent, this);
     },
     update: function () {
-		this.game.input.onDown.add(this.touchDown, this);
 		//this.game.input.onDown.add(this.startPressHold, this);
         if (!!this.ready) {
             this.game.state.start('MainMenu');
         }
     },
+	scoresDown: function() {
+		if(this.game.input.pointer1.isDown) {
+			this.boardButton.loadTexture('board1');
+		}
+		this.boardButton.loadTexture('board1');
+	},
 	touchDown: function() {
 		if(this.game.input.pointer1.isDown) {
 			this.startButton.loadTexture('startDown');
 		}
-		this.startButton.loadTexture('startDown');
-	},
-	startUp: function() {
-		this.startButton.loadTexture('startButton');
-	},
-	startPressHold: function() {
 		this.startButton.loadTexture('startDown');
 	},
     startClickEvent: function () {

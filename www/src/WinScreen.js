@@ -24,6 +24,7 @@ TMT.WinScreen.prototype = {
 
 		// Add back button
 		this.backButton = this.game.add.button(this.game.width / 2, this.game.height * 0.7, 'backUp', this.backClickEvent, this);
+		this.backButton.events.onInputDown.add(this.touchDown, this);
 		this.backButton.anchor.setTo(0.5, 0.8);
 		this.backButton.scale.set(0.5, 0.5);
 	},
@@ -47,6 +48,12 @@ TMT.WinScreen.prototype = {
 			postScore = 0;
 
 		}
+	},
+	touchDown: function() {
+		if(this.game.input.pointer1.isDown) {
+			this.backButton.loadTexture('backDown');
+		}
+		this.backButton.loadTexture('backDown');
 	},
 	startClickEvent: function () {
 		this.game.state.start('MainMenu');
