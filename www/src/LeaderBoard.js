@@ -16,6 +16,7 @@ TMT.LeaderBoard.prototype = {
         
         // Add back button
         this.backButton = this.game.add.button(this.game.width / 2, 500, 'backUp', this.backClickEvent, this);
+		this.backButton.events.onInputDown.add(this.touchDown, this);
         this.backButton.anchor.setTo(0.5, 0.8);
         this.backButton.scale.set(0.5, 0.5);
     },
@@ -43,6 +44,13 @@ TMT.LeaderBoard.prototype = {
             arr = [];
         }
     },
+	
+	touchDown: function() {
+		if(this.game.input.pointer1.isDown) {
+			this.backButton.loadTexture('backDown');
+		}
+		this.backButton.loadTexture('backDown');
+	},
     /*
         This ajax method will set a GET request to server and receive back a JSON data.
         Then it convert JSON data into JavaScript array. 
