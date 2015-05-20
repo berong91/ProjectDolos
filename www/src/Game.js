@@ -142,6 +142,7 @@ TMT.Game.prototype = {
 		glows = [];
 		g = 0;
 		glowEvents = [];
+		death = 0;
 		this.game.state.start('MainMenu');
 	},
 
@@ -337,15 +338,15 @@ TMT.Game.prototype = {
 			this.randomSpawn();
 			this.randomSpawn();
 			this.randomSpawn();
-			/*this.randomSpawn();
 			this.randomSpawn();
 			this.randomSpawn();
 			this.randomSpawn();
 			this.randomSpawn();
-			this.randomSpawn();*/
+			this.randomSpawn();
+			this.randomSpawn();
 			for (var k = 0; k < vehicles.length; k++) {
-				this.vehicleWait(vehicles[k], (1 + k) * 5);
-				this.takeVehicleInfo(vehicles[k], 5);
+				this.vehicleWait(vehicles[k], (1 + k) * 3);
+				this.takeVehicleInfo(vehicles[k], 3);
 			}
 		}
 	},
@@ -806,9 +807,11 @@ TMT.Game.prototype = {
 			glows = [];
 			g = 0;
 			glowEvents = [];
-			if (death === 0) {
+			if (death === 3) {
+				death = 0;
 				this.game.state.start('WinScreen');
 			} else {
+				death = 0;
 				this.game.state.start('LoseScreen');
 			}
 		}
