@@ -42,6 +42,7 @@ TMT.LevelSelect.prototype = {
         
         // Add back button
         this.backButton = this.game.add.button(this.game.width / 2, y*7.5, 'backUp', this.backClickEvent, this);
+		this.backButton.events.onInputDown.add(this.touchDown, this);
         this.backButton.anchor.setTo(0.5, 0.8);
         this.backButton.scale.set(0.5, 0.5);
     },
@@ -68,6 +69,12 @@ TMT.LevelSelect.prototype = {
     update: function () {
         
     },
+	touchDown: function() {
+		if(this.game.input.pointer1.isDown) {
+			this.backButton.loadTexture('backDown');
+		}
+		this.backButton.loadTexture('backDown');
+	},
     startClickEvent: function () {
         this.game.state.start('Game');
     },
