@@ -34,6 +34,7 @@ TMT.Preload.prototype = {
         this.load.image('peaks', 'asset/images/bgSmall.png');
 		this.load.image('rules', 'asset/images/rules.png');
 		this.load.image('rules2', 'asset/images/rules2.png');
+		this.load.image('rules3', 'asset/images/rules3.png');
        
         this.load.spritesheet('progress', 'asset/images/progress.png', 400, 40);
         this.load.spritesheet('terrain', 'asset/images/spritesheets/terrain100.png', 100, 100);

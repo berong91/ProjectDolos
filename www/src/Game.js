@@ -666,7 +666,7 @@ TMT.Game.prototype = {
 	//used as an event function for when the user wants to dispose of the rules overlay image
 	overlayclickevent: function () {
 		rules.kill();
-		if(evthap < 1) {
+		if(evthap === 0) {
 			rules2 = this.game.add.sprite(this.game.world.width/2, this.game.world.height/2, 'rules2');
 			rules2.anchor.setTo(0.5, 0.5);
 			rules2.inputEnabled = true;
@@ -682,6 +682,18 @@ TMT.Game.prototype = {
 	//used as an event function for when the user wants to dispose of the rules overlay image
 	overlayclickeventtwo: function () {
 		rules2.kill();
+		if(evthap === 1) {
+			rules3 = this.game.add.sprite(this.game.world.width/2, this.game.world.height/2, 'rules3');
+			rules3.anchor.setTo(0.5, 0.5);
+			rules3.inputEnabled = true;
+			this.game.input.onDown.add(this.overlayclickeventthree, this);
+			evthap++;
+		}
+	},
+	
+	//used as an event function for when the user wants to dispose of the rules overlay image
+	overlayclickeventthree: function () {
+		rules3.kill();
 		if (this.game.paused === true) {
 			this.pause();
 			this.startTimer();
