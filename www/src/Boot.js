@@ -48,7 +48,7 @@ TMT.Boot.prototype = {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         
         //show loading screen
-        this.background = this.game.add.sprite(this.game.world.centerX, 280, 'background');
+        this.background = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'background');
         this.background.anchor.setTo(0.5);
         this.background.alpha = 0;
         
