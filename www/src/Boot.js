@@ -54,7 +54,7 @@ TMT.Boot.prototype = {
         
         // Add dissappear event for loading screen
         this.game.add.tween(this.background).to( { alpha: 1 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, true);
-        this.game.time.events.add(Phaser.Timer.SECOND * 5, this.finish, this);
+        this.game.time.events.add(Phaser.Timer.SECOND * 4, this.finish, this);
         
         // Load all music
         bgSound = this.add.audio('bgsound');
