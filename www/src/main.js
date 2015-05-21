@@ -1,6 +1,12 @@
 var TMT = TMT || {};
 var level = -99;
 var postScore;
+
+//Achievements
+var NOHANDS = false;
+var VEHICULARDESTRUCTION = false;
+var UNHARMED = false;
+
 var gameHeight = 800;
 var gameWidth = 480;
 
