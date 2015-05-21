@@ -8,6 +8,7 @@ var rows;
 var cols;
 
 var rules;
+var scoreSum;
 
 //used for NOHANDS achievement
 var tileClicks = 0;
@@ -156,6 +157,9 @@ TMT.Game.prototype = {
 		incoming = [];
 		i = 0;
 		death = 0;
+		UNHARMED = false;
+		VEHICULARDESTRUCTION = false;
+		NOHANDS = false;
 		this.game.state.start('MainMenu');
 	},
 
@@ -175,8 +179,6 @@ TMT.Game.prototype = {
 		incoming[2].scale.setTo(theScale / 100);
 		incoming[2].kill();
 	},
-
-
 	/*
 		Sets up all the glow sprites on the grid and then "kills" them.
 	*/
