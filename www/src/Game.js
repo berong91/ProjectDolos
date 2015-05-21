@@ -172,14 +172,14 @@ TMT.Game.prototype = {
 	*/
 	generateIncomingVehicles: function () {
 		//var vtype = ['plane1', 'train1', 'boat1'];
-		incoming[0] = this.game.add.sprite(xloc + (theScale * cols), yloc - theScale, 'boat1', 3);
-		incoming[0].scale.setTo(theScale / 100);
+		incoming[0] = this.game.add.sprite(xloc + (theScale * cols) , yloc - theScale/1.5, 'boat1', 3);
+		incoming[0].scale.setTo(theScale / 150);
 		incoming[0].kill();
-		incoming[1] = this.game.add.sprite(xloc + (theScale * cols), yloc - theScale, 'plane1', 3);
-		incoming[1].scale.setTo(theScale / 100);
+		incoming[1] = this.game.add.sprite(xloc + (theScale * cols), yloc - theScale/1.5, 'plane1', 3);
+		incoming[1].scale.setTo(theScale / 150);
 		incoming[1].kill();
-		incoming[2] = this.game.add.sprite(xloc + (theScale * cols), yloc - theScale, 'train1', 3);
-		incoming[2].scale.setTo(theScale / 100);
+		incoming[2] = this.game.add.sprite(xloc + (theScale * cols), yloc - theScale/1.5, 'train1', 3);
+		incoming[2].scale.setTo(theScale / 150);
 		incoming[2].kill();
 	},
 	/*
@@ -443,7 +443,7 @@ TMT.Game.prototype = {
 			} else if (y === west[2][1]) {
 				this.prepareGlow(glows[8], vehicle,  start, end);
 			}
-		} else if (y === north[0][1]) { //Left side of the grid.
+		} else if (y === north[0][1]) { 
 			if (x === north[0][0]) {
 				this.prepareGlow(glows[6], vehicle, start, end); 
 			} else if (x === north[1][0]) {
@@ -451,7 +451,7 @@ TMT.Game.prototype = {
 			} else if (x === north[2][0]) {
 				this.prepareGlow(glows[8], vehicle,  start, end);
 			}
-		} else if (y === south[0][1]) { //Left side of the grid.
+		} else if (y === south[0][1]) { 
 			if (x === south[0][0]) {
 				this.prepareGlow(glows[0], vehicle, start, end); 
 			} else if (x === south[1][0]) {
