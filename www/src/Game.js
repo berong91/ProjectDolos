@@ -8,6 +8,8 @@ var rows;
 var cols;
 
 var rules;
+var rules2;
+var evthap = 0;
 
 //vehicle speed
 var trainSpeed;
@@ -139,6 +141,7 @@ TMT.Game.prototype = {
 		this.background = null;
 		this.blocks = null;
 		this.progbar = null;
+		evthap = 0;
 		vehicles = [];
 		v = 0;
 		text = null;
@@ -652,11 +655,28 @@ TMT.Game.prototype = {
 	//used as an event function for when the user wants to dispose of the rules overlay image
 	overlayclickevent: function () {
 		rules.kill();
+		if(evthap < 1) {
+			rules2 = this.game.add.sprite(this.game.world.width/2, this.game.world.height/2, 'rules2');
+			rules2.anchor.setTo(0.5, 0.5);
+			rules2.inputEnabled = true;
+			this.game.input.onDown.add(this.overlayclickeventtwo, this);
+			evthap++;
+		}
+		/* if (this.game.paused === true) {
+			this.pause();
+			this.startTimer();
+		} */
+	},
+	
+	//used as an event function for when the user wants to dispose of the rules overlay image
+	overlayclickeventtwo: function () {
+		rules2.kill();
 		if (this.game.paused === true) {
 			this.pause();
 			this.startTimer();
 		}
 	},
+	
 	//main function for overlaying rules on screen before the game starts
 	//simply shows rules to user if level is 0 or in other words tutorial
 	overlayrules: function () {
