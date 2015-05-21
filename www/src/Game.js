@@ -163,6 +163,7 @@ TMT.Game.prototype = {
 		for (var q = 0; q < borders.length; q++) {
 			borders[q].body.immovable = true;
 			borders[q].body.collideWorldBounds = true;
+			borders[q].alpha(0);
 		}
 	},
 
