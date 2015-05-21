@@ -308,29 +308,30 @@ TMT.Game.prototype = {
 		var rnd, veh;
 		var vtype = ['plane1', 'train1', 'boat1'];
 
+		//Grid cell locations
 		var south = [
-			[xloc, (yloc - 150)], //south[0][0] and south[0][1]
-			[xloc + theScale, (yloc - 150)], //south[1][0] and south[1][1]
-			[xloc + (2 * theScale), (yloc - 150)] //south[2][0] and south[2][1]
+			[xloc+(theScale/2), (yloc - 150)+(theScale/2)], //south[0][0] and south[0][1]
+			[xloc + theScale+(theScale/2), (yloc - 150)]+(theScale/2), //south[1][0] and south[1][1]
+			[xloc + (2 * theScale)+(theScale/2), (yloc - 150)+(theScale/2)] //south[2][0] and south[2][1]
 		];
 
 		var east = [
-			[xloc - 150, yloc], // etc...
-			[xloc - 150, yloc + theScale],
-			[xloc - 150, yloc + (2 * theScale)]
+			[xloc - 150+(theScale/2), yloc+(theScale/2)], // etc...
+			[xloc - 150+(theScale/2), yloc + theScale+(theScale/2)],
+			[xloc - 150+(theScale/2), yloc + (2 * theScale)+(theScale/2)]
 		];
 
 
 		var north = [
-			[xloc, yloc + (2 * theScale) + 150],
-			[xloc + theScale, yloc + (2 * theScale) + 150],
-			[xloc + (2 * theScale), yloc + (2 * theScale) + 150]
+			[xloc+(theScale/2), yloc + (2 * theScale) + 150+(theScale/2)],
+			[xloc + theScale+(theScale/2), yloc + (2 * theScale) + 150+(theScale/2)],
+			[xloc + (2 * theScale)+(theScale/2), yloc + (2 * theScale) + 150+(theScale/2)]
 		];
 
 		var west = [
-			[xloc + (2 * theScale) + 150, yloc],
-			[xloc + (2 * theScale) + 150, yloc + theScale],
-			[xloc + (2 * theScale) + 150, yloc + (2 * theScale)]
+			[xloc + (2 * theScale) + 150+(theScale/2), yloc+(theScale/2)],
+			[xloc + (2 * theScale) + 150+(theScale/2), yloc + theScale+(theScale/2)],
+			[xloc + (2 * theScale) + 150+(theScale/2), yloc + (2 * theScale)+(theScale/2)]
 		];
 
 		veh = this.game.rnd.integerInRange(1, 4);
@@ -385,7 +386,7 @@ TMT.Game.prototype = {
 		this.vehicles.enableBody = true;
 
 		if (level === 0) {
-			this.generateVehicle(xloc - 150, yloc, 0, 'boat1');
+			this.generateVehicle(xloc - 150+(theScale/2), yloc+(theScale/2), 0, 'boat1');
 
 		} else if (level === 1) {
 			for (var p = 0; p < 3; p++)
@@ -431,57 +432,63 @@ TMT.Game.prototype = {
 		var y = vehicle.y;
 		var x = vehicle.x;
 
-		if (x === (xloc - 150)) { //Left side of the grid.
-			if (y === yloc) {
-				//console.log("calling glows[0]");
-				this.prepareGlow(glows[0], vehicle, start, end); //glows[0]
-			} else if (y === (yloc + theScale)) {
-				//console.log("calling glows[3]");
-				this.prepareGlow(glows[3], vehicle, start, end); //glows[3]
-			} else if (y === (yloc + 2 * theScale)) {
-				//console.log("calling glows[6]");
-				this.prepareGlow(glows[6], vehicle, start, end); //glows[6]
-			} else
-				console.log("Glow error in placement.");
-		} else if (x < (xloc + 2 * theScale + 150)) { //Middle of the grid
-			if (x === xloc) {
-				if (y === (yloc - 150)) {
-					//console.log("calling glows[0]");
-					this.prepareGlow(glows[0], vehicle, start, end); //glows[0]	
-				} else {
-					//console.log("calling glows[6]");
-					this.prepareGlow(glows[6], vehicle, start, end); //glows[6]	
-				}
-			} else if (x === (xloc + theScale)) {
-				if (y === (yloc - 150)) {
-					//console.log("calling glows[1]");
-					this.prepareGlow(glows[1], vehicle, start, end); //glows[1]	
-				} else {
-					//console.log("calling glows[7]");
-					this.prepareGlow(glows[7], vehicle, start, end); //glows[7]	
-				}
-			} else if (x === (xloc + theScale * 2)) {
-				if (y === (yloc - 150)) {
-					//console.log("calling glows[2]");
-					this.prepareGlow(glows[2], vehicle, start, end); //glows[2]	
-				} else {
-					//console.log("calling glows[8]");
-					this.prepareGlow(glows[8], vehicle, start, end); //glows[8]	
-				}
-			} else
-				console.log("Glow error in placement.");
-		} else { // Right side of the grid.
-			if (y === yloc) {
-				//console.log("calling glows[2]");
-				this.prepareGlow(glows[2], vehicle, start, end); //glows[2]
-			} else if (y === (yloc + theScale)) {
-				//console.log("calling glows[5]");
-				this.prepareGlow(glows[5], vehicle, start, end); //glows[5]
-			} else if (y === (yloc + 2 * theScale)) {
-				//console.log("calling glows[8]");
-				this.prepareGlow(glows[8], vehicle, start, end); //glows[8]
-			} else
-				console.log("Glow error in placement.");
+		var south = [
+			[xloc+(theScale/2), (yloc - 150)+(theScale/2)], //south[0][0] and south[0][1]
+			[xloc + theScale+(theScale/2), (yloc - 150)]+(theScale/2), //south[1][0] and south[1][1]
+			[xloc + (2 * theScale)+(theScale/2), (yloc - 150)+(theScale/2)] //south[2][0] and south[2][1]
+		];
+
+		var east = [
+			[xloc - 150+(theScale/2), yloc+(theScale/2)], // etc...
+			[xloc - 150+(theScale/2), yloc + theScale+(theScale/2)],
+			[xloc - 150+(theScale/2), yloc + (2 * theScale)+(theScale/2)]
+		];
+
+
+		var north = [
+			[xloc+(theScale/2), yloc + (2 * theScale) + 150+(theScale/2)],
+			[xloc + theScale+(theScale/2), yloc + (2 * theScale) + 150+(theScale/2)],
+			[xloc + (2 * theScale)+(theScale/2), yloc + (2 * theScale) + 150+(theScale/2)]
+		];
+
+		var west = [
+			[xloc + (2 * theScale) + 150+(theScale/2), yloc+(theScale/2)],
+			[xloc + (2 * theScale) + 150+(theScale/2), yloc + theScale+(theScale/2)],
+			[xloc + (2 * theScale) + 150+(theScale/2), yloc + (2 * theScale)+(theScale/2)]
+		];
+
+		if (x === east[0][0]) { 
+			if (y === east[0][1]) {
+				this.prepareGlow(glows[0], vehicle, start, end); 
+			} else if (y === east[1][1]) {
+				this.prepareGlow(glows[3], vehicle,  start, end);
+			} else if (y === east[2][1]) {
+				this.prepareGlow(glows[6], vehicle,  start, end);
+			} 
+		} else if (x === west[0][0]) { 
+			if (y === west[0][1]) {
+				this.prepareGlow(glows[2], vehicle, start, end); 
+			} else if (y === west[1][1]) {
+				this.prepareGlow(glows[5], vehicle,  start, end);
+			} else if (y === west[2][1]) {
+				this.prepareGlow(glows[8], vehicle,  start, end);
+			}
+		} else if (y === north[0][1]) { //Left side of the grid.
+			if (x === north[0][0]) {
+				this.prepareGlow(glows[6], vehicle, start, end); 
+			} else if (x === north[1][0]) {
+				this.prepareGlow(glows[7], vehicle,  start, end);
+			} else if (x === north[2][0]) {
+				this.prepareGlow(glows[8], vehicle,  start, end);
+			}
+		} else if (y === south[0][1]) { //Left side of the grid.
+			if (x === south[0][0]) {
+				this.prepareGlow(glows[0], vehicle, start, end); 
+			} else if (x === south[1][0]) {
+				this.prepareGlow(glows[1], vehicle,  start, end);
+			} else if (x === south[2][0]) {
+				this.prepareGlow(glows[2], vehicle,  start, end);
+			}
 		}
 	},
 	/*
@@ -520,27 +527,11 @@ TMT.Game.prototype = {
 		//"canvas" which is your entire game window.
 		this.game.world.setBounds(0, 0, this.game.width, this.game.height);
 
-
-		//level = -1;
-		if (level === -1) {
-			MAXTIME = 20;
-			theScale = 75;
-
-			//vehicle speed
-			planeSpeed = this.game.width / 10;
-			boatSpeed = this.game.width / 15;
-			trainSpeed = this.game.width / 12;
-
-			//set grid init position and grid elements
-			xloc = this.game.world.width / 2 - (theScale * 1.5);
-			yloc = this.game.world.height / 3;
-			rows = cols = 3;
-		}
 		if (level === 0) {
 
 			//adjust variables here
 			MAXTIME = 10;
-			theScale = 70;
+			theScale = 100;
 			rows = 1;
 			cols = 1;
 
@@ -555,7 +546,7 @@ TMT.Game.prototype = {
 		}
 		if (level === 1) {
 			MAXTIME = 20;
-			theScale = 75;
+			theScale = 100;
 
 			//vehicle speed
 			planeSpeed = theScale * 1.1;
@@ -570,7 +561,7 @@ TMT.Game.prototype = {
 
 		if (level === 2) {
 			MAXTIME = 30;
-			theScale = 75;
+			theScale = 100;
 
 			//vehicle speed
 			planeSpeed = theScale * 1.1;
@@ -586,7 +577,7 @@ TMT.Game.prototype = {
 
 		if (level === 3) {
 			MAXTIME = 50;
-			theScale = 75;
+			theScale = 100;
 
 			//vehicle speed
 			planeSpeed = theScale * 1.2;
@@ -602,7 +593,7 @@ TMT.Game.prototype = {
 
 		if (level === 4) {
 			MAXTIME = 45;
-			theScale = 75;
+			theScale = 100;
 
 			//vehicle speed
 			planeSpeed = theScale * 1.3;
@@ -631,8 +622,8 @@ TMT.Game.prototype = {
 		//add physics to the new plane.
 		this.game.physics.arcade.enable(vehicles[v]);
 		vehicles[v].body.overlapWorldBounds = true;
-		vehicles[v].body.width = 40;
-		vehicles[v].body.height = 40;
+		vehicles[v].body.setSize(50, 50);
+		vehicles[v].anchor.setTo(0.5);
 		v++;
 	},
 
@@ -699,8 +690,8 @@ TMT.Game.prototype = {
 	//used as an event function for when the user wants to dispose of the rules overlay image
 	overlayclickevent: function () {
 		rules.kill();
-		if (evthap < 1) {
-			rules2 = this.game.add.sprite(this.game.world.width / 2, this.game.world.height / 2, 'rules2');
+		if(evthap === 0) {
+			rules2 = this.game.add.sprite(this.game.world.width/2, this.game.world.height/2, 'rules2');
 			rules2.anchor.setTo(0.5, 0.5);
 			rules2.inputEnabled = true;
 			this.game.input.onDown.add(this.overlayclickeventtwo, this);
@@ -715,6 +706,18 @@ TMT.Game.prototype = {
 	//used as an event function for when the user wants to dispose of the rules overlay image
 	overlayclickeventtwo: function () {
 		rules2.kill();
+		if(evthap === 1) {
+			rules3 = this.game.add.sprite(this.game.world.width/2, this.game.world.height/2, 'rules3');
+			rules3.anchor.setTo(0.5, 0.5);
+			rules3.inputEnabled = true;
+			this.game.input.onDown.add(this.overlayclickeventthree, this);
+			evthap++;
+		}
+	},
+	
+	//used as an event function for when the user wants to dispose of the rules overlay image
+	overlayclickeventthree: function () {
+		rules3.kill();
 		if (this.game.paused === true) {
 			this.pause();
 			this.startTimer();
@@ -919,6 +922,7 @@ TMT.Game.prototype = {
 			i = 0;
 			if (death < 3) {
 				death = 0;
+				evthap = 0;
 				this.game.state.start('WinScreen');
 			} else {
 				if (tileClicks === 0) {
@@ -927,6 +931,7 @@ TMT.Game.prototype = {
 				}
 				tileClicks = 0;
 				death = 0;
+				evthat = 0;
 				this.game.state.start('LoseScreen');
 			}
 		}

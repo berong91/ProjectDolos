@@ -22,9 +22,14 @@ TMT.MainMenu.prototype = {
         this.startButton.anchor.setTo(0.5, 0.8);
         
         // Add leader board button
-        this.boardButton = this.game.add.button(this.game.world.width * 0.5, this.game.world.height * 0.82, 'board', this.boardClickEvent, this);
+        this.boardButton = this.game.add.button(this.game.world.width * 0.3, this.game.world.height * 0.82, 'board', this.boardClickEvent, this);
 		this.boardButton.events.onInputDown.add(this.scoresDown, this);
         this.boardButton.anchor.setTo(0.5, 0.8);
+		
+		//Add achievement button
+		this.achieveButton = this.game.add.button(this.game.world.width * 0.70, this.game.world.height * 0.82, 'achieve', this.achieveClickEvent, this);
+		this.achieveButton.events.onInputDown.add(this.achieveDown, this);
+        this.achieveButton.anchor.setTo(0.5, 0.8);
         
        
         //this.addButton = this.game.add.button(0, 0, 'startButton', this.addClickEvent, this);
@@ -41,6 +46,12 @@ TMT.MainMenu.prototype = {
 		}
 		this.boardButton.loadTexture('board1');
 	},
+	achieveDown: function() {
+		if(this.game.input.pointer1.isDown) {
+			this.achieveButton.loadTexture('achieve1');
+		}
+		this.achieveButton.loadTexture('achieve1');
+	},
 	touchDown: function() {
 		if(this.game.input.pointer1.isDown) {
 			this.startButton.loadTexture('startDown');
@@ -52,5 +63,8 @@ TMT.MainMenu.prototype = {
     },
     boardClickEvent: function() {
         this.game.state.start('LeaderBoard');
+    },
+	achieveClickEvent: function() {
+        this.game.state.start('Achievements');
     },
 };
