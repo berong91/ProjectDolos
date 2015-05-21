@@ -48,6 +48,22 @@ TMT.WinScreen.prototype = {
 			postScore = 0;
 
 		}
+		if (VEHICULARDESTRUCTION) {
+			this.game.add.text(this.game.width * 0.15 , this.game.height * 0.9, 'Vehicular Destruction!\nYou murdered a vehicle!', {
+				font: "20px Arial",
+				fill: this.generateHexColor(),
+				stroke: '#000000',
+				strokeThickness: 4
+			});
+		}
+		if (UNHARMED) {
+			this.game.add.text(this.game.width * 0.15 , this.game.height * 0.8, 'UNHARMED!\nYou spared a vehicle\'s life!', {
+				font: "20px Arial",
+				fill: this.generateHexColor(),
+				stroke: '#000000',
+				strokeThickness: 4
+			});
+		}
 	},
 	touchDown: function() {
 		if(this.game.input.pointer1.isDown) {
@@ -56,10 +72,15 @@ TMT.WinScreen.prototype = {
 		this.backButton.loadTexture('backDown');
 	},
 	startClickEvent: function () {
+		VEHICULARDESTRUCTION = false;
+		NOHANDS = false;
+		UNHARMED = false;
 		this.game.state.start('MainMenu');
 	},
 	backClickEvent: function () {
-		
+		VEHICULARDESTRUCTION = false;
+		NOHANDS = false;
+		UNHARMED = false;
 		this.game.state.start('MainMenu');
 	},
 	addClickEvent: function (name, postScore) {
