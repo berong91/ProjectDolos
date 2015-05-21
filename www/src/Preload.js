@@ -46,7 +46,7 @@ TMT.Preload.prototype = {
     create: function () {
     },
     update: function () {
-        // When we finish loading all game asset, go to MainMenu state
+        /// When we finish loading all game asset, go to MainMenu state
         this.state.start('MainMenu');
     }
 };
