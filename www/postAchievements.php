@@ -20,7 +20,7 @@
             $sql = "USE tyler637_dolos";
             $conn->query($sql);
             
-            $sql = "INSERT INTO Achievement VALUES ('NULL', ".$name.", ".$descript", ".$username.", 'CURRENT_TIMESTAMP')";
+            $sql = "INSERT INTO Achievement VALUES ('NULL', ".$name.", ".$description", ".$username.", 'CURRENT_TIMESTAMP')";
             $result = $conn->query($sql);
             
             $conn->close();
