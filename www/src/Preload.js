@@ -13,6 +13,8 @@ TMT.Preload.prototype = {
         this.load.image('startDown', 'asset/images/buttons/startDown.png');
         this.load.image('board', 'asset/images/buttons/highScoresUp.png');
         this.load.image('board1', 'asset/images/buttons/highScoresDown.png');
+		this.load.image('achieve', 'asset/images/buttons/acheivementsUp.png');
+        this.load.image('achieve1', 'asset/images/buttons/acheivementsDown.png');
         this.load.image('soundOn', 'asset/images/buttons/soundOnUp.png');
         this.load.image('soundOff', 'asset/images/buttons/soundOffUp.png');
 		this.load.image('pauseDown', 'asset/images/buttons/pauseDown.png');
@@ -36,6 +38,7 @@ TMT.Preload.prototype = {
         this.load.image('peaks', 'asset/images/bgSmall.png');
 		this.load.image('rules', 'asset/images/rules.png');
 		this.load.image('rules2', 'asset/images/rules2.png');
+		this.load.image('rules3', 'asset/images/rules3.png');
        
         this.load.spritesheet('progress', 'asset/images/progress.png', 400, 40);
         this.load.spritesheet('terrain', 'asset/images/spritesheets/terrain100.png', 100, 100);
