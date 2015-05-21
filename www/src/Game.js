@@ -22,6 +22,7 @@ var vehicles = [];
 var glows = [];
 var glowEvents = [];
 var incoming = [];
+var lastSpawn = [];
 var g = 0;
 var v = 0;
 var i = 0;
@@ -269,7 +270,7 @@ TMT.Game.prototype = {
 	*/
 	randomSpawn: function () {
 
-		var rnd;
+		var rnd, veh;
 		var vtype = ['plane1', 'train1', 'boat1'];
 
 		var south = [
@@ -297,26 +298,43 @@ TMT.Game.prototype = {
 			[xloc + (2 * theScale) + 150, yloc + (2 * theScale)]
 		];
 
-		switch (this.game.rnd.integerInRange(1, 4)) {
-		case 1:
+		veh = this.game.rnd.integerInRange(1, 4);
+		rnd = this.game.rnd.integerInRange(0, 2);
+
+		//prevents spawning in the same square as last spawn
+		while((veh === (lastSpawn[0])) && rnd === lastSpawn[1]) {
 			rnd = this.game.rnd.integerInRange(0, 2);
+		}
+
+		//prevents spawning in the opposite row/column as last spawn
+		while(((veh === (lastSpawn[0])) || veh === (lastSpawn[0] + 2) || veh === (lastSpawn[0] - 2)) && rnd === lastSpawn[1]) {
+			rnd = this.game.rnd.integerInRange(0, 2);
+		}
+
+		switch (veh) {
+		case 1:
 			this.generateVehicle(south[rnd][0], south[rnd][1], 1, vtype[this.game.rnd.integerInRange(0, 2)]);
 			console.log("Going south");
+			lastSpawn[0] = veh;
+			lastSpawn[1] = rnd;
 			break;
 		case 2:
-			rnd = this.game.rnd.integerInRange(0, 2);
 			this.generateVehicle(east[rnd][0], east[rnd][1], 0, vtype[this.game.rnd.integerInRange(0, 2)]);
 			console.log("Going east");
+			lastSpawn[0] = veh;
+			lastSpawn[1] = rnd;
 			break;
 		case 3:
-			rnd = this.game.rnd.integerInRange(0, 2);
 			this.generateVehicle(north[rnd][0], north[rnd][1], 3, vtype[this.game.rnd.integerInRange(0, 2)]);
 			console.log("Going north");
+			lastSpawn[0] = veh;
+			lastSpawn[1] = rnd;
 			break;
 		case 4:
-			rnd = this.game.rnd.integerInRange(0, 2);
 			this.generateVehicle(west[rnd][0], west[rnd][1], 2, vtype[this.game.rnd.integerInRange(0, 2)]);
 			console.log("Going west");
+			lastSpawn[0] = veh;
+			lastSpawn[1] = rnd;
 			break;
 		}
 
@@ -335,36 +353,31 @@ TMT.Game.prototype = {
 			this.generateVehicle(xloc - 150, yloc, 0, 'boat1');
 
 		} else if (level === 1) {
-			this.generateVehicle(xloc - 150, yloc, 0, 'boat1');
-			this.generateVehicle(xloc + (theScale * 2) + 150, yloc + (theScale * 2), 2, 'train1');
-			this.generateVehicle(xloc - 150, yloc + theScale, 0, 'plane1');
-
-			for (var i = 0; i < vehicles.length; i++) {
-				this.vehicleWait(vehicles[i], (1 + i) * 5);
-				this.takeVehicleInfo(vehicles[i], 3);
+			for (var p = 0; p < 3; p++)
+				this.randomSpawn();
+			
+			for (var k = 0; k < vehicles.length; k++) {
+				this.vehicleWait(vehicles[k], (1 + k) * 5);
+				this.takeVehicleInfo(vehicles[k], 5);
 			}
 		} else if (level === 2) {
-			this.generateVehicle(xloc - 150, yloc, 0, 'boat1'); //top left
-			this.generateVehicle(xloc + theScale, yloc - 150, 1, 'train1'); //top center
-			this.generateVehicle(xloc + (theScale * 2) + 150, yloc + theScale, 2, 'plane1'); //middle right
-			this.generateVehicle(xloc + (theScale * 2), yloc + (theScale * 2) + 150, 3, 'boat1'); //bottom right
-			this.generateVehicle(xloc - 150, yloc + (theScale * 2), 0, 'train1'); //bottom right
-			this.generateVehicle(xloc + (theScale * 2) + 150, yloc + theScale, 2, 'plane1'); //middle left
-			for (var c = 0; c < vehicles.length; c++) {
-				this.vehicleWait(vehicles[c], (1 + c) * 6);
-				this.takeVehicleInfo(vehicles[c], 3);
-			}
-			
-		} else if (level === 3) {
-			for (var q = 0; q < 5; q++) {
+			for (var p = 0; p < 7; p++)
 				this.randomSpawn();
+			
+			for (var k = 0; k < vehicles.length; k++) {
+				this.vehicleWait(vehicles[k], (1 + k) * 5);
+				this.takeVehicleInfo(vehicles[k], 5);
 			}
-			for (var j = 0; j < vehicles.length; j++) {
-				this.vehicleWait(vehicles[j], (1 + j) * 5);
-				this.takeVehicleInfo(vehicles[j], 3);
+		} else if (level === 3) {
+			for (var p = 0; p < 9; p++)
+				this.randomSpawn();
+			
+			for (var k = 0; k < vehicles.length; k++) {
+				this.vehicleWait(vehicles[k], (1 + k) * 4);
+				this.takeVehicleInfo(vehicles[k], 4);
 			}
 		} else if (level === 4) {
-			for (var p = 0; p < 10; p++)
+			for (var p = 0; p < 11; p++)
 				this.randomSpawn();
 			
 			for (var k = 0; k < vehicles.length; k++) {
@@ -553,7 +566,7 @@ TMT.Game.prototype = {
 		}
 
 		if (level === 4) {
-			MAXTIME = 50;
+			MAXTIME = 45;
 			theScale = 75;
 
 			//vehicle speed
