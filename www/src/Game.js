@@ -894,6 +894,7 @@ TMT.Game.prototype = {
 			i = 0;
 			if (death < 3) {
 				death = 0;
+				evthap = 0;
 				this.game.state.start('WinScreen');
 			} else {
 				if (tileClicks === 0){
@@ -902,6 +903,7 @@ TMT.Game.prototype = {
 				}
 				tileClicks = 0;
 				death = 0;
+				evthat = 0;
 				this.game.state.start('LoseScreen');
 			}
 		}
