@@ -1,7 +1,7 @@
 var TMT = TMT || {};
 var level = -99;
 var postScore;
-
+var bonus;
 //Achievements
 var NOHANDS = false;
 var VEHICULARDESTRUCTION = false;

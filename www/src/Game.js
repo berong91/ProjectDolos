@@ -8,7 +8,7 @@ var rows;
 var cols;
 
 var rules;
-var scoreSum;
+var scoreSum = 0;
 var rules2;
 var evthap = 0;
 
@@ -68,7 +68,7 @@ TMT.Game.prototype = {
 		//background
 		this.background = this.game.add.tileSprite(0, 0, 480, 800, 'peaks');
 		//this.background.autoScroll(-2, 0);
-		
+
 		this.foreground = this.game.add.tileSprite(0, 0, 480, 800, 'foreground');
 
 		// Generate all the blocks
@@ -77,9 +77,11 @@ TMT.Game.prototype = {
 		this.generateGlows();
 
 		this.generateIncomingVehicles();
-		
+
 		this.spawnVehicles(level);
-		
+
+		this.createBorders();
+
 		//adding the loading bar sprite
 		this.progbar = this.game.add.sprite(this.game.world.width / 2, this.game.height * 0.9, 'progress');
 		this.progbar.anchor.setTo(0.5, 0.5);
@@ -93,12 +95,18 @@ TMT.Game.prototype = {
 		text.stroke = '#000000';
 		text.strokeThickness = 6;
 
+		scoreText = this.game.add.text(this.game.world.width * 0.05, this.game.world.height * 0.1, 'Score: ' + scoreSum + '', {
+			fontSize: this.game.world.width / 15 + 'px',
+			fill: '#ffffff'
+		});
+		scoreText.stroke = '#000000';
+		scoreText.strokeThickness = 6;
+
 		count = MAXTIME;
 		/*this.pauseButton = this.game.add.sprite(this.game.world.width * 0.9, this.game.world.height * 0.05, 'pauseUp');
 		    this.pauseButton.anchor.setTo(0.5, 0.5);
 		    this.pauseButton.inputEnabled = true;
 		this.pauseButton.events.onInputDown.add(this.overlayrules, this); */
-
 
 		// Add leader board button
 		this.backButton = this.game.add.button(this.game.world.width * 0.9, this.game.world.height * 0.05, 'backUp', this.backClickEvent, this);
@@ -129,7 +137,6 @@ TMT.Game.prototype = {
 			left of the game screen to reflect the time left in the 
 			timer. (Inside of create function)
         */
-
 		function timer() {
 			count--;
 			text.text = 'Time: ' + count;
@@ -138,6 +145,27 @@ TMT.Game.prototype = {
 			}
 		}
 	},
+	/*
+		Creates the borders where the vehicles will be destroyed
+		upon collision.
+	*/
+	createBorders: function () {
+		this.borders = this.game.add.group();
+		//enable physics in them
+		this.borders.enableBody = true;
+		var borders = [];
+
+		borders[0] = this.borders.create(this.game.world.width / 2 - 300, this.game.world.height / 2 - 240, 'vborder');
+		borders[1] = this.borders.create(this.game.world.width / 2 + 300, this.game.world.height / 2 - 240, 'vborder');
+		borders[2] = this.borders.create(0, this.game.world.height / 2 - 300, 'hborder');
+		borders[3] = this.borders.create(0, this.game.world.height / 2 + 300, 'hborder');
+
+		for (var q = 0; q < borders.length; q++) {
+			borders[q].body.immovable = true;
+			borders[q].body.collideWorldBounds = true;
+		}
+	},
+
 	/*
 	    Clears all variables so levels can be restarted without a problem.
 	*/
@@ -163,6 +191,8 @@ TMT.Game.prototype = {
 		UNHARMED = false;
 		VEHICULARDESTRUCTION = false;
 		NOHANDS = false;
+		scoreSum = 0;
+		scoreText = null;
 		this.game.state.start('MainMenu');
 	},
 
@@ -307,12 +337,12 @@ TMT.Game.prototype = {
 		rnd = this.game.rnd.integerInRange(0, 2);
 
 		//prevents spawning in the same square as last spawn
-		while((veh === (lastSpawn[0])) && rnd === lastSpawn[1]) {
+		while ((veh === (lastSpawn[0])) && rnd === lastSpawn[1]) {
 			rnd = this.game.rnd.integerInRange(0, 2);
 		}
 
 		//prevents spawning in the opposite row/column as last spawn
-		while(((veh === (lastSpawn[0])) || veh === (lastSpawn[0] + 2) || veh === (lastSpawn[0] - 2)) && rnd === lastSpawn[1]) {
+		while (((veh === (lastSpawn[0])) || veh === (lastSpawn[0] + 2) || veh === (lastSpawn[0] - 2)) && rnd === lastSpawn[1]) {
 			rnd = this.game.rnd.integerInRange(0, 2);
 		}
 
@@ -360,7 +390,7 @@ TMT.Game.prototype = {
 		} else if (level === 1) {
 			for (var p = 0; p < 3; p++)
 				this.randomSpawn();
-			
+
 			for (var k = 0; k < vehicles.length; k++) {
 				this.vehicleWait(vehicles[k], (1 + k) * 5);
 				this.takeVehicleInfo(vehicles[k], 5);
@@ -368,7 +398,7 @@ TMT.Game.prototype = {
 		} else if (level === 2) {
 			for (var p = 0; p < 7; p++)
 				this.randomSpawn();
-			
+
 			for (var k = 0; k < vehicles.length; k++) {
 				this.vehicleWait(vehicles[k], (1 + k) * 5);
 				this.takeVehicleInfo(vehicles[k], 5);
@@ -376,7 +406,7 @@ TMT.Game.prototype = {
 		} else if (level === 3) {
 			for (var p = 0; p < 9; p++)
 				this.randomSpawn();
-			
+
 			for (var k = 0; k < vehicles.length; k++) {
 				this.vehicleWait(vehicles[k], (1 + k) * 4);
 				this.takeVehicleInfo(vehicles[k], 4);
@@ -384,7 +414,7 @@ TMT.Game.prototype = {
 		} else if (level === 4) {
 			for (var p = 0; p < 11; p++)
 				this.randomSpawn();
-			
+
 			for (var k = 0; k < vehicles.length; k++) {
 				this.vehicleWait(vehicles[k], (1 + k) * 3);
 				this.takeVehicleInfo(vehicles[k], 3);
@@ -407,17 +437,17 @@ TMT.Game.prototype = {
 				this.prepareGlow(glows[0], vehicle, start, end); //glows[0]
 			} else if (y === (yloc + theScale)) {
 				//console.log("calling glows[3]");
-				this.prepareGlow(glows[3], vehicle,  start, end); //glows[3]
+				this.prepareGlow(glows[3], vehicle, start, end); //glows[3]
 			} else if (y === (yloc + 2 * theScale)) {
 				//console.log("calling glows[6]");
-				this.prepareGlow(glows[6], vehicle,  start, end); //glows[6]
+				this.prepareGlow(glows[6], vehicle, start, end); //glows[6]
 			} else
 				console.log("Glow error in placement.");
 		} else if (x < (xloc + 2 * theScale + 150)) { //Middle of the grid
 			if (x === xloc) {
 				if (y === (yloc - 150)) {
 					//console.log("calling glows[0]");
-					this.prepareGlow(glows[0], vehicle,  start, end); //glows[0]	
+					this.prepareGlow(glows[0], vehicle, start, end); //glows[0]	
 				} else {
 					//console.log("calling glows[6]");
 					this.prepareGlow(glows[6], vehicle, start, end); //glows[6]	
@@ -461,9 +491,9 @@ TMT.Game.prototype = {
 		vehicle.releaseTime = MAXTIME - wait;
 		vehicle.kill();
 	},
-	
-	touchDown: function() {
-		if(this.game.input.pointer1.isDown) {
+
+	touchDown: function () {
+		if (this.game.input.pointer1.isDown) {
 			this.backButton.loadTexture('backDown');
 		}
 		this.backButton.loadTexture('backDown');
@@ -472,7 +502,7 @@ TMT.Game.prototype = {
 		Checks the timer on when a vehicle should revive.
 	*/
 	vehicleRelease: function (vehicle) {
-		if (!vehicle.dead) {
+		if (!vehicle.dead && !vehicle.success) {
 			if (count <= vehicle.releaseTime) {
 				vehicle.revive();
 			}
@@ -596,6 +626,7 @@ TMT.Game.prototype = {
 		vehicles[v].dead = false;
 		vehicles[v].moving = true;
 		vehicles[v].isHit = false;
+		vehicles[v].success = false;
 
 		//add physics to the new plane.
 		this.game.physics.arcade.enable(vehicles[v]);
@@ -668,8 +699,8 @@ TMT.Game.prototype = {
 	//used as an event function for when the user wants to dispose of the rules overlay image
 	overlayclickevent: function () {
 		rules.kill();
-		if(evthap < 1) {
-			rules2 = this.game.add.sprite(this.game.world.width/2, this.game.world.height/2, 'rules2');
+		if (evthap < 1) {
+			rules2 = this.game.add.sprite(this.game.world.width / 2, this.game.world.height / 2, 'rules2');
 			rules2.anchor.setTo(0.5, 0.5);
 			rules2.inputEnabled = true;
 			this.game.input.onDown.add(this.overlayclickeventtwo, this);
@@ -680,7 +711,7 @@ TMT.Game.prototype = {
 			this.startTimer();
 		} */
 	},
-	
+
 	//used as an event function for when the user wants to dispose of the rules overlay image
 	overlayclickeventtwo: function () {
 		rules2.kill();
@@ -689,7 +720,7 @@ TMT.Game.prototype = {
 			this.startTimer();
 		}
 	},
-	
+
 	//main function for overlaying rules on screen before the game starts
 	//simply shows rules to user if level is 0 or in other words tutorial
 	overlayrules: function () {
@@ -730,8 +761,11 @@ TMT.Game.prototype = {
 	    4)vehicle overlap with tiles
 	*/
 	update: function () {
+		this.updateScore();
 		//method that will be later refined to show progress better.
 		this.progressBar();
+		//checks to see if a vehicle hits the border.
+		this.game.physics.arcade.collide(this.vehicles, this.borders, this.hitBorder, null, this);
 		//checks if the time is 0
 		this.TimeCheck();
 		//Overlap that allows all members of vehicles to interact with 
@@ -789,8 +823,8 @@ TMT.Game.prototype = {
 				}
 			}
 		}
-		
-		if (death === 3){
+
+		if (death === 3) {
 			count = 0;
 		}
 	},
@@ -843,6 +877,7 @@ TMT.Game.prototype = {
 			break;
 		case 30:
 			this.progbar.frame = 3;
+			this.progbar.frame = 3;
 			break;
 		case 20:
 			this.progbar.frame = 2;
@@ -866,13 +901,15 @@ TMT.Game.prototype = {
 			count = null;
 			clearInterval(counter);
 			counter = null;
-			var sum = 0;
-			for (var i = 0; i < vehicles.length; i++){
-				if (vehicles[i].life === 3)
+			bonus = 0;
+			for (var i = 0; i < vehicles.length; i++) {
+				if (vehicles[i].success && vehicles[i].life === 3) {
 					UNHARMED = true;
-				sum += (vehicles[i].life * 100);
+					bonus += 200;
+				}
 			}
-			postScore = sum;
+			postScore = scoreSum;
+			scoreSum = 0;
 			vehicles = [];
 			v = 0;
 			glows = [];
@@ -884,7 +921,7 @@ TMT.Game.prototype = {
 				death = 0;
 				this.game.state.start('WinScreen');
 			} else {
-				if (tileClicks === 0){
+				if (tileClicks === 0) {
 					NOHANDS = true;
 					console.log(NOHANDS + 'TileClicks:' + tileClicks);
 				}
@@ -919,6 +956,12 @@ TMT.Game.prototype = {
 		}
 	},
 	/*
+		Updates the scoreText to reflect the current score.
+	*/
+	updateScore: function () {
+		scoreText.text = 'Score: ' + scoreSum;
+	},
+	/*
 	    This function allows the tiles to cycle between our 
 	    spritesheet.
 	*/
@@ -950,6 +993,15 @@ TMT.Game.prototype = {
 		}
 		//Check to see if any vehicles have died recently.
 		this.lifeCheck(vehicle);
+	},
+	hitBorder: function (vehicle, border) {
+
+		if (!vehicle.success) {
+			console.log("hit the border.");
+			scoreSum += vehicle.life * 100;
+			vehicle.kill();
+			vehicle.success = true;
+		}
 
 	},
 	/*
