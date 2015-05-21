@@ -281,7 +281,7 @@ TMT.Game.prototype = {
 		//Grid cell locations
 		var south = [
 			[xloc+(theScale/2), (yloc - 150)+(theScale/2)], //south[0][0] and south[0][1]
-			[xloc + theScale+(theScale/2), (yloc - 150)]+(theScale/2), //south[1][0] and south[1][1]
+			[xloc + theScale+(theScale/2), (yloc - 150)+(theScale/2)], //south[1][0] and south[1][1]
 			[xloc + (2 * theScale)+(theScale/2), (yloc - 150)+(theScale/2)] //south[2][0] and south[2][1]
 		];
 
@@ -350,7 +350,6 @@ TMT.Game.prototype = {
     	Spawn vehicle events that is adjusted by the level selected.
     */
 	spawnVehicles: function (level) {
-
 		//attempt at making vehicles group
 		this.vehicles = this.game.add.group();
 		this.vehicles.enableBody = true;
@@ -404,7 +403,7 @@ TMT.Game.prototype = {
 
 		var south = [
 			[xloc+(theScale/2), (yloc - 150)+(theScale/2)], //south[0][0] and south[0][1]
-			[xloc + theScale+(theScale/2), (yloc - 150)]+(theScale/2), //south[1][0] and south[1][1]
+			[xloc + theScale+(theScale/2), (yloc - 150)+(theScale/2)], //south[1][0] and south[1][1]
 			[xloc + (2 * theScale)+(theScale/2), (yloc - 150)+(theScale/2)] //south[2][0] and south[2][1]
 		];
 
@@ -515,7 +514,7 @@ TMT.Game.prototype = {
 			yloc = this.game.world.height / 2 - (theScale * (rows / 2));
 		}
 		if (level === 1) {
-			MAXTIME = 20;
+			MAXTIME = 90;
 			theScale = 100;
 
 			//vehicle speed
