@@ -36,13 +36,13 @@ TMT.WinScreen.prototype = {
 				stroke: '#000000',
 				strokeThickness: 4
 			});
-			this.game.add.text(this.game.width * 0.15, this.game.height * 0.4, 'Your Score is: ' + postScore, {
+			this.game.add.text(this.game.width * 0.15, this.game.height * 0.4, 'Your Score is: ' + postScore + ' \n+ bonus: ' + bonus, {
 				font: "32px Arial",
 				fill: this.generateHexColor(),
 				stroke: '#000000',
 				strokeThickness: 4
 			});
-			this.addClickEvent(name, postScore);
+			this.addClickEvent(name, (postScore+bonus));
 			level = -99;
 			name = "";
 			postScore = 0;

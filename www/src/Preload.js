@@ -7,6 +7,8 @@ TMT.Preload.prototype = {
     preload: function () {
         //load game asset
         this.load.image('gamebg', 'asset/images/BG 480x800.png');
+		this.load.image('vborder', 'asset/images/vborder.png');
+		this.load.image('hborder', 'asset/images/hborder.png');
         this.load.image('startButton', 'asset/images/buttons/startUp.png');
         this.load.image('startDown', 'asset/images/buttons/startDown.png');
         this.load.image('board', 'asset/images/buttons/highScoresUp.png');
