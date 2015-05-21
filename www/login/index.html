@@ -20,16 +20,17 @@
         <script type="application/javascript" src="console/console_widget.js"></script>
         
         <script type="text/javascript">
-            function login() {
+            $(document).ready(function(){        
                 $("#loginForm").on("submit", function (e) {
                     e.preventDefault();            
                     $.ajax({
                         url: "login.php",
                         type: "POST",
                         data: $("#loginForm").serialize(),
-                        dataType:'json',
                         success: function( data ) {
-                            console.log(data);
+                            if (data == 1){
+                                window.location.replace("../");
+                            }
                         },
                         error: function(xhr, status, error) {
                             // check status && error
@@ -37,9 +38,7 @@
                         },
                     });
                 });   
-                $("#loginForm").submit();
-                return false;
-            }
+            });
         </script>
     </head>
     
@@ -65,7 +64,7 @@
                         </div>
                         <label class="checkbox checkbox-padding-left widget uib_w_13 d-margins TextColor" data-uib="twitter%20bootstrap/checkbox" data-ver="1">
                         <input type="checkbox" id="signedIn" name="Text">Keep me signed in</label>
-                        <button onclick="login()" class="btn widget uib_w_23 d-margins btn-lg btn-primary" data-uib="twitter%20bootstrap/button" data-ver="1"><i class="glyphicon glyphicon-user button-icon-left" data-position="left"></i>Log In</button>
+                        <input type="submit" class="btn widget uib_w_23 d-margins btn-lg btn-primary" data-uib="twitter%20bootstrap/button" data-ver="1"><i class="glyphicon glyphicon-user button-icon-left" data-position="left"></i>Log In</input>
                         
                         <div class="centered">
                         </div>
