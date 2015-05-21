@@ -9,6 +9,9 @@ var cols;
 
 var rules;
 
+//used for NOHANDS achievement
+var tileClicks = 0;
+
 //vehicle speed
 var trainSpeed;
 var planeSpeed;
@@ -18,8 +21,11 @@ var blocks = [];
 var vehicles = [];
 var glows = [];
 var glowEvents = [];
+var incoming = [];
+var lastSpawn = [];
 var g = 0;
 var v = 0;
+var i = 0;
 
 //Time Elapsed variables
 var counter;
@@ -52,7 +58,7 @@ TMT.Game = function () {};
 
 TMT.Game.prototype = {
 	create: function () {
-
+		console.log(NOHANDS);
 		//Game level modifier.
 		this.adjustLevel(level);
 
@@ -67,8 +73,10 @@ TMT.Game.prototype = {
 
 		this.generateGlows();
 
+		this.generateIncomingVehicles();
+		
 		this.spawnVehicles(level);
-
+		
 		//adding the loading bar sprite
 		this.progbar = this.game.add.sprite(this.game.world.width / 2, this.game.height * 0.9, 'progress');
 		this.progbar.anchor.setTo(0.5, 0.5);
@@ -145,14 +153,27 @@ TMT.Game.prototype = {
 		glows = [];
 		g = 0;
 		glowEvents = [];
+		incoming = [];
+		i = 0;
+		death = 0;
 		this.game.state.start('MainMenu');
 	},
 
 	/*
 		Sets up all the incoming vehicles in the top-right of the screen.
+		They will not show up until they are called by the glowEvent.
 	*/
 	generateIncomingVehicles: function () {
-
+		//var vtype = ['plane1', 'train1', 'boat1'];
+		incoming[0] = this.game.add.sprite(xloc + (theScale * cols), yloc - theScale, 'boat1', 3);
+		incoming[0].scale.setTo(theScale / 100);
+		incoming[0].kill();
+		incoming[1] = this.game.add.sprite(xloc + (theScale * cols), yloc - theScale, 'plane1', 3);
+		incoming[1].scale.setTo(theScale / 100);
+		incoming[1].kill();
+		incoming[2] = this.game.add.sprite(xloc + (theScale * cols), yloc - theScale, 'train1', 3);
+		incoming[2].scale.setTo(theScale / 100);
+		incoming[2].kill();
 	},
 
 
@@ -198,9 +219,20 @@ TMT.Game.prototype = {
 	/*
 		Gives the glow a starting and end time.
 	*/
-	prepareGlow: function (glow, start, end) {
+	prepareGlow: function (glow, vehicle, start, end) {
+		var t = 0;
+		console.log(vehicle.key + " frame: " + vehicle.frame);
+		if (vehicle.key === 'plane1') {
+			t = 1;
+		} else if (vehicle.key === 'boat1') {
+			t = 0;
+		} else if (vehicle.key === 'train1') {
+			t = 2;
+		}
 		glowEvents[g] = {
 			sprite: glow,
+			display: incoming[t],
+			frame: vehicle.frame,
 			startTime: MAXTIME - start,
 			endTime: MAXTIME - end,
 			activated: false,
@@ -220,10 +252,13 @@ TMT.Game.prototype = {
 				glowEvent.activated = false;
 				glowEvent.sprite.animations.stop();
 				glowEvent.sprite.kill();
+				glowEvent.display.kill();
 			}
 		} else {
 			if (count === glowEvent.startTime) {
 				glowEvent.sprite.revive();
+				glowEvent.display.revive();
+				glowEvent.display.frame = glowEvent.frame;
 				glowEvent.sprite.animations.play('pulse');
 				glowEvent.activated = true;
 			}
@@ -235,7 +270,7 @@ TMT.Game.prototype = {
 	*/
 	randomSpawn: function () {
 
-		var rnd;
+		var rnd, veh;
 		var vtype = ['plane1', 'train1', 'boat1'];
 
 		var south = [
@@ -263,26 +298,43 @@ TMT.Game.prototype = {
 			[xloc + (2 * theScale) + 150, yloc + (2 * theScale)]
 		];
 
-		switch (this.game.rnd.integerInRange(1, 4)) {
-		case 1:
+		veh = this.game.rnd.integerInRange(1, 4);
+		rnd = this.game.rnd.integerInRange(0, 2);
+
+		//prevents spawning in the same square as last spawn
+		while((veh === (lastSpawn[0])) && rnd === lastSpawn[1]) {
 			rnd = this.game.rnd.integerInRange(0, 2);
+		}
+
+		//prevents spawning in the opposite row/column as last spawn
+		while(((veh === (lastSpawn[0])) || veh === (lastSpawn[0] + 2) || veh === (lastSpawn[0] - 2)) && rnd === lastSpawn[1]) {
+			rnd = this.game.rnd.integerInRange(0, 2);
+		}
+
+		switch (veh) {
+		case 1:
 			this.generateVehicle(south[rnd][0], south[rnd][1], 1, vtype[this.game.rnd.integerInRange(0, 2)]);
 			console.log("Going south");
+			lastSpawn[0] = veh;
+			lastSpawn[1] = rnd;
 			break;
 		case 2:
-			rnd = this.game.rnd.integerInRange(0, 2);
 			this.generateVehicle(east[rnd][0], east[rnd][1], 0, vtype[this.game.rnd.integerInRange(0, 2)]);
 			console.log("Going east");
+			lastSpawn[0] = veh;
+			lastSpawn[1] = rnd;
 			break;
 		case 3:
-			rnd = this.game.rnd.integerInRange(0, 2);
 			this.generateVehicle(north[rnd][0], north[rnd][1], 3, vtype[this.game.rnd.integerInRange(0, 2)]);
 			console.log("Going north");
+			lastSpawn[0] = veh;
+			lastSpawn[1] = rnd;
 			break;
 		case 4:
-			rnd = this.game.rnd.integerInRange(0, 2);
 			this.generateVehicle(west[rnd][0], west[rnd][1], 2, vtype[this.game.rnd.integerInRange(0, 2)]);
 			console.log("Going west");
+			lastSpawn[0] = veh;
+			lastSpawn[1] = rnd;
 			break;
 		}
 
@@ -301,54 +353,36 @@ TMT.Game.prototype = {
 			this.generateVehicle(xloc - 150, yloc, 0, 'boat1');
 
 		} else if (level === 1) {
-			this.generateVehicle(xloc - 150, yloc, 0, 'boat1');
-			this.generateVehicle(xloc + (theScale * 2) + 150, yloc + (theScale * 2), 2, 'train1');
-			this.generateVehicle(xloc - 150, yloc + theScale, 0, 'plane1');
-
-		} else if (level === 2) {
-			this.generateVehicle(xloc - 150, yloc, 0, 'boat1');
-			this.generateVehicle(xloc + (theScale * 2) + 150, yloc + (theScale * 2), 2, 'train1');
-			this.generateVehicle(xloc - 150, yloc + theScale, 0, 'plane1');
-
-			this.prepareGlow(glows[0], 1, 5);
-			this.prepareGlow(glows[8], 6, 10);
-			this.prepareGlow(glows[3], 11, 15);
-
-			for (var i = 0; i < vehicles.length; i++) {
-				this.vehicleWait(vehicles[i], (1 + i) * 5);
-			}
-		} else if (level === 3) {
-			this.generateVehicle(xloc - 150, yloc, 0, 'boat1'); //top left
-			this.generateVehicle(xloc + theScale, yloc - 150, 1, 'train1'); //top center
-			this.generateVehicle(xloc + (theScale * 2) + 150, yloc + theScale, 2, 'plane1'); //middle right
-			this.generateVehicle(xloc + (theScale * 2), yloc + (theScale * 2) + 150, 3, 'boat1'); //bottom right
-			this.generateVehicle(xloc - 150, yloc + (theScale * 2), 0, 'train1'); //bottom right
-			this.generateVehicle(xloc + (theScale * 2) + 150, yloc + theScale, 2, 'plane1'); //middle left
-
-			for (var j = 0; j < vehicles.length; j++) {
-				this.vehicleWait(vehicles[j], (1 + j) * 3);
-			}
-
-			this.prepareGlow(glows[0], 0, 3); //top left
-			this.prepareGlow(glows[1], 3, 6); //top center
-			this.prepareGlow(glows[5], 6, 9); //middle right
-			this.prepareGlow(glows[8], 9, 12); //bottom right
-			this.prepareGlow(glows[6], 12, 15); //bottom right
-			this.prepareGlow(glows[5], 15, 18); //middle left
-		} else if (level === 4) {
-			this.randomSpawn();
-			this.randomSpawn();
-			this.randomSpawn();
-			this.randomSpawn();
-			/*this.randomSpawn();
-			this.randomSpawn();
-			this.randomSpawn();
-			this.randomSpawn();
-			this.randomSpawn();
-			this.randomSpawn();*/
+			for (var p = 0; p < 3; p++)
+				this.randomSpawn();
+			
 			for (var k = 0; k < vehicles.length; k++) {
 				this.vehicleWait(vehicles[k], (1 + k) * 5);
 				this.takeVehicleInfo(vehicles[k], 5);
+			}
+		} else if (level === 2) {
+			for (var p = 0; p < 7; p++)
+				this.randomSpawn();
+			
+			for (var k = 0; k < vehicles.length; k++) {
+				this.vehicleWait(vehicles[k], (1 + k) * 5);
+				this.takeVehicleInfo(vehicles[k], 5);
+			}
+		} else if (level === 3) {
+			for (var p = 0; p < 9; p++)
+				this.randomSpawn();
+			
+			for (var k = 0; k < vehicles.length; k++) {
+				this.vehicleWait(vehicles[k], (1 + k) * 4);
+				this.takeVehicleInfo(vehicles[k], 4);
+			}
+		} else if (level === 4) {
+			for (var p = 0; p < 11; p++)
+				this.randomSpawn();
+			
+			for (var k = 0; k < vehicles.length; k++) {
+				this.vehicleWait(vehicles[k], (1 + k) * 3);
+				this.takeVehicleInfo(vehicles[k], 3);
 			}
 		}
 	},
@@ -359,60 +393,58 @@ TMT.Game.prototype = {
 	takeVehicleInfo: function (vehicle, glowTime) {
 		var start = MAXTIME - (vehicle.releaseTime + glowTime);
 		var end = MAXTIME - vehicle.releaseTime;
-		//console.log("Vehicle: " + vehicle.releaseTime);
-		//console.log("Start: " + start + " End: " + end);
 		var y = vehicle.y;
 		var x = vehicle.x;
 
 		if (x === (xloc - 150)) { //Left side of the grid.
 			if (y === yloc) {
 				//console.log("calling glows[0]");
-				this.prepareGlow(glows[0], start, end); //glows[0]
+				this.prepareGlow(glows[0], vehicle, start, end); //glows[0]
 			} else if (y === (yloc + theScale)) {
 				//console.log("calling glows[3]");
-				this.prepareGlow(glows[3], start, end); //glows[3]
+				this.prepareGlow(glows[3], vehicle,  start, end); //glows[3]
 			} else if (y === (yloc + 2 * theScale)) {
 				//console.log("calling glows[6]");
-				this.prepareGlow(glows[6], start, end); //glows[6]
+				this.prepareGlow(glows[6], vehicle,  start, end); //glows[6]
 			} else
 				console.log("Glow error in placement.");
 		} else if (x < (xloc + 2 * theScale + 150)) { //Middle of the grid
 			if (x === xloc) {
 				if (y === (yloc - 150)) {
 					//console.log("calling glows[0]");
-					this.prepareGlow(glows[0], start, end); //glows[0]	
+					this.prepareGlow(glows[0], vehicle,  start, end); //glows[0]	
 				} else {
 					//console.log("calling glows[6]");
-					this.prepareGlow(glows[6], start, end); //glows[6]	
+					this.prepareGlow(glows[6], vehicle, start, end); //glows[6]	
 				}
 			} else if (x === (xloc + theScale)) {
 				if (y === (yloc - 150)) {
 					//console.log("calling glows[1]");
-					this.prepareGlow(glows[1], start, end); //glows[1]	
+					this.prepareGlow(glows[1], vehicle, start, end); //glows[1]	
 				} else {
 					//console.log("calling glows[7]");
-					this.prepareGlow(glows[7], start, end); //glows[7]	
+					this.prepareGlow(glows[7], vehicle, start, end); //glows[7]	
 				}
 			} else if (x === (xloc + theScale * 2)) {
 				if (y === (yloc - 150)) {
 					//console.log("calling glows[2]");
-					this.prepareGlow(glows[2], start, end); //glows[2]	
+					this.prepareGlow(glows[2], vehicle, start, end); //glows[2]	
 				} else {
 					//console.log("calling glows[8]");
-					this.prepareGlow(glows[8], start, end); //glows[8]	
+					this.prepareGlow(glows[8], vehicle, start, end); //glows[8]	
 				}
 			} else
 				console.log("Glow error in placement.");
 		} else { // Right side of the grid.
 			if (y === yloc) {
 				//console.log("calling glows[2]");
-				this.prepareGlow(glows[2], start, end); //glows[2]
+				this.prepareGlow(glows[2], vehicle, start, end); //glows[2]
 			} else if (y === (yloc + theScale)) {
 				//console.log("calling glows[5]");
-				this.prepareGlow(glows[5], start, end); //glows[5]
+				this.prepareGlow(glows[5], vehicle, start, end); //glows[5]
 			} else if (y === (yloc + 2 * theScale)) {
 				//console.log("calling glows[8]");
-				this.prepareGlow(glows[8], start, end); //glows[8]
+				this.prepareGlow(glows[8], vehicle, start, end); //glows[8]
 			} else
 				console.log("Glow error in placement.");
 		}
@@ -491,9 +523,9 @@ TMT.Game.prototype = {
 			theScale = 75;
 
 			//vehicle speed
-			planeSpeed = this.game.width / 10;
-			boatSpeed = this.game.width / 15;
-			trainSpeed = this.game.width / 12;
+			planeSpeed = theScale * 1.1;
+			boatSpeed = theScale * 0.75;
+			trainSpeed = theScale * 0.9;
 
 			//set grid init position and grid elements
 			xloc = this.game.world.width / 2 - (theScale * 1.5);
@@ -506,9 +538,9 @@ TMT.Game.prototype = {
 			theScale = 75;
 
 			//vehicle speed
-			planeSpeed = this.game.width / 10;
-			boatSpeed = this.game.width / 15;
-			trainSpeed = this.game.width / 12;
+			planeSpeed = theScale * 1.1;
+			boatSpeed = theScale * 0.75;
+			trainSpeed = theScale * 0.9;
 
 			//set grid init position and grid elements
 			xloc = this.game.world.width / 2 - (theScale * 1.5);
@@ -522,9 +554,9 @@ TMT.Game.prototype = {
 			theScale = 75;
 
 			//vehicle speed
-			planeSpeed = theScale * 1.1;
-			boatSpeed = theScale * 0.75;
-			trainSpeed = theScale * 0.9;
+			planeSpeed = theScale * 1.2;
+			boatSpeed = theScale * 0.8;
+			trainSpeed = theScale;
 
 			//set grid init position and grid elements
 			xloc = this.game.world.width / 2 - (theScale * 1.5);
@@ -534,13 +566,13 @@ TMT.Game.prototype = {
 		}
 
 		if (level === 4) {
-			MAXTIME = 50;
+			MAXTIME = 45;
 			theScale = 75;
 
 			//vehicle speed
-			planeSpeed = theScale * 1.1;
-			boatSpeed = theScale * 0.75;
-			trainSpeed = theScale * 0.9;
+			planeSpeed = theScale * 1.3;
+			boatSpeed = theScale * 0.9;
+			trainSpeed = theScale * 1.1;
 
 			//set grid init position and grid elements
 			xloc = this.game.world.width / 2 - (theScale * 1.5);
@@ -735,6 +767,10 @@ TMT.Game.prototype = {
 				}
 			}
 		}
+		
+		if (death === 3){
+			count = 0;
+		}
 	},
 	/*
 	    Checks the life of all the vehicles to see whether or not they
@@ -747,6 +783,7 @@ TMT.Game.prototype = {
 				this.explosion(vehicle);
 				vehicle.dead = true;
 				vehicle.kill();
+				VEHICULARDESTRUCTION = true;
 				death++;
 				return false;
 			}
@@ -808,17 +845,29 @@ TMT.Game.prototype = {
 			clearInterval(counter);
 			counter = null;
 			var sum = 0;
-			for (var i = 0; i < vehicles.length; i++)
+			for (var i = 0; i < vehicles.length; i++){
+				if (vehicles[i].life === 3)
+					UNHARMED = true;
 				sum += (vehicles[i].life * 100);
+			}
 			postScore = sum;
 			vehicles = [];
 			v = 0;
 			glows = [];
 			g = 0;
 			glowEvents = [];
-			if (death === 0) {
+			incoming = [];
+			i = 0;
+			if (death < 3) {
+				death = 0;
 				this.game.state.start('WinScreen');
 			} else {
+				if (tileClicks === 0){
+					NOHANDS = true;
+					console.log(NOHANDS + 'TileClicks:' + tileClicks);
+				}
+				tileClicks = 0;
+				death = 0;
 				this.game.state.start('LoseScreen');
 			}
 		}
@@ -852,7 +901,7 @@ TMT.Game.prototype = {
 	    spritesheet.
 	*/
 	onDown: function (tile, pointer) {
-
+		tileClicks++;
 		switchSound.play();
 		if (tile.frame < 2)
 			tile.frame++;
