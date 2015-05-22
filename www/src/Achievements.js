@@ -30,7 +30,7 @@ TMT.Achievements.prototype = {
 		if(3 > 0) {
 		//if (arr.length > 0) {
 			// Add text title: player and score
-			this.achievements = this.game.add.text(this.game.width * 0.5, 64, 'Achievements', {
+			this.achievements = this.game.add.text(this.game.width * 0.5, this.game.height * 0.1, 'Achievements', {
 				font: "25px Arial",
 
 				fill: this.generateHexColor(),
@@ -40,7 +40,7 @@ TMT.Achievements.prototype = {
 
 			this.achievements.anchor.setTo(0.5, 0.5);
 			
-			this.name = this.game.add.text(this.game.width / 2 - 200, 64 + 1 * 32, 'Name', {
+			this.name = this.game.add.text(this.game.width * 0.12, this.game.height * 0.18, 'Name:', {
 				font: "25px Arial",
 
 				fill: this.generateHexColor(),
@@ -48,36 +48,39 @@ TMT.Achievements.prototype = {
 				strokeThickness: 4
 			});
 
-			this.name.anchor.setTo(0.5, 0.5);
+			this.name.anchor.setTo(0, 0.5);
 			
-			this.description = this.game.add.text(this.game.width / 2, 64 + 1 * 32, 'Description', {
+			this.description = this.game.add.text(this.game.width * 0.88, this.game.height * 0.18, 'Description:', {
 				font: "25px Arial",
 
 				fill: this.generateHexColor(),
 				stroke: '#000000',
 				strokeThickness: 4
 			});
-			this.description.anchor.setTo(0.5, 0.5);
+			this.description.anchor.setTo(1, 0.5);
 			
 			// add all data
-				this.game.add.text(this.game.width / 2 - 200, this.game.height * 0.3, 'No Hands!', {
+				this.nohands = this.game.add.text(this.game.width * 0.12, this.game.height * 0.3, 'No Hands!', {
 					font: "20px Arial",
 					fill: this.generateHexColor(),
 					stroke: '#000000',
 					strokeThickness: 4
 				});
-				this.game.add.text(this.game.width / 2 - 200, this.game.height * 0.5, 'Vehicular \nDestruction!',{
+				this.nohands.anchor.setTo(0, 0.5);
+				this.destructin = this.game.add.text(this.game.width * 0.12, this.game.height * 0.5, 'Vehicular \nDestruction!',{
 					font: "20px Arial",
 					fill: this.generateHexColor(),
 					stroke: '#000000',
 					strokeThickness: 4
 				});
-			this.game.add.text(this.game.width / 2 - 200, this.game.height * 0.7, 'Unharmed!', {
+				this.destructin.anchor.setTo(0, 0.5);
+			    this.unharmed = this.game.add.text(this.game.width * 0.12, this.game.height * 0.7, 'Unharmed!', {
 					font: "20px Arial",
 					fill: this.generateHexColor(),
 					stroke: '#000000',
 					strokeThickness: 4
 				});
+				this.unharmed.anchor.setTo(0, 0.5);
 			this.readBoardData();
 			// add all data
             for (var i = 0; i < arr.length; i++)
@@ -120,24 +123,27 @@ TMT.Achievements.prototype = {
 				nohands = nope;
 
 			//console.log('read data' + arr.length);
-			this.game.add.text(this.game.width / 2, this.game.height * 0.3, unharmed + '\n' + harmtime, {
+			this.textval1 = this.game.add.text(this.game.width * 0.9, this.game.height * 0.3, unharmed + '\n' + harmtime, {
 					font: "20px Arial",
 					fill: this.generateHexColor(),
 					stroke: '#000000',
 					strokeThickness: 4
 				});
-			this.game.add.text(this.game.width / 2, this.game.height * 0.5, vehicular+ '\n' + desttime, {
+				this.textval1.anchor.setTo(1, 0.25);
+			this.textval2 = this.game.add.text(this.game.width * 0.9, this.game.height * 0.5, vehicular+ '\n' + desttime, {
 					font: "20px Arial",
 					fill: this.generateHexColor(),
 					stroke: '#000000',
 					strokeThickness: 4
 				});
-			this.game.add.text(this.game.width / 2, this.game.height * 0.7, nohands+ '\n' + handtime, {
+				this.textval2.anchor.setTo(1, 0.25);
+			this.textval3 = this.game.add.text(this.game.width * 0.9, this.game.height * 0.7, nohands+ '\n' + handtime, {
 					font: "20px Arial",
 					fill: this.generateHexColor(),
 					stroke: '#000000',
 					strokeThickness: 4
 				});
+				this.textval3.anchor.setTo(1, 0.25);
 			arr = [];
 		}
 		
