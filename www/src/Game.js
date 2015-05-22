@@ -389,7 +389,7 @@ TMT.Game.prototype = {
 			this.generateVehicle(xloc - 150+(theScale/2), yloc+(theScale/2), 0, 'boat1');
 
 		} else if (level === 1) {
-			for (var p = 0; p < 3; p++)
+			for (var p = 0; p < 4; p++)
 				this.randomSpawn();
 
 			for (var k = 0; k < vehicles.length; k++) {
@@ -397,15 +397,15 @@ TMT.Game.prototype = {
 				this.takeVehicleInfo(vehicles[k], 5);
 			}
 		} else if (level === 2) {
-			for (var p = 0; p < 7; p++)
+			for (var p = 0; p < 8; p++)
 				this.randomSpawn();
 
 			for (var k = 0; k < vehicles.length; k++) {
-				this.vehicleWait(vehicles[k], (1 + k) * 5);
-				this.takeVehicleInfo(vehicles[k], 5);
+				this.vehicleWait(vehicles[k], (1 + k) * 4);
+				this.takeVehicleInfo(vehicles[k], 4);
 			}
 		} else if (level === 3) {
-			for (var p = 0; p < 9; p++)
+			for (var p = 0; p < 12; p++)
 				this.randomSpawn();
 
 			for (var k = 0; k < vehicles.length; k++) {
@@ -413,7 +413,7 @@ TMT.Game.prototype = {
 				this.takeVehicleInfo(vehicles[k], 4);
 			}
 		} else if (level === 4) {
-			for (var p = 0; p < 11; p++)
+			for (var p = 0; p < 16; p++)
 				this.randomSpawn();
 
 			for (var k = 0; k < vehicles.length; k++) {
@@ -545,7 +545,7 @@ TMT.Game.prototype = {
 			yloc = this.game.world.height / 2 - (theScale * (rows / 2));
 		}
 		if (level === 1) {
-			MAXTIME = 90;
+			MAXTIME = 30;
 			theScale = 100;
 
 			//vehicle speed
@@ -560,7 +560,7 @@ TMT.Game.prototype = {
 		}
 
 		if (level === 2) {
-			MAXTIME = 30;
+			MAXTIME = 45;
 			theScale = 100;
 
 			//vehicle speed
@@ -576,7 +576,7 @@ TMT.Game.prototype = {
 		}
 
 		if (level === 3) {
-			MAXTIME = 50;
+			MAXTIME = 55;
 			theScale = 100;
 
 			//vehicle speed
@@ -592,7 +592,7 @@ TMT.Game.prototype = {
 		}
 
 		if (level === 4) {
-			MAXTIME = 45;
+			MAXTIME = 60;
 			theScale = 100;
 
 			//vehicle speed
@@ -858,7 +858,7 @@ TMT.Game.prototype = {
 		var percent = Math.floor(count / MAXTIME * 100);
 		switch (percent) {
 case 100:
-this.progbar.frame = 100;
+this.progbar.frame = 99;
 break;
 case 99:
 this.progbar.frame = 99;
