@@ -65,7 +65,7 @@ TMT.LeaderBoard.prototype = {
 					stroke: '#000000',
 					strokeThickness: 4
 				});
-				this.scores.anchor.setTo(0, 0.5);
+				this.scores.anchor.setTo(1, 0.5);
 				this.textGroup.add(this.names, false);
 				this.textGroup.add(this.scores, false);
 			}
