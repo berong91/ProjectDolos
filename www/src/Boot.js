@@ -48,13 +48,13 @@ TMT.Boot.prototype = {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         
         //show loading screen
-        this.background = this.game.add.sprite(this.game.world.centerX, 280, 'background');
+        this.background = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'background');
         this.background.anchor.setTo(0.5);
         this.background.alpha = 0;
         
         // Add dissappear event for loading screen
         this.game.add.tween(this.background).to( { alpha: 1 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, true);
-        this.game.time.events.add(Phaser.Timer.SECOND * 5, this.finish, this);
+        this.game.time.events.add(Phaser.Timer.SECOND * 4, this.finish, this);
         
         // Load all music
         bgSound = this.add.audio('bgsound');

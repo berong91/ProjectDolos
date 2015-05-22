@@ -8,7 +8,7 @@ var rows;
 var cols;
 
 var rules;
-var scoreSum;
+var scoreSum = 0;
 var rules2;
 var evthap = 0;
 
@@ -68,7 +68,7 @@ TMT.Game.prototype = {
 		//background
 		this.background = this.game.add.tileSprite(0, 0, 480, 800, 'peaks');
 		//this.background.autoScroll(-2, 0);
-		
+
 		this.foreground = this.game.add.tileSprite(0, 0, 480, 800, 'foreground');
 
 		// Generate all the blocks
@@ -77,9 +77,11 @@ TMT.Game.prototype = {
 		this.generateGlows();
 
 		this.generateIncomingVehicles();
-		
+
 		this.spawnVehicles(level);
-		
+
+		this.createBorders();
+
 		//adding the loading bar sprite
 		this.progbar = this.game.add.sprite(this.game.world.width / 2, this.game.height * 0.9, 'progress');
 		this.progbar.anchor.setTo(0.5, 0.5);
@@ -93,12 +95,18 @@ TMT.Game.prototype = {
 		text.stroke = '#000000';
 		text.strokeThickness = 6;
 
+		scoreText = this.game.add.text(this.game.world.width * 0.05, this.game.world.height * 0.1, 'Score: ' + scoreSum + '', {
+			fontSize: this.game.world.width / 15 + 'px',
+			fill: '#ffffff'
+		});
+		scoreText.stroke = '#000000';
+		scoreText.strokeThickness = 6;
+
 		count = MAXTIME;
 		/*this.pauseButton = this.game.add.sprite(this.game.world.width * 0.9, this.game.world.height * 0.05, 'pauseUp');
 		    this.pauseButton.anchor.setTo(0.5, 0.5);
 		    this.pauseButton.inputEnabled = true;
 		this.pauseButton.events.onInputDown.add(this.overlayrules, this); */
-
 
 		// Add leader board button
 		this.backButton = this.game.add.button(this.game.world.width * 0.9, this.game.world.height * 0.05, 'backUp', this.backClickEvent, this);
@@ -129,7 +137,6 @@ TMT.Game.prototype = {
 			left of the game screen to reflect the time left in the 
 			timer. (Inside of create function)
         */
-
 		function timer() {
 			count--;
 			text.text = 'Time: ' + count;
@@ -138,6 +145,28 @@ TMT.Game.prototype = {
 			}
 		}
 	},
+	/*
+		Creates the borders where the vehicles will be destroyed
+		upon collision.
+	*/
+	createBorders: function () {
+		this.borders = this.game.add.group();
+		//enable physics in them
+		this.borders.enableBody = true;
+		var borders = [];
+
+		borders[0] = this.borders.create(this.game.world.width / 2 - 300, this.game.world.height / 2 - 240, 'vborder');
+		borders[1] = this.borders.create(this.game.world.width / 2 + 300, this.game.world.height / 2 - 240, 'vborder');
+		borders[2] = this.borders.create(0, this.game.world.height / 2 - 300, 'hborder');
+		borders[3] = this.borders.create(0, this.game.world.height / 2 + 300, 'hborder');
+
+		for (var q = 0; q < borders.length; q++) {
+			borders[q].body.immovable = true;
+			borders[q].body.collideWorldBounds = true;
+			borders[q].alpha = 0;
+		}
+	},
+
 	/*
 	    Clears all variables so levels can be restarted without a problem.
 	*/
@@ -163,6 +192,8 @@ TMT.Game.prototype = {
 		UNHARMED = false;
 		VEHICULARDESTRUCTION = false;
 		NOHANDS = false;
+		scoreSum = 0;
+		scoreText = null;
 		this.game.state.start('MainMenu');
 	},
 
@@ -172,14 +203,14 @@ TMT.Game.prototype = {
 	*/
 	generateIncomingVehicles: function () {
 		//var vtype = ['plane1', 'train1', 'boat1'];
-		incoming[0] = this.game.add.sprite(xloc + (theScale * cols), yloc - theScale, 'boat1', 3);
-		incoming[0].scale.setTo(theScale / 100);
+		incoming[0] = this.game.add.sprite(xloc + (theScale * cols) , yloc - theScale/1.5, 'boat1', 3);
+		incoming[0].scale.setTo(theScale / 150);
 		incoming[0].kill();
-		incoming[1] = this.game.add.sprite(xloc + (theScale * cols), yloc - theScale, 'plane1', 3);
-		incoming[1].scale.setTo(theScale / 100);
+		incoming[1] = this.game.add.sprite(xloc + (theScale * cols), yloc - theScale/1.5, 'plane1', 3);
+		incoming[1].scale.setTo(theScale / 150);
 		incoming[1].kill();
-		incoming[2] = this.game.add.sprite(xloc + (theScale * cols), yloc - theScale, 'train1', 3);
-		incoming[2].scale.setTo(theScale / 100);
+		incoming[2] = this.game.add.sprite(xloc + (theScale * cols), yloc - theScale/1.5, 'train1', 3);
+		incoming[2].scale.setTo(theScale / 150);
 		incoming[2].kill();
 	},
 	/*
@@ -278,41 +309,42 @@ TMT.Game.prototype = {
 		var rnd, veh;
 		var vtype = ['plane1', 'train1', 'boat1'];
 
+		//Grid cell locations
 		var south = [
-			[xloc, (yloc - 150)], //south[0][0] and south[0][1]
-			[xloc + theScale, (yloc - 150)], //south[1][0] and south[1][1]
-			[xloc + (2 * theScale), (yloc - 150)] //south[2][0] and south[2][1]
+			[xloc+(theScale/2), (yloc - 150)+(theScale/2)], //south[0][0] and south[0][1]
+			[xloc + theScale+(theScale/2), (yloc - 150)+(theScale/2)], //south[1][0] and south[1][1]
+			[xloc + (2 * theScale)+(theScale/2), (yloc - 150)+(theScale/2)] //south[2][0] and south[2][1]
 		];
 
 		var east = [
-			[xloc - 150, yloc], // etc...
-			[xloc - 150, yloc + theScale],
-			[xloc - 150, yloc + (2 * theScale)]
+			[xloc - 150+(theScale/2), yloc+(theScale/2)], // etc...
+			[xloc - 150+(theScale/2), yloc + theScale+(theScale/2)],
+			[xloc - 150+(theScale/2), yloc + (2 * theScale)+(theScale/2)]
 		];
 
 
 		var north = [
-			[xloc, yloc + (2 * theScale) + 150],
-			[xloc + theScale, yloc + (2 * theScale) + 150],
-			[xloc + (2 * theScale), yloc + (2 * theScale) + 150]
+			[xloc+(theScale/2), yloc + (2 * theScale) + 150+(theScale/2)],
+			[xloc + theScale+(theScale/2), yloc + (2 * theScale) + 150+(theScale/2)],
+			[xloc + (2 * theScale)+(theScale/2), yloc + (2 * theScale) + 150+(theScale/2)]
 		];
 
 		var west = [
-			[xloc + (2 * theScale) + 150, yloc],
-			[xloc + (2 * theScale) + 150, yloc + theScale],
-			[xloc + (2 * theScale) + 150, yloc + (2 * theScale)]
+			[xloc + (2 * theScale) + 150+(theScale/2), yloc+(theScale/2)],
+			[xloc + (2 * theScale) + 150+(theScale/2), yloc + theScale+(theScale/2)],
+			[xloc + (2 * theScale) + 150+(theScale/2), yloc + (2 * theScale)+(theScale/2)]
 		];
 
 		veh = this.game.rnd.integerInRange(1, 4);
 		rnd = this.game.rnd.integerInRange(0, 2);
 
 		//prevents spawning in the same square as last spawn
-		while((veh === (lastSpawn[0])) && rnd === lastSpawn[1]) {
+		while ((veh === (lastSpawn[0])) && rnd === lastSpawn[1]) {
 			rnd = this.game.rnd.integerInRange(0, 2);
 		}
 
 		//prevents spawning in the opposite row/column as last spawn
-		while(((veh === (lastSpawn[0])) || veh === (lastSpawn[0] + 2) || veh === (lastSpawn[0] - 2)) && rnd === lastSpawn[1]) {
+		while (((veh === (lastSpawn[0])) || veh === (lastSpawn[0] + 2) || veh === (lastSpawn[0] - 2)) && rnd === lastSpawn[1]) {
 			rnd = this.game.rnd.integerInRange(0, 2);
 		}
 
@@ -349,18 +381,17 @@ TMT.Game.prototype = {
     	Spawn vehicle events that is adjusted by the level selected.
     */
 	spawnVehicles: function (level) {
-
 		//attempt at making vehicles group
 		this.vehicles = this.game.add.group();
 		this.vehicles.enableBody = true;
 
 		if (level === 0) {
-			this.generateVehicle(xloc - 150, yloc, 0, 'boat1');
+			this.generateVehicle(xloc - 150+(theScale/2), yloc+(theScale/2), 0, 'boat1');
 
 		} else if (level === 1) {
 			for (var p = 0; p < 3; p++)
 				this.randomSpawn();
-			
+
 			for (var k = 0; k < vehicles.length; k++) {
 				this.vehicleWait(vehicles[k], (1 + k) * 5);
 				this.takeVehicleInfo(vehicles[k], 5);
@@ -368,7 +399,7 @@ TMT.Game.prototype = {
 		} else if (level === 2) {
 			for (var p = 0; p < 7; p++)
 				this.randomSpawn();
-			
+
 			for (var k = 0; k < vehicles.length; k++) {
 				this.vehicleWait(vehicles[k], (1 + k) * 5);
 				this.takeVehicleInfo(vehicles[k], 5);
@@ -376,7 +407,7 @@ TMT.Game.prototype = {
 		} else if (level === 3) {
 			for (var p = 0; p < 9; p++)
 				this.randomSpawn();
-			
+
 			for (var k = 0; k < vehicles.length; k++) {
 				this.vehicleWait(vehicles[k], (1 + k) * 4);
 				this.takeVehicleInfo(vehicles[k], 4);
@@ -384,7 +415,7 @@ TMT.Game.prototype = {
 		} else if (level === 4) {
 			for (var p = 0; p < 11; p++)
 				this.randomSpawn();
-			
+
 			for (var k = 0; k < vehicles.length; k++) {
 				this.vehicleWait(vehicles[k], (1 + k) * 3);
 				this.takeVehicleInfo(vehicles[k], 3);
@@ -401,57 +432,63 @@ TMT.Game.prototype = {
 		var y = vehicle.y;
 		var x = vehicle.x;
 
-		if (x === (xloc - 150)) { //Left side of the grid.
-			if (y === yloc) {
-				//console.log("calling glows[0]");
-				this.prepareGlow(glows[0], vehicle, start, end); //glows[0]
-			} else if (y === (yloc + theScale)) {
-				//console.log("calling glows[3]");
-				this.prepareGlow(glows[3], vehicle,  start, end); //glows[3]
-			} else if (y === (yloc + 2 * theScale)) {
-				//console.log("calling glows[6]");
-				this.prepareGlow(glows[6], vehicle,  start, end); //glows[6]
-			} else
-				console.log("Glow error in placement.");
-		} else if (x < (xloc + 2 * theScale + 150)) { //Middle of the grid
-			if (x === xloc) {
-				if (y === (yloc - 150)) {
-					//console.log("calling glows[0]");
-					this.prepareGlow(glows[0], vehicle,  start, end); //glows[0]	
-				} else {
-					//console.log("calling glows[6]");
-					this.prepareGlow(glows[6], vehicle, start, end); //glows[6]	
-				}
-			} else if (x === (xloc + theScale)) {
-				if (y === (yloc - 150)) {
-					//console.log("calling glows[1]");
-					this.prepareGlow(glows[1], vehicle, start, end); //glows[1]	
-				} else {
-					//console.log("calling glows[7]");
-					this.prepareGlow(glows[7], vehicle, start, end); //glows[7]	
-				}
-			} else if (x === (xloc + theScale * 2)) {
-				if (y === (yloc - 150)) {
-					//console.log("calling glows[2]");
-					this.prepareGlow(glows[2], vehicle, start, end); //glows[2]	
-				} else {
-					//console.log("calling glows[8]");
-					this.prepareGlow(glows[8], vehicle, start, end); //glows[8]	
-				}
-			} else
-				console.log("Glow error in placement.");
-		} else { // Right side of the grid.
-			if (y === yloc) {
-				//console.log("calling glows[2]");
-				this.prepareGlow(glows[2], vehicle, start, end); //glows[2]
-			} else if (y === (yloc + theScale)) {
-				//console.log("calling glows[5]");
-				this.prepareGlow(glows[5], vehicle, start, end); //glows[5]
-			} else if (y === (yloc + 2 * theScale)) {
-				//console.log("calling glows[8]");
-				this.prepareGlow(glows[8], vehicle, start, end); //glows[8]
-			} else
-				console.log("Glow error in placement.");
+		var south = [
+			[xloc+(theScale/2), (yloc - 150)+(theScale/2)], //south[0][0] and south[0][1]
+			[xloc + theScale+(theScale/2), (yloc - 150)+(theScale/2)], //south[1][0] and south[1][1]
+			[xloc + (2 * theScale)+(theScale/2), (yloc - 150)+(theScale/2)] //south[2][0] and south[2][1]
+		];
+
+		var east = [
+			[xloc - 150+(theScale/2), yloc+(theScale/2)], // etc...
+			[xloc - 150+(theScale/2), yloc + theScale+(theScale/2)],
+			[xloc - 150+(theScale/2), yloc + (2 * theScale)+(theScale/2)]
+		];
+
+
+		var north = [
+			[xloc+(theScale/2), yloc + (2 * theScale) + 150+(theScale/2)],
+			[xloc + theScale+(theScale/2), yloc + (2 * theScale) + 150+(theScale/2)],
+			[xloc + (2 * theScale)+(theScale/2), yloc + (2 * theScale) + 150+(theScale/2)]
+		];
+
+		var west = [
+			[xloc + (2 * theScale) + 150+(theScale/2), yloc+(theScale/2)],
+			[xloc + (2 * theScale) + 150+(theScale/2), yloc + theScale+(theScale/2)],
+			[xloc + (2 * theScale) + 150+(theScale/2), yloc + (2 * theScale)+(theScale/2)]
+		];
+
+		if (x === east[0][0]) { 
+			if (y === east[0][1]) {
+				this.prepareGlow(glows[0], vehicle, start, end); 
+			} else if (y === east[1][1]) {
+				this.prepareGlow(glows[3], vehicle,  start, end);
+			} else if (y === east[2][1]) {
+				this.prepareGlow(glows[6], vehicle,  start, end);
+			} 
+		} else if (x === west[0][0]) { 
+			if (y === west[0][1]) {
+				this.prepareGlow(glows[2], vehicle, start, end); 
+			} else if (y === west[1][1]) {
+				this.prepareGlow(glows[5], vehicle,  start, end);
+			} else if (y === west[2][1]) {
+				this.prepareGlow(glows[8], vehicle,  start, end);
+			}
+		} else if (y === north[0][1]) { 
+			if (x === north[0][0]) {
+				this.prepareGlow(glows[6], vehicle, start, end); 
+			} else if (x === north[1][0]) {
+				this.prepareGlow(glows[7], vehicle,  start, end);
+			} else if (x === north[2][0]) {
+				this.prepareGlow(glows[8], vehicle,  start, end);
+			}
+		} else if (y === south[0][1]) { 
+			if (x === south[0][0]) {
+				this.prepareGlow(glows[0], vehicle, start, end); 
+			} else if (x === south[1][0]) {
+				this.prepareGlow(glows[1], vehicle,  start, end);
+			} else if (x === south[2][0]) {
+				this.prepareGlow(glows[2], vehicle,  start, end);
+			}
 		}
 	},
 	/*
@@ -461,9 +498,9 @@ TMT.Game.prototype = {
 		vehicle.releaseTime = MAXTIME - wait;
 		vehicle.kill();
 	},
-	
-	touchDown: function() {
-		if(this.game.input.pointer1.isDown) {
+
+	touchDown: function () {
+		if (this.game.input.pointer1.isDown) {
 			this.backButton.loadTexture('backDown');
 		}
 		this.backButton.loadTexture('backDown');
@@ -472,7 +509,7 @@ TMT.Game.prototype = {
 		Checks the timer on when a vehicle should revive.
 	*/
 	vehicleRelease: function (vehicle) {
-		if (!vehicle.dead) {
+		if (!vehicle.dead && !vehicle.success) {
 			if (count <= vehicle.releaseTime) {
 				vehicle.revive();
 			}
@@ -490,27 +527,11 @@ TMT.Game.prototype = {
 		//"canvas" which is your entire game window.
 		this.game.world.setBounds(0, 0, this.game.width, this.game.height);
 
-
-		//level = -1;
-		if (level === -1) {
-			MAXTIME = 20;
-			theScale = 75;
-
-			//vehicle speed
-			planeSpeed = this.game.width / 10;
-			boatSpeed = this.game.width / 15;
-			trainSpeed = this.game.width / 12;
-
-			//set grid init position and grid elements
-			xloc = this.game.world.width / 2 - (theScale * 1.5);
-			yloc = this.game.world.height / 3;
-			rows = cols = 3;
-		}
 		if (level === 0) {
 
 			//adjust variables here
 			MAXTIME = 10;
-			theScale = 70;
+			theScale = 100;
 			rows = 1;
 			cols = 1;
 
@@ -524,8 +545,8 @@ TMT.Game.prototype = {
 			yloc = this.game.world.height / 2 - (theScale * (rows / 2));
 		}
 		if (level === 1) {
-			MAXTIME = 20;
-			theScale = 75;
+			MAXTIME = 90;
+			theScale = 100;
 
 			//vehicle speed
 			planeSpeed = theScale * 1.1;
@@ -540,7 +561,7 @@ TMT.Game.prototype = {
 
 		if (level === 2) {
 			MAXTIME = 30;
-			theScale = 75;
+			theScale = 100;
 
 			//vehicle speed
 			planeSpeed = theScale * 1.1;
@@ -556,7 +577,7 @@ TMT.Game.prototype = {
 
 		if (level === 3) {
 			MAXTIME = 50;
-			theScale = 75;
+			theScale = 100;
 
 			//vehicle speed
 			planeSpeed = theScale * 1.2;
@@ -572,7 +593,7 @@ TMT.Game.prototype = {
 
 		if (level === 4) {
 			MAXTIME = 45;
-			theScale = 75;
+			theScale = 100;
 
 			//vehicle speed
 			planeSpeed = theScale * 1.3;
@@ -596,12 +617,13 @@ TMT.Game.prototype = {
 		vehicles[v].dead = false;
 		vehicles[v].moving = true;
 		vehicles[v].isHit = false;
+		vehicles[v].success = false;
 
 		//add physics to the new plane.
 		this.game.physics.arcade.enable(vehicles[v]);
 		vehicles[v].body.overlapWorldBounds = true;
-		vehicles[v].body.width = 40;
-		vehicles[v].body.height = 40;
+		vehicles[v].body.setSize(50, 50);
+		vehicles[v].anchor.setTo(0.5);
 		v++;
 	},
 
@@ -680,7 +702,7 @@ TMT.Game.prototype = {
 			this.startTimer();
 		} */
 	},
-	
+
 	//used as an event function for when the user wants to dispose of the rules overlay image
 	overlayclickeventtwo: function () {
 		rules2.kill();
@@ -701,7 +723,7 @@ TMT.Game.prototype = {
 			this.startTimer();
 		}
 	},
-	
+
 	//main function for overlaying rules on screen before the game starts
 	//simply shows rules to user if level is 0 or in other words tutorial
 	overlayrules: function () {
@@ -742,8 +764,11 @@ TMT.Game.prototype = {
 	    4)vehicle overlap with tiles
 	*/
 	update: function () {
+		this.updateScore();
 		//method that will be later refined to show progress better.
 		this.progressBar();
+		//checks to see if a vehicle hits the border.
+		this.game.physics.arcade.collide(this.vehicles, this.borders, this.hitBorder, null, this);
 		//checks if the time is 0
 		this.TimeCheck();
 		//Overlap that allows all members of vehicles to interact with 
@@ -801,8 +826,8 @@ TMT.Game.prototype = {
 				}
 			}
 		}
-		
-		if (death === 3){
+
+		if (death === 3) {
 			count = 0;
 		}
 	},
@@ -832,39 +857,307 @@ TMT.Game.prototype = {
 	progressBar: function () {
 		var percent = Math.floor(count / MAXTIME * 100);
 		switch (percent) {
-		case 100:
-			this.progbar.frame = 10;
-			break;
-		case 90:
-			this.progbar.frame = 9;
-			break;
-		case 80:
-			this.progbar.frame = 8;
-			break;
-		case 70:
-			this.progbar.frame = 7;
-			break;
-		case 60:
-			this.progbar.frame = 6;
-			break;
-		case 50:
-			this.progbar.frame = 5;
-			break;
-		case 40:
-			this.progbar.frame = 4;
-			break;
-		case 30:
-			this.progbar.frame = 3;
-			break;
-		case 20:
-			this.progbar.frame = 2;
-			break;
-		case 10:
-			this.progbar.frame = 1;
-			break;
-		case 0:
-			this.progbar.frame = 0;
-			break;
+case 100:
+this.progbar.frame = 100;
+break;
+case 99:
+this.progbar.frame = 99;
+break;
+case 98:
+this.progbar.frame = 98;
+break;
+case 97:
+this.progbar.frame = 97;
+break;
+case 96:
+this.progbar.frame = 96;
+break;
+case 95:
+this.progbar.frame = 95;
+break;
+case 94:
+this.progbar.frame = 94;
+break;
+case 93:
+this.progbar.frame = 93;
+break;
+case 92:
+this.progbar.frame = 92;
+break;
+case 91:
+this.progbar.frame = 91;
+break;
+case 90:
+this.progbar.frame = 90;
+break;
+case 89:
+this.progbar.frame = 89;
+break;
+case 88:
+this.progbar.frame = 88;
+break;
+case 87:
+this.progbar.frame = 87;
+break;
+case 86:
+this.progbar.frame = 86;
+break;
+case 85:
+this.progbar.frame = 85;
+break;
+case 84:
+this.progbar.frame = 84;
+break;
+case 83:
+this.progbar.frame = 83;
+break;
+case 82:
+this.progbar.frame = 82;
+break;
+case 81:
+this.progbar.frame = 81;
+break;
+case 80:
+this.progbar.frame = 80;
+break;
+case 79:
+this.progbar.frame = 79;
+break;
+case 78:
+this.progbar.frame = 78;
+break;
+case 77:
+this.progbar.frame = 77;
+break;
+case 76:
+this.progbar.frame = 76;
+break;
+case 75:
+this.progbar.frame = 75;
+break;
+case 74:
+this.progbar.frame = 74;
+break;
+case 73:
+this.progbar.frame = 73;
+break;
+case 72:
+this.progbar.frame = 72;
+break;
+case 71:
+this.progbar.frame = 71;
+break;
+case 70:
+this.progbar.frame = 70;
+break;
+case 69:
+this.progbar.frame = 69;
+break;
+case 68:
+this.progbar.frame = 68;
+break;
+case 67:
+this.progbar.frame = 67;
+break;
+case 66:
+this.progbar.frame = 66;
+break;
+case 65:
+this.progbar.frame = 65;
+break;
+case 64:
+this.progbar.frame = 64;
+break;
+case 63:
+this.progbar.frame = 63;
+break;
+case 62:
+this.progbar.frame = 62;
+break;
+case 61:
+this.progbar.frame = 61;
+break;
+case 60:
+this.progbar.frame = 60;
+break;
+case 59:
+this.progbar.frame = 59;
+break;
+case 58:
+this.progbar.frame = 58;
+break;
+case 57:
+this.progbar.frame = 57;
+break;
+case 56:
+this.progbar.frame = 56;
+break;
+case 55:
+this.progbar.frame = 55;
+break;
+case 54:
+this.progbar.frame = 54;
+break;
+case 53:
+this.progbar.frame = 53;
+break;
+case 52:
+this.progbar.frame = 52;
+break;
+case 51:
+this.progbar.frame = 51;
+break;
+case 50:
+this.progbar.frame = 50;
+break;
+case 49:
+this.progbar.frame = 49;
+break;
+case 48:
+this.progbar.frame = 48;
+break;
+case 47:
+this.progbar.frame = 47;
+break;
+case 46:
+this.progbar.frame = 46;
+break;
+case 45:
+this.progbar.frame = 45;
+break;
+case 44:
+this.progbar.frame = 44;
+break;
+case 43:
+this.progbar.frame = 43;
+break;
+case 42:
+this.progbar.frame = 42;
+break;
+case 41:
+this.progbar.frame = 41;
+break;
+case 40:
+this.progbar.frame = 40;
+break;
+case 39:
+this.progbar.frame = 39;
+break;
+case 38:
+this.progbar.frame = 38;
+break;
+case 37:
+this.progbar.frame = 37;
+break;
+case 36:
+this.progbar.frame = 36;
+break;
+case 35:
+this.progbar.frame = 35;
+break;
+case 34:
+this.progbar.frame = 34;
+break;
+case 33:
+this.progbar.frame = 33;
+break;
+case 32:
+this.progbar.frame = 32;
+break;
+case 31:
+this.progbar.frame = 31;
+break;
+case 30:
+this.progbar.frame = 30;
+break;
+case 29:
+this.progbar.frame = 29;
+break;
+case 28:
+this.progbar.frame = 28;
+break;
+case 27:
+this.progbar.frame = 27;
+break;
+case 26:
+this.progbar.frame = 26;
+break;
+case 25:
+this.progbar.frame = 25;
+break;
+case 24:
+this.progbar.frame = 24;
+break;
+case 23:
+this.progbar.frame = 23;
+break;
+case 22:
+this.progbar.frame = 22;
+break;
+case 21:
+this.progbar.frame = 21;
+break;
+case 20:
+this.progbar.frame = 20;
+break;
+case 19:
+this.progbar.frame = 19;
+break;
+case 18:
+this.progbar.frame = 18;
+break;
+case 17:
+this.progbar.frame = 17;
+break;
+case 16:
+this.progbar.frame = 16;
+break;
+case 15:
+this.progbar.frame = 15;
+break;
+case 14:
+this.progbar.frame = 14;
+break;
+case 13:
+this.progbar.frame = 13;
+break;
+case 12:
+this.progbar.frame = 12;
+break;
+case 11:
+this.progbar.frame = 11;
+break;
+case 10:
+this.progbar.frame = 10;
+break;
+case 9:
+this.progbar.frame = 9;
+break;
+case 8:
+this.progbar.frame = 8;
+break;
+case 7:
+this.progbar.frame = 7;
+break;
+case 6:
+this.progbar.frame = 6;
+break;
+case 5:
+this.progbar.frame = 5;
+break;
+case 4:
+this.progbar.frame = 4;
+break;
+case 3:
+this.progbar.frame = 3;
+break;
+case 2:
+this.progbar.frame = 2;
+break;
+case 1:
+this.progbar.frame = 1;
+break;
+
 		}
 	},
 
@@ -878,13 +1171,15 @@ TMT.Game.prototype = {
 			count = null;
 			clearInterval(counter);
 			counter = null;
-			var sum = 0;
-			for (var i = 0; i < vehicles.length; i++){
-				if (vehicles[i].life === 3)
+			bonus = 0;
+			for (var i = 0; i < vehicles.length; i++) {
+				if (vehicles[i].success && vehicles[i].life === 3) {
 					UNHARMED = true;
-				sum += (vehicles[i].life * 100);
+					bonus += 200;
+				}
 			}
-			postScore = sum;
+			postScore = scoreSum;
+			scoreSum = 0;
 			vehicles = [];
 			v = 0;
 			glows = [];
@@ -897,7 +1192,7 @@ TMT.Game.prototype = {
 				evthap = 0;
 				this.game.state.start('WinScreen');
 			} else {
-				if (tileClicks === 0){
+				if (tileClicks === 0) {
 					NOHANDS = true;
 					console.log(NOHANDS + 'TileClicks:' + tileClicks);
 				}
@@ -933,6 +1228,12 @@ TMT.Game.prototype = {
 		}
 	},
 	/*
+		Updates the scoreText to reflect the current score.
+	*/
+	updateScore: function () {
+		scoreText.text = 'Score: ' + scoreSum;
+	},
+	/*
 	    This function allows the tiles to cycle between our 
 	    spritesheet.
 	*/
@@ -964,6 +1265,15 @@ TMT.Game.prototype = {
 		}
 		//Check to see if any vehicles have died recently.
 		this.lifeCheck(vehicle);
+	},
+	hitBorder: function (vehicle, border) {
+
+		if (!vehicle.success) {
+			console.log("hit the border.");
+			scoreSum += vehicle.life * 100;
+			vehicle.kill();
+			vehicle.success = true;
+		}
 
 	},
 	/*
