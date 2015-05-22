@@ -15,7 +15,32 @@
         <link rel="shortcut icon" href="icons/icon.png">
         <link rel="stylesheet" href="css/stylesheet.css" type="text/css" charset="utf-8" />
         
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+        <script>
+            function getCookie(cname) {
+                var name = cname + "=";
+                var ca = document.cookie.split(';');
+                for(var i=0; i<ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0)==' ') c = c.substring(1);
+                    if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+                }
+                return "";
+            }
+            
+            function checkCookie() {
+                var user = getCookie("Username");
+                if (user !== "") {
+                    $("#Name").val(user);
+                    } else {
+                    window.location.replace("../dolos/");
+                }
+            }
+            
+            $(document).ready(function(){  
+                checkCookie();
+            });   
+        </script>
         <script type="text/javascript" src="lib/phaser/phaser.js"></script>
         <script type="text/javascript" src="src/Boot.js"></script>
         <script type="text/javascript" src="src/Preload.js"></script>
@@ -26,28 +51,6 @@
         <script type="text/javascript" src="src/WinScreen.js"></script>
         <script type="text/javascript" src="src/LoseScreen.js"></script>
         <script type="text/javascript" src="src/Achievements.js"></script>
-
-        <script>
-            $(document).ready(function(){        
-                $("#loginForm").on("submit", function (e) {
-                    e.preventDefault();            
-                    $.ajax({
-                        url: "login.php",
-                        type: "POST",
-                        data: $("#loginForm").serialize(),
-                        success: function( data ) {
-                            if (data == 1){
-                                window.location.replace("../");
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            // check status && error
-                            console.log(xhr + "\n" +status + "\n" + error );
-                        },
-                    });
-                });   
-            });
-        </script>
     </head>
     <body>
         <!-- include the main game file -->
