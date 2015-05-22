@@ -3,16 +3,22 @@ var TMT = TMT || {};
 TMT.Achievements = function () {};
 
 var arr = [];
-var handtime = '';
-	var desttime = '';
-	var harmtime = '';
+var texts = [];
+var handtime;
+var desttime;
+var harmtime;
 TMT.Achievements.prototype = {
 	preload: function () {},
 	create: function () {
 		
+		handtime = '';
+		desttime = '';
+		harmtime = '';
+		
 		// Set background and give background speed in x
 		this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'peaks');
 
+		this.foregroundF();
 
 		// Add back button
 		this.backButton = this.game.add.button(this.game.width / 2, this.game.height * 0.9, 'backUp', this.backClickEvent, this);
@@ -20,56 +26,65 @@ TMT.Achievements.prototype = {
 		this.backButton.anchor.setTo(0.5, 0.8);
 		this.backButton.scale.set(0.5, 0.5);
 		
-		// Add text title: player and score
-		this.game.add.text(this.game.width / 2 - 80, 64, 'Achievements', {
-			font: "25px Arial",
-			fill: this.generateHexColor(),
-			stroke: '#000000',
-			strokeThickness: 5
-		});
-		this.game.add.text(this.game.width / 2 - 200, 64 + 1 * 32, 'Name', {
-			font: "25px Arial",
-			fill: this.generateHexColor(),
-			stroke: '#000000',
-			strokeThickness: 5
-		});
-		this.game.add.text(this.game.width / 2, 64 + 1 * 32, 'Description', {
-			font: "25px Arial",
-			fill: this.generateHexColor(),
-			stroke: '#000000',
-			strokeThickness: 4
-		});
-		// add all data
-			this.game.add.text(this.game.width / 2 - 200, this.game.height * 0.3, 'No Hands!', {
-				font: "20px Arial",
+
+		if(3 > 0) {
+		//if (arr.length > 0) {
+			// Add text title: player and score
+			this.achievements = this.game.add.text(this.game.width * 0.5, 64, 'Achievements', {
+				font: "25px Arial",
+
 				fill: this.generateHexColor(),
 				stroke: '#000000',
 				strokeThickness: 4
 			});
-			this.game.add.text(this.game.width / 2 - 200, this.game.height * 0.5, 'Vehicular \nDestruction!',{
-				font: "20px Arial",
+
+			this.achievements.anchor.setTo(0.5, 0.5);
+			
+			this.name = this.game.add.text(this.game.width / 2 - 200, 64 + 1 * 32, 'Name', {
+				font: "25px Arial",
+
 				fill: this.generateHexColor(),
 				stroke: '#000000',
 				strokeThickness: 4
 			});
-		this.game.add.text(this.game.width / 2 - 200, this.game.height * 0.7, 'Unharmed!', {
-				font: "20px Arial",
+
+			this.name.anchor.setTo(0.5, 0.5);
+			
+			this.description = this.game.add.text(this.game.width / 2, 64 + 1 * 32, 'Description', {
+				font: "25px Arial",
+
 				fill: this.generateHexColor(),
 				stroke: '#000000',
 				strokeThickness: 4
 			});
-		this.readBoardData();
-		
-	},
-	update: function () {
-		/*
-		    If arr array has data, then we draw text into the page.
-		*/
-		if (arr.length > 0) {
-					// add all data
-			for (var i = 0; i < arr.length; i++)
-			{//arr[i][1]
-				if (arr[i][0] === $('#Name').val()){
+
+			this.description.anchor.setTo(0.5, 0.5);
+			
+			// add all data
+				this.game.add.text(this.game.width / 2 - 200, this.game.height * 0.3, 'No Hands!', {
+					font: "20px Arial",
+					fill: this.generateHexColor(),
+					stroke: '#000000',
+					strokeThickness: 4
+				});
+				this.game.add.text(this.game.width / 2 - 200, this.game.height * 0.5, 'Vehicular \nDestruction!',{
+					font: "20px Arial",
+					fill: this.generateHexColor(),
+					stroke: '#000000',
+					strokeThickness: 4
+				});
+			this.game.add.text(this.game.width / 2 - 200, this.game.height * 0.7, 'Unharmed!', {
+					font: "20px Arial",
+					fill: this.generateHexColor(),
+					stroke: '#000000',
+					strokeThickness: 4
+				});
+			this.readBoardData();
+			// add all data
+            for (var i = 0; i < arr.length; i++)
+            {//arr[i][1]
+                if (arr[i][0] === $('#Name').val()){
+
 					if (arr[i][1] === 'nohands'){
 						NOHANDS = true;
 						handtime = arr[i][2];
@@ -138,6 +153,12 @@ TMT.Achievements.prototype = {
 	getData: function() {
 			
 	},
+	
+	foregroundF: function() {
+		this.foreground = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'foregroundScores');
+		console.log("FG loaded");
+	},	
+	
 	/*
 	    This ajax method will set a GET request to server and receive back a JSON data.
 	    Then it convert JSON data into JavaScript array. 
@@ -173,6 +194,7 @@ TMT.Achievements.prototype = {
 		handtime = '';
 		desttime = '';
 		harmtime = '';
+		arr = [];
 		this.game.state.start('MainMenu');
 	}
 };
