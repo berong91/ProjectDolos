@@ -42,10 +42,10 @@ TMT.LeaderBoard.prototype = {
             // add all data
             for (var i = 0; i < arr.length; i++)
             {
-                this.names = this.game.add.text(this.game.width * 0.2, 64 + i * 32, arr[i][0], 
+                this.names = this.game.add.text(this.game.width * 0.2, (64 + i * 32), arr[i][0], 
                 { font: "20px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
 				this.names.anchor.setTo(0.5, 0.5);
-                this.scores = this.game.add.text(this.game.width / 2 + 130, 64 + i * 32, arr[i][1], 
+                this.scores = this.game.add.text(this.game.width / 2 + 130, (64 + i * 32), arr[i][1], 
                 { font: "20px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
 				this.scores.anchor.setTo(0.5, 0,5);
 				this.textGroup.add(this.names, false);
