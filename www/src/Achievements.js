@@ -104,14 +104,14 @@ TMT.Achievements.prototype = {
 			var vehicular;
 			var nohands;
 			var nope = 'Not yet achieved';
-			//UNHARMED = VEHICULARDESTRUCTION = NOHANDS = true;
+			UNHARMED = VEHICULARDESTRUCTION = NOHANDS = true;
 			if(UNHARMED)
-				unharmed = 'You spared a vehicle\'s life';
+				unharmed = 'You spared a \nvehicle\'s life';
 			else
 				unharmed = nope;
 
 			if(VEHICULARDESTRUCTION)
-				vehicular = 'You murdered a vehicle!';
+				vehicular = 'You murdered a \nvehicle!';
 			else
 				vehicular = nope;
 
