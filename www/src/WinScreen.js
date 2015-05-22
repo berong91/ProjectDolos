@@ -42,13 +42,19 @@ TMT.WinScreen.prototype = {
 				stroke: '#000000',
 				strokeThickness: 4
 			});
+			this.game.add.text(this.game.width * 0.15, this.game.height * 0.6, 'Total: ' + (postScore + bonus), {
+				font: "32px Arial",
+				fill: this.generateHexColor(),
+				stroke: '#000000',
+				strokeThickness: 4
+			});
 			this.addClickEvent(name, (postScore+bonus));
 			if (UNHARMED)
-				this.achieveEvent(null, 'unharmed');
+				this.achieveEvent(name, 'unharmed');
 			if (VEHICULARDESTRUCTION)
-				this.achieveEvent(null, 'destruction');
+				this.achieveEvent(name, 'destruction');
 			if (NOHANDS)
-				this.achieveEvent(null, 'nohands');
+				this.achieveEvent(name, 'nohands');
 			level = -99;
 			name = "";
 			postScore = 0;
@@ -91,16 +97,17 @@ TMT.WinScreen.prototype = {
 	},
 	achieveEvent: function (name, achieve) {
         $("form").on("submit", function (e) {
-            e.preventDefault();            
+            console.log('achievement: ' + $('#Name').val(name) + ' ' + achieve);
+			e.preventDefault();            
             $.ajax({
                 url: "postAchievements.php",
                 type: "POST",
                 //NAME = username
 				//description
 				//achieve
-				data: "Name="+$('#Name').val() + "&description=null"+"&achieve=" + achieve,
+				data: "Name=" + $('#Name').val() + "&description=null" + "&achieve=" + achieve,
                 success: function( data ) {
-                    console.log("Success");
+                    console.log('There was success\n' + data + " pancakes");
                 },
                 error: function(xhr, status, error) {
                     // check status && error
