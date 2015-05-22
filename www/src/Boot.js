@@ -19,7 +19,15 @@ TMT.Boot.prototype = {
         this.load.audio('bgsound', 'asset/audio/flea.mp3');
     },
     create: function () {
-        
+        // Check and generate name for guest
+        if ($('#Name').val() === 'guest'){
+            this.generateRandomName();
+        } else {
+            name = $('#Name').val();
+        }
+
+        console.log("Current name: " + name);
+
         //loading screen will have a white background
         this.game.stage.backgroundColor = '#000';
         
@@ -71,5 +79,29 @@ TMT.Boot.prototype = {
     // When finish, go to Preload state
     finish: function() {
         this.state.start('Preload');
+    },
+    /*
+        This method get a random name from https://randomuser.me/ API.
+        */
+    generateRandomName: function () {
+        $.ajax({
+            url: 'http://api.randomuser.me/',
+            dataType: 'json',
+            success: function (data) {
+                name =
+                    capitalizeFirstChar(data.results[0].user.name.title) + ". " +
+                    capitalizeFirstChar(data.results[0].user.name.first) + " " +
+                    capitalizeFirstChar(data.results[0].user.name.last);
+                $('#Name').val(name);
+            }
+        });
     }
 };
+
+
+// This method will capitalize the first char of each word of input string
+function capitalizeFirstChar(str) {
+    return str.toLowerCase().replace(/\b[a-z]/g, function (letter) {
+        return letter.toUpperCase();
+    });
+}
