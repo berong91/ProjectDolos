@@ -16,6 +16,7 @@ TMT.Preload.prototype = {
 		this.load.image('pauseDown', 'asset/images/buttons/pauseDown.png');
 		this.load.image('pauseUp', 'asset/images/buttons/pauseUp.png');
 		this.load.image('foreground','asset/images/bg_fg.png');
+		this.load.image('foregroundScores','asset/images/bg_fg_scores.png');
         
         this.load.image('logo', 'asset/images/fancy.png');
         this.load.image('fire', 'asset/images/fire.png');
