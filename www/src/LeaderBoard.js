@@ -10,12 +10,13 @@ TMT.LeaderBoard.prototype = {
     create: function () {
         // Set background and give background speed in x
         this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'peaks');
+		this.foreground = this.game.add.tileSprite(0, 0, 480, 800, 'foregroundScores');
         
         // Read leadere board data and put it in array arr
         this.readBoardData();
         
         // Add back button
-        this.backButton = this.game.add.button(this.game.width / 2, 500, 'backUp', this.backClickEvent, this);
+        this.backButton = this.game.add.button(this.game.width /2, this.game.height * 0.9, 'backUp', this.backClickEvent, this);
 		this.backButton.events.onInputDown.add(this.touchDown, this);
         this.backButton.anchor.setTo(0.5, 0.8);
         this.backButton.scale.set(0.5, 0.5);
@@ -26,21 +27,32 @@ TMT.LeaderBoard.prototype = {
         */
         if (arr.length > 0){
             // Add text title: player and score
-            this.game.add.text(this.game.width / 2 - 25, 64 + i * 32, 'Top 10',
+            this.top10 = this.game.add.text(this.game.width /2, this.game.height * 0.1, 'Top 10',
+            { font: "25px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 5});
+			this.top10.anchor.setTo(0.5, 0.5);
+            this.player = this.game.add.text(this.game.width *0.2, this.game.height * 0.1, 'Player',
             { font: "25px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 5 });
-            this.game.add.text(this.game.width / 2 - 200, 64 + i * 32, 'Player',
-            { font: "25px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 5 });
-            this.game.add.text(this.game.width / 2 + 130, 64 + i * 32, 'Score', 
+			this.player.anchor.setTo(0.5, 0.5);
+            this.score = this.game.add.text(this.game.width * 0.8, this.game.height * 0.1, 'Score', 
             { font: "25px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
+			this.score.anchor.setTo(0.5,0.5);
             
+			
+			this.textGroup = this.game.add.group();
             // add all data
             for (var i = 0; i < arr.length; i++)
             {
-                this.game.add.text(this.game.width / 2 - 200, 64 + i * 32, arr[i][0], 
+                this.names = this.game.add.text(this.game.width * 0.2, 64 + i * 32, arr[i][0], 
                 { font: "20px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
-                this.game.add.text(this.game.width / 2 + 130, 64 + i * 32, arr[i][1], 
+				this.names.anchor.setTo(0.5, 0.5);
+                this.scores = this.game.add.text(this.game.width / 2 + 130, 64 + i * 32, arr[i][1], 
                 { font: "20px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
+				this.scores.anchor.setTo(0.5, 0,5);
+				this.textGroup.add(this.names, false);
+				this.textGroup.add(this.scores, false);
             }
+			this.textGroup.y = this.game.world.height * 0.5;
+			this.textGroup.x = this.game.world.width * 0.5;
             arr = [];
         }
     },
