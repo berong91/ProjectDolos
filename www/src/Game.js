@@ -163,7 +163,7 @@ TMT.Game.prototype = {
 		for (var q = 0; q < borders.length; q++) {
 			borders[q].body.immovable = true;
 			borders[q].body.collideWorldBounds = true;
-			borders[q].alpha(0);
+			borders[q].alpha = 0;
 		}
 	},
 
@@ -389,7 +389,7 @@ TMT.Game.prototype = {
 			this.generateVehicle(xloc - 150+(theScale/2), yloc+(theScale/2), 0, 'boat1');
 
 		} else if (level === 1) {
-			for (var p = 0; p < 3; p++)
+			for (var p = 0; p < 4; p++)
 				this.randomSpawn();
 
 			for (var k = 0; k < vehicles.length; k++) {
@@ -397,15 +397,15 @@ TMT.Game.prototype = {
 				this.takeVehicleInfo(vehicles[k], 5);
 			}
 		} else if (level === 2) {
-			for (var p = 0; p < 7; p++)
+			for (var p = 0; p < 8; p++)
 				this.randomSpawn();
 
 			for (var k = 0; k < vehicles.length; k++) {
-				this.vehicleWait(vehicles[k], (1 + k) * 5);
-				this.takeVehicleInfo(vehicles[k], 5);
+				this.vehicleWait(vehicles[k], (1 + k) * 4);
+				this.takeVehicleInfo(vehicles[k], 4);
 			}
 		} else if (level === 3) {
-			for (var p = 0; p < 9; p++)
+			for (var p = 0; p < 12; p++)
 				this.randomSpawn();
 
 			for (var k = 0; k < vehicles.length; k++) {
@@ -413,7 +413,7 @@ TMT.Game.prototype = {
 				this.takeVehicleInfo(vehicles[k], 4);
 			}
 		} else if (level === 4) {
-			for (var p = 0; p < 11; p++)
+			for (var p = 0; p < 16; p++)
 				this.randomSpawn();
 
 			for (var k = 0; k < vehicles.length; k++) {
@@ -545,7 +545,7 @@ TMT.Game.prototype = {
 			yloc = this.game.world.height / 2 - (theScale * (rows / 2));
 		}
 		if (level === 1) {
-			MAXTIME = 90;
+			MAXTIME = 30;
 			theScale = 100;
 
 			//vehicle speed
@@ -560,7 +560,7 @@ TMT.Game.prototype = {
 		}
 
 		if (level === 2) {
-			MAXTIME = 30;
+			MAXTIME = 45;
 			theScale = 100;
 
 			//vehicle speed
@@ -576,7 +576,7 @@ TMT.Game.prototype = {
 		}
 
 		if (level === 3) {
-			MAXTIME = 50;
+			MAXTIME = 55;
 			theScale = 100;
 
 			//vehicle speed
@@ -592,7 +592,7 @@ TMT.Game.prototype = {
 		}
 
 		if (level === 4) {
-			MAXTIME = 45;
+			MAXTIME = 60;
 			theScale = 100;
 
 			//vehicle speed
@@ -857,40 +857,307 @@ TMT.Game.prototype = {
 	progressBar: function () {
 		var percent = Math.floor(count / MAXTIME * 100);
 		switch (percent) {
-		case 100:
-			this.progbar.frame = 10;
-			break;
-		case 90:
-			this.progbar.frame = 9;
-			break;
-		case 80:
-			this.progbar.frame = 8;
-			break;
-		case 70:
-			this.progbar.frame = 7;
-			break;
-		case 60:
-			this.progbar.frame = 6;
-			break;
-		case 50:
-			this.progbar.frame = 5;
-			break;
-		case 40:
-			this.progbar.frame = 4;
-			break;
-		case 30:
-			this.progbar.frame = 3;
-			this.progbar.frame = 3;
-			break;
-		case 20:
-			this.progbar.frame = 2;
-			break;
-		case 10:
-			this.progbar.frame = 1;
-			break;
-		case 0:
-			this.progbar.frame = 0;
-			break;
+case 100:
+this.progbar.frame = 99;
+break;
+case 99:
+this.progbar.frame = 99;
+break;
+case 98:
+this.progbar.frame = 98;
+break;
+case 97:
+this.progbar.frame = 97;
+break;
+case 96:
+this.progbar.frame = 96;
+break;
+case 95:
+this.progbar.frame = 95;
+break;
+case 94:
+this.progbar.frame = 94;
+break;
+case 93:
+this.progbar.frame = 93;
+break;
+case 92:
+this.progbar.frame = 92;
+break;
+case 91:
+this.progbar.frame = 91;
+break;
+case 90:
+this.progbar.frame = 90;
+break;
+case 89:
+this.progbar.frame = 89;
+break;
+case 88:
+this.progbar.frame = 88;
+break;
+case 87:
+this.progbar.frame = 87;
+break;
+case 86:
+this.progbar.frame = 86;
+break;
+case 85:
+this.progbar.frame = 85;
+break;
+case 84:
+this.progbar.frame = 84;
+break;
+case 83:
+this.progbar.frame = 83;
+break;
+case 82:
+this.progbar.frame = 82;
+break;
+case 81:
+this.progbar.frame = 81;
+break;
+case 80:
+this.progbar.frame = 80;
+break;
+case 79:
+this.progbar.frame = 79;
+break;
+case 78:
+this.progbar.frame = 78;
+break;
+case 77:
+this.progbar.frame = 77;
+break;
+case 76:
+this.progbar.frame = 76;
+break;
+case 75:
+this.progbar.frame = 75;
+break;
+case 74:
+this.progbar.frame = 74;
+break;
+case 73:
+this.progbar.frame = 73;
+break;
+case 72:
+this.progbar.frame = 72;
+break;
+case 71:
+this.progbar.frame = 71;
+break;
+case 70:
+this.progbar.frame = 70;
+break;
+case 69:
+this.progbar.frame = 69;
+break;
+case 68:
+this.progbar.frame = 68;
+break;
+case 67:
+this.progbar.frame = 67;
+break;
+case 66:
+this.progbar.frame = 66;
+break;
+case 65:
+this.progbar.frame = 65;
+break;
+case 64:
+this.progbar.frame = 64;
+break;
+case 63:
+this.progbar.frame = 63;
+break;
+case 62:
+this.progbar.frame = 62;
+break;
+case 61:
+this.progbar.frame = 61;
+break;
+case 60:
+this.progbar.frame = 60;
+break;
+case 59:
+this.progbar.frame = 59;
+break;
+case 58:
+this.progbar.frame = 58;
+break;
+case 57:
+this.progbar.frame = 57;
+break;
+case 56:
+this.progbar.frame = 56;
+break;
+case 55:
+this.progbar.frame = 55;
+break;
+case 54:
+this.progbar.frame = 54;
+break;
+case 53:
+this.progbar.frame = 53;
+break;
+case 52:
+this.progbar.frame = 52;
+break;
+case 51:
+this.progbar.frame = 51;
+break;
+case 50:
+this.progbar.frame = 50;
+break;
+case 49:
+this.progbar.frame = 49;
+break;
+case 48:
+this.progbar.frame = 48;
+break;
+case 47:
+this.progbar.frame = 47;
+break;
+case 46:
+this.progbar.frame = 46;
+break;
+case 45:
+this.progbar.frame = 45;
+break;
+case 44:
+this.progbar.frame = 44;
+break;
+case 43:
+this.progbar.frame = 43;
+break;
+case 42:
+this.progbar.frame = 42;
+break;
+case 41:
+this.progbar.frame = 41;
+break;
+case 40:
+this.progbar.frame = 40;
+break;
+case 39:
+this.progbar.frame = 39;
+break;
+case 38:
+this.progbar.frame = 38;
+break;
+case 37:
+this.progbar.frame = 37;
+break;
+case 36:
+this.progbar.frame = 36;
+break;
+case 35:
+this.progbar.frame = 35;
+break;
+case 34:
+this.progbar.frame = 34;
+break;
+case 33:
+this.progbar.frame = 33;
+break;
+case 32:
+this.progbar.frame = 32;
+break;
+case 31:
+this.progbar.frame = 31;
+break;
+case 30:
+this.progbar.frame = 30;
+break;
+case 29:
+this.progbar.frame = 29;
+break;
+case 28:
+this.progbar.frame = 28;
+break;
+case 27:
+this.progbar.frame = 27;
+break;
+case 26:
+this.progbar.frame = 26;
+break;
+case 25:
+this.progbar.frame = 25;
+break;
+case 24:
+this.progbar.frame = 24;
+break;
+case 23:
+this.progbar.frame = 23;
+break;
+case 22:
+this.progbar.frame = 22;
+break;
+case 21:
+this.progbar.frame = 21;
+break;
+case 20:
+this.progbar.frame = 20;
+break;
+case 19:
+this.progbar.frame = 19;
+break;
+case 18:
+this.progbar.frame = 18;
+break;
+case 17:
+this.progbar.frame = 17;
+break;
+case 16:
+this.progbar.frame = 16;
+break;
+case 15:
+this.progbar.frame = 15;
+break;
+case 14:
+this.progbar.frame = 14;
+break;
+case 13:
+this.progbar.frame = 13;
+break;
+case 12:
+this.progbar.frame = 12;
+break;
+case 11:
+this.progbar.frame = 11;
+break;
+case 10:
+this.progbar.frame = 10;
+break;
+case 9:
+this.progbar.frame = 9;
+break;
+case 8:
+this.progbar.frame = 8;
+break;
+case 7:
+this.progbar.frame = 7;
+break;
+case 6:
+this.progbar.frame = 6;
+break;
+case 5:
+this.progbar.frame = 5;
+break;
+case 4:
+this.progbar.frame = 4;
+break;
+case 3:
+this.progbar.frame = 3;
+break;
+case 2:
+this.progbar.frame = 2;
+break;
+case 1:
+this.progbar.frame = 1;
+break;
+
 		}
 	},
 

@@ -43,6 +43,12 @@ TMT.WinScreen.prototype = {
 				strokeThickness: 4
 			});
 			this.addClickEvent(name, (postScore+bonus));
+			if (UNHARMED)
+				this.achieveEvent(null, 'unharmed');
+			if (VEHICULARDESTRUCTION)
+				this.achieveEvent(null, 'destruction');
+			if (NOHANDS)
+				this.achieveEvent(null, 'nohands');
 			level = -99;
 			name = "";
 			postScore = 0;
@@ -83,6 +89,28 @@ TMT.WinScreen.prototype = {
 		UNHARMED = false;
 		this.game.state.start('MainMenu');
 	},
+	achieveEvent: function (name, achieve) {
+        $("form").on("submit", function (e) {
+            e.preventDefault();            
+            $.ajax({
+                url: "postAchievements.php",
+                type: "POST",
+                //NAME = username
+				//description
+				//achieve
+				data: "Name="+$('#Name').val() + "&description=null"+"&achieve=" + achieve,
+                success: function( data ) {
+                    console.log("Success");
+                },
+                error: function(xhr, status, error) {
+                    // check status && error
+                    alert(xhr + "\n" +status + "\n" + error );
+                },
+            });
+        });   
+        $("form").submit();
+        return false;
+    },
 	addClickEvent: function (name, postScore) {
         $('#Name').val(name);
         $('#Score').val(postScore);
