@@ -2,13 +2,23 @@
     // This php file receive POST request from client and add new score to the score table.
     if( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) ){
         if (isset($_POST['Username']) AND isset($_POST['Password'])) {        
+            
+            $username = $_POST["Username"];
+            $password = $_POST["Password"];
+            
+            if (strcmp($username, "guest") == 0){
+                setcookie("Username", $username, 0, "/");
+                echo 1;
+                exit();
+            }
+            
             $servername = "localhost";
-            $username = "tyler637_dolos";
-            $password = "Dolos123";
+            $loginName = "tyler637_dolos";
+            $loginPass = "Dolos123";
             $db = "tyler637_dolos";
             
             // Create connection
-            $conn = new mysqli($servername, $username, $password, $db);
+            $conn = new mysqli($servername, $loginName, $loginPass, $db);
             
             // Error check
             if ($conn->connect_error) {
@@ -22,23 +32,21 @@
                 . mysqli_connect_error());
             }
             
-            $username = $_POST["Username"];
-            $password = $_POST["Password"];
-            
             $sql = "SELECT * FROM User WHERE Username = '".$username."'";
             $result = $conn->query($sql);
             
             if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc())
-                    if (strcmp($password, $row["Password"]) == 0)
+                while($row = $result->fetch_assoc()){
+                    if (strcmp($password, $row["Password"]) == 0){
+                        setcookie("Username", $username, 0, "/");
                         echo 1;
-                    else 
-                        echo 0;
-            } else
-                echo 0;
+                    }          
+                    else echo 0;
+                }
+            } else echo 0;
             
             $conn->close();
         }
     } else 
-        echo "This page doesn't support your request";
+    echo "This page doesn't support your request";
 ?>
