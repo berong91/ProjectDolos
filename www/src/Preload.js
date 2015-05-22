@@ -15,8 +15,10 @@ TMT.Preload.prototype = {
         this.load.image('board1', 'asset/images/buttons/highScoresDown.png');
 		this.load.image('achieve', 'asset/images/buttons/acheivementsUp.png');
         this.load.image('achieve1', 'asset/images/buttons/acheivementsDown.png');
-        this.load.image('soundOn', 'asset/images/buttons/soundOnUp.png');
-        this.load.image('soundOff', 'asset/images/buttons/soundOffUp.png');
+        this.load.image('soundOnUp', 'asset/images/buttons/soundOnUp.png');
+        this.load.image('soundOnDown', 'asset/images/buttons/soundOnDown.png');
+        this.load.image('soundOffUp', 'asset/images/buttons/soundOffUp.png');
+        this.load.image('soundOffDown', 'asset/images/buttons/soundOffDown.png');
 		this.load.image('pauseDown', 'asset/images/buttons/pauseDown.png');
 		this.load.image('pauseUp', 'asset/images/buttons/pauseUp.png');
 		this.load.image('foreground','asset/images/bg_fg.png');
