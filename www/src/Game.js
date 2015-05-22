@@ -691,7 +691,7 @@ TMT.Game.prototype = {
 	overlayclickevent: function () {
 		rules.kill();
 		if(evthap === 0) {
-			rules2 = this.game.add.sprite(this.game.world.width/2, this.game.world.height/2, 'rules2');
+			rules2 = this.game.add.sprite(this.game.world.width/2, this.game.world.height * 0.485, 'rules');
 			rules2.anchor.setTo(0.5, 0.5);
 			rules2.inputEnabled = true;
 			this.game.input.onDown.add(this.overlayclickeventtwo, this);
@@ -707,7 +707,7 @@ TMT.Game.prototype = {
 	overlayclickeventtwo: function () {
 		rules2.kill();
 		if(evthap === 1) {
-			rules3 = this.game.add.sprite(this.game.world.width/2, this.game.world.height/2, 'rules3');
+			rules3 = this.game.add.sprite(this.game.world.width * 0.5, this.game.world.height * 0.5, 'rules3');
 			rules3.anchor.setTo(0.5, 0.5);
 			rules3.inputEnabled = true;
 			this.game.input.onDown.add(this.overlayclickeventthree, this);
@@ -730,7 +730,7 @@ TMT.Game.prototype = {
 		if (level === 0) {
 			stoptime = true;
 			this.gamepause();
-			rules = this.game.add.sprite(this.game.world.width / 2, this.game.world.height / 2, 'rules');
+			rules = this.game.add.sprite(this.game.world.width / 2, this.game.world.height * 0.485, 'rules2');
 			rules.anchor.setTo(0.5, 0.5);
 			rules.inputEnabled = true;
 			this.game.input.onDown.add(this.overlayclickevent, this);
