@@ -858,7 +858,7 @@ TMT.Game.prototype = {
 		var percent = Math.floor(count / MAXTIME * 100);
 		switch (percent) {
 case 100:
-this.progbar.frame = 100;
+this.progbar.frame = 99;
 break;
 case 99:
 this.progbar.frame = 99;
