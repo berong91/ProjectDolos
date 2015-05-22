@@ -1,9 +1,10 @@
 <?php
     // This php file receive POST request from client and add new score to the score table.
     if( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) ){
-        if (isset($_POST['Name']) AND isset($_POST['Score'])) {
-            $name = $_POST["Name"];
-            $score = $_POST["Score"];
+        if (isset($_POST['Name']) AND isset($_POST['description']) AND isset($_POST["achieve"])) {
+            $achieve = $_POST["achieve"];
+            $description = $_POST["description"];
+            $user = $_POST["Name"];
             
             $servername = "localhost";
             $username = "tyler637_dolos";
@@ -20,7 +21,7 @@
             $sql = "USE tyler637_dolos";
             $conn->query($sql);
             
-            $sql = "INSERT INTO Achievement VALUES ('NULL', ".$name.", ".$description", ".$username.", 'CURRENT_TIMESTAMP')";
+            $sql = "INSERT INTO Achievement VALUES ('NULL', ".$achieve.", ".$description", ".$user.", 'CURRENT_TIMESTAMP')";
             $result = $conn->query($sql);
             
             $conn->close();

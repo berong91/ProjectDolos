@@ -7,6 +7,10 @@ var arr = [];
 TMT.Achievements.prototype = {
 	preload: function () {},
 	create: function () {
+		var handtime = '';
+		var desttime = '';
+		var harmtime = '';
+		
 		// Set background and give background speed in x
 		this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'peaks');
 
@@ -32,7 +36,7 @@ TMT.Achievements.prototype = {
 				stroke: '#000000',
 				strokeThickness: 5
 			});
-			this.game.add.text(this.game.width / 2 + 100, 64 + 1 * 32, 'Description', {
+			this.game.add.text(this.game.width / 2, 64 + 1 * 32, 'Description', {
 				font: "25px Arial",
 				fill: this.generateHexColor(),
 				stroke: '#000000',
@@ -57,7 +61,25 @@ TMT.Achievements.prototype = {
 					stroke: '#000000',
 					strokeThickness: 4
 				});
-			this.getData();
+			this.readBoardData();
+			// add all data
+            for (var i = 0; i < arr.length; i++)
+            {//arr[i][1]
+                if (arr[i][0] === $('#Name').val()){
+					if (arr[i][1] === 'nohands'){
+						NOHANDS = true;
+						handtime = arr[i][2];
+					}
+					if (arr[i][1] === 'destruction'){
+						VEHICULARDESTRUCTION = true;
+						desttime = arr[i][2];
+					}
+					if (arr[i][1] === 'unharmed'){
+						UNHARMED = true;
+						harmtime = arr[i][2];
+					}
+				}
+            }
 			
 			var unharmed;
 			var vehicular;
@@ -79,19 +101,19 @@ TMT.Achievements.prototype = {
 			else
 				nohands = nope;
 				
-			this.game.add.text(this.game.width / 2, this.game.height * 0.3, unharmed, {
+			this.game.add.text(this.game.width / 2, this.game.height * 0.3, unharmed + '\n' + harmtime, {
 					font: "20px Arial",
 					fill: this.generateHexColor(),
 					stroke: '#000000',
 					strokeThickness: 4
 				});
-			this.game.add.text(this.game.width / 2, this.game.height * 0.5, vehicular, {
+			this.game.add.text(this.game.width / 2, this.game.height * 0.5, vehicular+ '\n' + desttime, {
 					font: "20px Arial",
 					fill: this.generateHexColor(),
 					stroke: '#000000',
 					strokeThickness: 4
 				});
-			this.game.add.text(this.game.width / 2, this.game.height * 0.7, nohands, {
+			this.game.add.text(this.game.width / 2, this.game.height * 0.7, nohands+ '\n' + handtime, {
 					font: "20px Arial",
 					fill: this.generateHexColor(),
 					stroke: '#000000',
@@ -141,6 +163,7 @@ TMT.Achievements.prototype = {
 			},
 		});
 	},
+	
 	// Generate a random color code
 	generateHexColor: function () {
 		return '#' + ((0.5 + 0.5 * Math.random()) * 0xFFFFFF << 0).toString(16);
