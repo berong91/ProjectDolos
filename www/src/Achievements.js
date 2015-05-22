@@ -58,8 +58,6 @@ TMT.Achievements.prototype = {
 				strokeThickness: 4
 			});
 			this.description.anchor.setTo(0.5, 0.5);
-
-			this.description.anchor.setTo(0.5, 0.5);
 			
 			// add all data
 				this.game.add.text(this.game.width / 2 - 200, this.game.height * 0.3, 'No Hands!', {
