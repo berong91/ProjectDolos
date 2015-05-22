@@ -123,7 +123,7 @@ TMT.Achievements.prototype = {
 				nohands = nope;
 
 			//console.log('read data' + arr.length);
-			this.textval1 = this.game.add.text(this.game.width * 0.9, this.game.height * 0.3, unharmed + '\n' + harmtime, {
+			this.textval1 = this.game.add.text(this.game.width * 0.9, this.game.height * 0.7, unharmed + '\n' + harmtime, {
 					font: "20px Arial",
 					fill: this.generateHexColor(),
 					stroke: '#000000',
@@ -137,7 +137,7 @@ TMT.Achievements.prototype = {
 					strokeThickness: 4
 				});
 				this.textval2.anchor.setTo(1, 0.25);
-			this.textval3 = this.game.add.text(this.game.width * 0.9, this.game.height * 0.7, nohands+ '\n' + handtime, {
+			this.textval3 = this.game.add.text(this.game.width * 0.9, this.game.height * 0.3, nohands+ '\n' + handtime, {
 					font: "20px Arial",
 					fill: this.generateHexColor(),
 					stroke: '#000000',
