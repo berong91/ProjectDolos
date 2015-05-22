@@ -7,10 +7,13 @@ var texts = [];
 var handtime;
 var desttime;
 var harmtime;
+var flag = 0;
 TMT.Achievements.prototype = {
-	preload: function () {},
+	preload: function () {
+		this.readBoardData();
+	},
 	create: function () {
-		
+		flag = 0;
 		handtime = '';
 		desttime = '';
 		harmtime = '';
@@ -26,10 +29,7 @@ TMT.Achievements.prototype = {
 		this.backButton.anchor.setTo(0.5, 0.8);
 		this.backButton.scale.set(0.5, 0.5);
 		
-
-		if(3 > 0) {
-		//if (arr.length > 0) {
-			// Add text title: player and score
+		// Add text title: player and score
 			this.achievements = this.game.add.text(this.game.width * 0.5, this.game.height * 0.1, 'Achievements', {
 				font: "25px Arial",
 
@@ -40,7 +40,7 @@ TMT.Achievements.prototype = {
 
 			this.achievements.anchor.setTo(0.5, 0.5);
 			
-			this.name = this.game.add.text(this.game.width * 0.12, this.game.height * 0.18, 'Name:', {
+			this.name = this.game.add.text(this.game.width * 0.12, this.game.height * 0.18, 'Name:\n' + name, {
 				font: "25px Arial",
 
 				fill: this.generateHexColor(),
@@ -60,32 +60,36 @@ TMT.Achievements.prototype = {
 			this.description.anchor.setTo(1, 0.5);
 			
 			// add all data
-				this.nohands = this.game.add.text(this.game.width * 0.12, this.game.height * 0.3, 'No Hands!', {
-					font: "20px Arial",
-					fill: this.generateHexColor(),
-					stroke: '#000000',
-					strokeThickness: 4
-				});
-				this.nohands.anchor.setTo(0, 0.5);
-				this.destructin = this.game.add.text(this.game.width * 0.12, this.game.height * 0.5, 'Vehicular \nDestruction!',{
-					font: "20px Arial",
-					fill: this.generateHexColor(),
-					stroke: '#000000',
-					strokeThickness: 4
-				});
-				this.destructin.anchor.setTo(0, 0.5);
-			    this.unharmed = this.game.add.text(this.game.width * 0.12, this.game.height * 0.7, 'Unharmed!', {
-					font: "20px Arial",
-					fill: this.generateHexColor(),
-					stroke: '#000000',
-					strokeThickness: 4
-				});
-				this.unharmed.anchor.setTo(0, 0.5);
-			this.readBoardData();
+			this.nohands = this.game.add.text(this.game.width * 0.12, this.game.height * 0.3, 'No Hands!', {
+				font: "20px Arial",
+				fill: this.generateHexColor(),
+				stroke: '#000000',
+				strokeThickness: 4
+			});
+			this.nohands.anchor.setTo(0, 0.5);
+			this.destructin = this.game.add.text(this.game.width * 0.12, this.game.height * 0.5, 'Vehicular \nDestruction!',{
+				font: "20px Arial",
+				fill: this.generateHexColor(),
+				stroke: '#000000',
+				strokeThickness: 4
+			});
+			this.destructin.anchor.setTo(0, 0.5);
+		    this.unharmed = this.game.add.text(this.game.width * 0.12, this.game.height * 0.7, 'Unharmed!', {
+				font: "20px Arial",
+				fill: this.generateHexColor(),
+				stroke: '#000000',
+				strokeThickness: 4
+			});
+			this.unharmed.anchor.setTo(0, 0.5);
+		
+	},
+	update: function() {
+		if (flag === 1) {
 			// add all data
-            for (var i = 0; i < arr.length; i++)
-            {//arr[i][1]
-                if (arr[i][0] === $('#Name').val()){
+	        for (var i = 0; i < arr.length; i++)
+	        {//arr[i][1]
+	        	console.log(name);
+	            if (arr[i][0] === name){
 
 					if (arr[i][1] === 'nohands'){
 						NOHANDS = true;
@@ -106,7 +110,7 @@ TMT.Achievements.prototype = {
 			var vehicular;
 			var nohands;
 			var nope = 'Not yet achieved';
-			UNHARMED = VEHICULARDESTRUCTION = NOHANDS = true;
+			//UNHARMED = VEHICULARDESTRUCTION = NOHANDS = true;
 			if(UNHARMED)
 				unharmed = 'You spared a \nvehicle\'s life';
 			else
@@ -145,10 +149,9 @@ TMT.Achievements.prototype = {
 				});
 				this.textval3.anchor.setTo(1, 0.25);
 			arr = [];
+			flag = 0;
 		}
-		
 	},
-
 	touchDown: function () {
 		if (this.game.input.pointer1.isDown) {
 			this.backButton.loadTexture('backDown');
@@ -172,7 +175,6 @@ TMT.Achievements.prototype = {
 		$.ajax({
 			type: "GET",
 			url: "getAchievements.php",
-			data: "",
 			dataType: 'json',
 			success: function (data) {
 				for (var i = 0; i < data.length; i++) {
@@ -180,8 +182,9 @@ TMT.Achievements.prototype = {
 						return el;
 					});
 				}
-				 //console.log(data);
-				 //console.log(arr);
+				flag = 1;
+			 	//console.log(data);
+				//console.log(arr);
 			},
 			error: function (xhr, status, error) {
 				// check status && error

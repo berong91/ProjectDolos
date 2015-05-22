@@ -10,6 +10,8 @@ var UNHARMED = false;
 var gameHeight = 800;
 var gameWidth = 480;
 
+var name;
+
 TMT.game = new Phaser.Game(gameWidth, gameHeight, Phaser.AUTO, '');
 
 /* 
