@@ -69,6 +69,12 @@ TMT.LoseScreen.prototype = {
 				stroke: '#000000',
 				strokeThickness: 4
 			});
+			this.game.add.text(this.game.width * 0.15, this.game.height * 0.6, 'Total: ' + (postScore + bonus), {
+				font: "32px Arial",
+				fill: this.generateHexColor(),
+				stroke: '#000000',
+				strokeThickness: 4
+			});
 			this.addClickEvent(name, postScore);
 			if (UNHARMED)
 				this.achieveEvent(null, 'unharmed');
