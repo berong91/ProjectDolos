@@ -26,11 +26,11 @@ TMT.LeaderBoard.prototype = {
         */
         if (arr.length > 0){
             // Add text title: player and score
-            this.game.add.text(this.game.width / 2 - 25, 64 + i * 32, 'Top 10',
+            this.game.add.text(this.game.width / 2 - 25, 10, 'Top 10',
             { font: "25px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 5 });
-            this.game.add.text(this.game.width / 2 - 200, 64 + i * 32, 'Player',
+            this.game.add.text(this.game.width / 2 - 200, 10, 'Player',
             { font: "25px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 5 });
-            this.game.add.text(this.game.width / 2 + 130, 64 + i * 32, 'Score', 
+            this.game.add.text(this.game.width / 2 + 130, 10, 'Score', 
             { font: "25px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
             
             // add all data
