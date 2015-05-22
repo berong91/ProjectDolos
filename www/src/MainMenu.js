@@ -89,11 +89,11 @@ TMT.MainMenu.prototype = {
     },
     muteClickEvent: function() {
         if(music === true) {
-            bgSound.stop();
+            bgSound.pause();
             music = false;
             this.muteButton.loadTexture('soundOffUp');
         } else {
-            bgSound.loopFull(0.6);
+            bgSound.resume();
             music = true;
             this.muteButton.loadTexture('soundOnUp');
         }
