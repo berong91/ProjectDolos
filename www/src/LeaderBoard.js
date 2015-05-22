@@ -10,7 +10,7 @@ TMT.LeaderBoard.prototype = {
     create: function () {
         // Set background and give background speed in x
         this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'peaks');
-		this.foreground = this.game.add.tileSprite(0, 0, 480, 800, 'foregroundScores');
+		this.foregroundF();	
         
         // Read leadere board data and put it in array arr
         this.readBoardData();
@@ -42,21 +42,25 @@ TMT.LeaderBoard.prototype = {
             // add all data
             for (var i = 0; i < arr.length; i++)
             {
-                this.names = this.game.add.text(this.game.width * 0.2, 64 + i * 32, arr[i][0], 
+                this.names = this.game.add.text(this.game.width * 0.03, 64 + i * 32, arr[i][0], 
                 { font: "20px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
-				this.names.anchor.setTo(0.5, 0.5);
-                this.scores = this.game.add.text(this.game.width / 2 + 130, 64 + i * 32, arr[i][1], 
+				this.names.anchor.setTo(0, 0.5);
+                this.scores = this.game.add.text(this.game.width * 0.8, 64 + i * 32, arr[i][1], 
                 { font: "20px Arial", fill: this.generateHexColor(), stroke: '#000000', strokeThickness: 4 });
-				this.scores.anchor.setTo(0.5, 0,5);
+				this.scores.anchor.setTo(1, 0,5);
 				this.textGroup.add(this.names, false);
 				this.textGroup.add(this.scores, false);
             }
-			this.textGroup.y = this.game.world.height * 0.5;
-			this.textGroup.x = this.game.world.width * 0.5;
+			this.textGroup.y = this.world.game.height * 0.1;
+			this.textGroup.x = this.game.width * 0.08;
             arr = [];
         }
     },
 	
+	foregroundF: function() {
+		this.foreground = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'foregroundScores');
+		console.log("FG loaded");
+	},	
 	touchDown: function() {
 		if(this.game.input.pointer1.isDown) {
 			this.backButton.loadTexture('backDown');

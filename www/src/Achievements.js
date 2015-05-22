@@ -14,6 +14,7 @@ TMT.Achievements.prototype = {
 		// Set background and give background speed in x
 		this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'peaks');
 
+		this.foregroundF();
 
 		// Add back button
 		this.backButton = this.game.add.button(this.game.width / 2, this.game.height * 0.9, 'backUp', this.backClickEvent, this);
@@ -24,24 +25,30 @@ TMT.Achievements.prototype = {
 		if(3 > 0) {
 		//if (arr.length > 0) {
 			// Add text title: player and score
-			this.game.add.text(this.game.width / 2 - 80, 64, 'Achievements', {
+			this.achievements = this.game.add.text(this.game.width * 0.5, 64, 'Achievements', {
 				font: "25px Arial",
 				fill: this.generateHexColor(),
 				stroke: '#000000',
 				strokeThickness: 5
 			});
-			this.game.add.text(this.game.width / 2 - 200, 64 + 1 * 32, 'Name', {
+			this.achievements.anchor.setTo(0.5, 0.5);
+			
+			this.name = this.game.add.text(this.game.width / 2 - 200, 64 + 1 * 32, 'Name', {
 				font: "25px Arial",
 				fill: this.generateHexColor(),
 				stroke: '#000000',
 				strokeThickness: 5
 			});
-			this.game.add.text(this.game.width / 2, 64 + 1 * 32, 'Description', {
+			this.name.anchor.setTo(0.5, 0.5);
+			
+			this.description = this.game.add.text(this.game.width / 2, 64 + 1 * 32, 'Description', {
 				font: "25px Arial",
 				fill: this.generateHexColor(),
 				stroke: '#000000',
 				strokeThickness: 4
 			});
+			this.description.anchor.setTo(0.5, 0.5);
+			
 			// add all data
 				this.game.add.text(this.game.width / 2 - 200, this.game.height * 0.3, 'No Hands!', {
 					font: "20px Arial",
@@ -138,6 +145,12 @@ TMT.Achievements.prototype = {
 	getData: function() {
 			
 	},
+	
+	foregroundF: function() {
+		this.foreground = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'foregroundScores');
+		console.log("FG loaded");
+	},	
+	
 	/*
 	    This ajax method will set a GET request to server and receive back a JSON data.
 	    Then it convert JSON data into JavaScript array. 
