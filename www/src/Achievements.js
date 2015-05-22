@@ -57,6 +57,7 @@ TMT.Achievements.prototype = {
 				stroke: '#000000',
 				strokeThickness: 4
 			});
+			this.description.anchor.setTo(0.5, 0.5);
 
 			this.description.anchor.setTo(0.5, 0.5);
 			
